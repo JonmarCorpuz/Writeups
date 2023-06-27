@@ -380,7 +380,7 @@ THM{Z1P_1S_FAKE}
 
 **Room completed!**
 
-![Screenshot of completing the room](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/TryHackMe%20-%20ToolsRus.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20TomGhost.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
