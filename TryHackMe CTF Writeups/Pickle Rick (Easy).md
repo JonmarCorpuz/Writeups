@@ -226,8 +226,14 @@ fleeb juice
 **Room complete!**
 ![]()
 
-#
-> Step
+# Command History
 
-# Contibutions
-> Step
+# Dissecting Comands
+
+# Contributions
+This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
+
+
+Socials:
+* TryHackMe ID: https://tryhackme.com/p/mtlfriends
+* LinkedIn: https://www.linkedin.com/in/jonmar-corpuz-12771a234/
