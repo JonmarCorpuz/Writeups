@@ -336,6 +336,13 @@ THM{pr1v1l3g3_3sc4l4t10n}
 + `import os` imports the **os** mudile, which provides a way to interact with the OS
 + `os.system("/bin/sh")` executes the specified shell command to spawn a Bourne shell (sh)
 
+
+`find / -type f -name root.txt 2>/dev/null`
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name root.txt` specifies to search for a file called root.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
+
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
 
