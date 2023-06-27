@@ -45,6 +45,34 @@ Nmap done: 1 IP address (1 host up) scanned in 12.83 seconds
 ┌──(kali㉿kali)-[~]
 └─$ dirb http://10.10.29.218 -r > WebDirectoryScan.txt
 ```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ cat WebDirectoryScan.txt 
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Mon Jun 26 21:47:28 2023
+URL_BASE: http://10.10.29.218/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+OPTION: Not Recursive
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.10.29.218/ ----
+==> DIRECTORY: http://10.10.29.218/assets/
++ http://10.10.29.218/index.html (CODE:200|SIZE:1062)
++ http://10.10.29.218/robots.txt (CODE:200|SIZE:17) 
++ http://10.10.29.218/server-status (CODE:403|SIZE:300)
+
+-----------------
+END_TIME: Mon Jun 26 21:54:32 2023
+DOWNLOADED: 4612 - FOUND: 3
+```
 
 ##
 > Inspecting the Home Page
