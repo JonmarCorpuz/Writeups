@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/cowboyhacker
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/26/2023
+This writeup was last updated: 6/27/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -268,7 +268,10 @@ THM{80UN7Y_h4cK3r}
 
 # Dissecting the Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+ K
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
+
 
 
 `hydra -l lin -P {FILE1}.txt ssh://{TARGET IP}`
