@@ -313,9 +313,9 @@ THM{pr1v1l3g3_3sc4l4t10n}
 
 # Dissecting the Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+ `-sC** enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
-+ `-sV** enables version detection, which attempts to determine the sevice and version information of the open ports
-+ `> {FILENAME1}.txt** redirects the results into a text file
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
 
 
 `find / -type f -name user.txt 2>/dev/null`
