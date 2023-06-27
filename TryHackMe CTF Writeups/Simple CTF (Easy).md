@@ -4,7 +4,7 @@ Room link: [https://tryhackme.com/room/easyctf](https://tryhackme.com/room/easyc
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/25/2023
+This writeup was last updated: 6/27/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -94,6 +94,7 @@ DOWNLOADED: 4612 - FOUND: 3
 # Vulnerability Identification
 > Vulnerability Identification Using Exploit DB
 6. `firefox http://{TARGET IP}/simple`
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
 7. `searchsploit "CMS made simple 2.2.8" --www`
 ```bash
@@ -107,6 +108,7 @@ CMS Made Simple < 2.2.10 - SQL Injection                               | https:/
 Shellcodes: No Results
 ```
 8. `firefox "https://www.exploit-db.com/exploits/46635"`
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CVE-2019-9053.png)
 
 # Vulnerability Exploitation
@@ -137,6 +139,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ gedit 46635.py 
 ```
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
 14. `python 46635.py`
 ```bash
@@ -245,6 +248,8 @@ W3ll d0n3. You made it!
 ```
 
 **Room completed!**
+
+![]()
 
 # Command History
 > Step
