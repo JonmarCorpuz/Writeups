@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/rrootme
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/26/2023
+This writeup was last updated: 6/27/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -313,28 +313,28 @@ THM{pr1v1l3g3_3sc4l4t10n}
 
 # Dissecting the Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+ **-sC** enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
-+ **-sV** enables version detection, which attempts to determine the sevice and version information of the open ports
-+ **> {FILENAME1}.txt** redirects the results into a text file
++ `-sC** enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV** enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt** redirects the results into a text file
 
 
 `find / -type f -name user.txt 2>/dev/null`
-+ **/** specifies the starting directory to be the root directory
-+ **-type f** specifies that it should only search for regular files
-+ **-name user.txt** specifies to search for a file called user.txt
-+ **2>/dev/null** redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name user.txt` specifies to search for a file called user.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
 
 
 `python -c ‘import pty; pty.spawn(“/bin/bash”)’`
-+ **-c** executes a command or script passed as a string
-+ **import pty** imports the **pty** module, which provides functionality for controlling a pseudo-terminal, which is a software-based terminal emulation that allows programs to interact with the terminal as if they were running on a physical terminal device
-+ **pty.spawn("/bin/bash")** is a function from the pty module that's used to spawn a new shell process, which in this case we're spawning a Bash shell 
++ `-c` executes a command or script passed as a string
++ `import pty` imports the **pty** module, which provides functionality for controlling a pseudo-terminal, which is a software-based terminal emulation that allows programs to interact with the terminal as if they were running on a physical terminal device
++ `pty.spawn("/bin/bash")` is a function from the pty module that's used to spawn a new shell process, which in this case we're spawning a Bash shell 
 
 
 `sudo python -c 'import os; os.system("/bin/sh")'`
-+ **-c** executes a command or script passed as a string
-+ **import os** imports the **os** mudile, which provides a way to interact with the OS
-+ **os.system("/bin/sh")** executes the specified shell command to spawn a Bourne shell (sh)
++ `-c` executes a command or script passed as a string
++ `import os` imports the **os** mudile, which provides a way to interact with the OS
++ `os.system("/bin/sh")` executes the specified shell command to spawn a Bourne shell (sh)
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
