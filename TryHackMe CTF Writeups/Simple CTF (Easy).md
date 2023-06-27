@@ -94,7 +94,7 @@ DOWNLOADED: 4612 - FOUND: 3
 # Vulnerability Identification
 > Vulnerability Identification Using Exploit DB
 6. `firefox http://{TARGET IP}/simple`
-![](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
 7. `searchsploit "CMS made simple 2.2.8" --www`
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -107,7 +107,7 @@ CMS Made Simple < 2.2.10 - SQL Injection                               | https:/
 Shellcodes: No Results
 ```
 8. `firefox "https://www.exploit-db.com/exploits/46635"`
-![](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/THM%20-%20Simple%20CTF/CVE-2019-9053.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CVE-2019-9053.png)
 
 # Vulnerability Exploitation
 > Exploiting CVE-2019-9053
@@ -137,7 +137,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ gedit 46635.py 
 ```
-![](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
 14. `python 46635.py`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
