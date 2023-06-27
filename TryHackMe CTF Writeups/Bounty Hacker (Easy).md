@@ -288,11 +288,9 @@ THM{80UN7Y_h4cK3r}
 
 
 `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh`
-+ `-cf` are tar command options
-    + `-c`
-    + `-f`
-
-      
++ `-cf /dev/null /dev/null` creates an archive file called **/dev/null** that contains the **/dev/null** file itself, which results in an archive file that won't contain any data since the **/dev/null** file is a special file that discards any data that gets written to it
++ `--checkpoint=1` specifies that a checkpoint message after processing every file
++ `--checkpoint-action=exec=/bin/sh` specifies that the **/bin/sh** command should be executed when a checkpoint message is printed
 
 
 `find / -type f -name root.txt 2>/dev/null`
