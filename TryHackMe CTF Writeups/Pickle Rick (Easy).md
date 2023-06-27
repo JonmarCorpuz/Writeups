@@ -277,7 +277,7 @@ fleeb juice
 
 
 **Room complete!**
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Pickle%20Rick.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
