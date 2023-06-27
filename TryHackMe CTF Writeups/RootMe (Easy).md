@@ -279,7 +279,7 @@ THM{pr1v1l3g3_3sc4l4t10n}
 
 **Room completed!**
 
-![Screenshot of completing the room](https://github.com/KnowCybersecurity/TryHackMe-CTF-Writeups/blob/main/Assets/TryHackMe%20-%20RootMe.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20RootMe.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
