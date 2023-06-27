@@ -6,7 +6,7 @@ Room link: https://tryhackme.com/room/tomghost
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/26/2023
+This writeup was last updated: 6/27/2023
 
 
 # Scanning and Enumeration
@@ -419,34 +419,34 @@ THM{Z1P_1S_FAKE}
 # Dissecting the Commands
 
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+ **-sC** enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
-+ **-sV** enables version detection, which attempts to determine the sevice and version information of the open ports
-+ **> {FILENAME1}.txt** redirects the results into a text file
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
 
 
 `find / -type f -name user.txt 2>/dev/null`
-+ **/** specifies the starting directory to be the root directory
-+ **-type f** specifies that it should only search for regular files
-+ **-name user.txt** specifies to search for a file called user.txt
-+ **2>/dev/null** redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name user.txt` specifies to search for a file called user.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
 
 
 `TF=$(mktemp -u)`
-+ **mktemp** creates a temporary file or directory
-+ **-u** Generates a unique name without actually creating the file or directory
++ `mktemp` creates a temporary file or directory
++ `-u` Generates a unique name without actually creating the file or directory
 
 
 `sudo zip $TF /etc/hosts -T -TT ‘sh #’`
-+ **$TF /etc/hosts**
-+ **-T**
-+ **-TT 'sh 3**
++ `$TF /etc/hosts`
++ `-T`
++ `-TT 'sh 3`
 
 
 `find / -type f -name root.txt 2>/dev/null`
-+ **/** specifies the starting directory to be the root directory
-+ **-type f** specifies that it should only search for regular files
-+ **-name root.txt** specifies to search for a file called user.txt
-+ **2>/dev/null** redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name root.txt` specifies to search for a file called user.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
