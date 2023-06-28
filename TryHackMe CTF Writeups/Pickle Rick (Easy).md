@@ -310,7 +310,7 @@ fleeb juice
 28. `ls`
 29. `cat {SECRET INGREDIENT FILE3}.txt`
 
-# Dissecting Comands
+# Dissecting Some Commands
 `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt`
 + `x {FILENAME2 WORDLIST PATH}` specifies a file that contains a list of file extensions to be used during the file and directory brute-forcing or enumeration process
 + `-r` specifies this to be a non recursive scan
