@@ -416,7 +416,7 @@ THM{Z1P_1S_FAKE}
 31. `find / -type f -name root.txt 2>/dev/null`
 32. `cat /root/root.txt`
 
-# Dissecting the Commands
+# Dissecting Some Commands
 
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
 + `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
