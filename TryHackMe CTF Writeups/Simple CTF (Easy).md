@@ -4,7 +4,7 @@ Room link: [https://tryhackme.com/room/easyctf](https://tryhackme.com/room/easyc
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/27/2023
+This writeup was last updated: 6/28/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -254,7 +254,7 @@ W3ll d0n3. You made it!
 # Command History
 > Step
 
-# Dissecting the Commands
+# Dissecting Some Commands
 > Step
 
 # Contibutions
