@@ -268,7 +268,7 @@ THM{80UN7Y_h4cK3r}
 20. `find / -type f -name root.txt 2>/dev/null`
 21. `cat {ROOT.TXT FILE PATH}`
 
-# Dissecting the Commands
+# Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
 + `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
 + `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
