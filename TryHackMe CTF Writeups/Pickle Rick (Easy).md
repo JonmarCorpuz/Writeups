@@ -13,13 +13,13 @@ This writeup was last updated: 6/26/2023
 3. `cat {FILENAME1}.txt` to output the scan results from the previous command
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ nmap -sC -sV 10.10.29.218 > PortScan.txt
+└─$ nmap -sC -sV 10.10.237.205 > PortScan.txt
 ```
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cat PortScan.txt 
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-06-26 21:47 EDT
-Nmap scan report for 10.10.29.218
+Nmap scan report for 10.10.237.205
 Host is up (0.090s latency).
 Not shown: 998 closed tcp ports (conn-refused)
 PORT   STATE SERVICE VERSION
@@ -42,7 +42,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.83 seconds
 4. `dirb http://{TARGET IP} -r /usr/share/dirb/wordlists/extensions_common.txt` to scan the target's web server for different types of files using Dirb's0 built in **extensions_common.txt** file, which reveals that there are .php and .phtml file present within the target's web server
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ dirb http://10.10.29.218 /usr/share/dirb/wordlists/extensions_common.txt -r   
+└─$ dirb http://10.10.237.205 /usr/share/dirb/wordlists/extensions_common.txt -r   
 
 -----------------
 DIRB v2.22    
@@ -50,7 +50,7 @@ By The Dark Raver
 -----------------
 
 START_TIME: Mon Jun 26 23:35:06 2023
-URL_BASE: http://10.10.29.218/
+URL_BASE: http://10.10.237.205/
 WORDLIST_FILES: /usr/share/dirb/wordlists/extensions_common.txt
 OPTION: Not Recursive
 
@@ -58,10 +58,10 @@ OPTION: Not Recursive
 
 GENERATED WORDS: 28                                                            
 
----- Scanning URL: http://10.10.29.218/ ----
-+ http://10.10.29.218/.php (CODE:403|SIZE:291)   
-+ http://10.10.29.218/.phtml (CODE:403|SIZE:293)   
-+ http://10.10.29.218// (CODE:200|SIZE:1062)                                                   
+---- Scanning URL: http://10.10.237.205/ ----
++ http://10.10.237.205/.php (CODE:403|SIZE:291)   
++ http://10.10.237.205/.phtml (CODE:403|SIZE:293)   
++ http://10.10.237.205// (CODE:200|SIZE:1062)                                                   
                                                                                
 -----------------
 END_TIME: Mon Jun 26 23:35:09 2023
@@ -77,11 +77,11 @@ DOWNLOADED: 28 - FOUND: 3
 7. `cat {FILENAME3}.txt` to output the scan results from the previous command
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ dirb http://10.10.29.218 -x ~/Extensions.txt -r > WebDirectoryScan.txt
+└─$ dirb http://10.10.237.205 -x ~/Extensions.txt -r > WebDirectoryScan.txt
 ```
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ dirb http://10.10.29.218 -x ~/Extensions.txt -r 
+└─$ dirb http://10.10.237.205 -x ~/Extensions.txt -r 
 
 -----------------
 DIRB v2.22    
@@ -89,7 +89,7 @@ By The Dark Raver
 -----------------
 
 START_TIME: Mon Jun 26 23:39:06 2023
-URL_BASE: http://10.10.29.218/
+URL_BASE: http://10.10.237.205/
 WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
 OPTION: Not Recursive
 EXTENSIONS_FILE: /home/kali/Extensions.txt | (.php)(.phtml) [NUM = 2]
@@ -98,10 +98,10 @@ EXTENSIONS_FILE: /home/kali/Extensions.txt | (.php)(.phtml) [NUM = 2]
 
 GENERATED WORDS: 4612                                                          
 
----- Scanning URL: http://10.10.29.218/ ----
-+ http://10.10.29.218/denied.php (CODE:302|SIZE:0)   
-+ http://10.10.29.218/login.php (CODE:200|SIZE:882)     
-+ http://10.10.29.218/portal.php (CODE:302|SIZE:0)                                                                                                                 
+---- Scanning URL: http://10.10.237.205/ ----
++ http://10.10.237.205/denied.php (CODE:302|SIZE:0)   
++ http://10.10.237.205/login.php (CODE:200|SIZE:882)     
++ http://10.10.237.205/portal.php (CODE:302|SIZE:0)                                                                                                                 
 -----------------
 END_TIME: Mon Jun 26 23:53:16 2023
 DOWNLOADED: 9224 - FOUND: 3
