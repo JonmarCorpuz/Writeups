@@ -113,9 +113,9 @@ DOWNLOADED: 13836 - FOUND: 4
 
 # 
 >
-6. `firefox "http://{TARGET IP}/content/inc`
+6. `firefox "http://{TARGET IP}/content/inc` to launch Firefox and redirect it to the target's **/content/inc** directory 
 ![]()
-7. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"`
+7. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"` to launch Firefox and redirect it to the target's
 ![]()
 8. `firefox "http://{TARGET IP}/content/as"`
 
