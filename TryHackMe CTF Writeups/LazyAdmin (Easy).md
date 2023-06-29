@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/lazyadmin
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/27/2023
+This writeup was last updated: 6/28/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
