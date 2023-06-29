@@ -182,18 +182,18 @@ User jake may run the following commands on brookly_nine_nine:
 ```
 17. `firefox "https://gtfobins.github.io/"` to laucn Firefox and redirect it to the GTFOBins website where we can search for exploits that we can use to elevate our privileges with the **less** command 
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Brooklyn%20Nine%20Nine/GTFOBins.png)
 
 18. `sudo less /etc/profile` to interactively view the **/etc/profile** file 
 ```bash
 jake@brookly_nine_nine:~$ sudo less /etc/profile
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Brooklyn%20Nine%20Nine/sudo%20less%20etc%20profile.png)
 
 20. `!/bin/sh` to execute and spawn a Bourne shell (sh)
  
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Brooklyn%20Nine%20Nine/!bin%20sh.png)
 
 21. `whoami` to verify that we now a shell with root privileges, which we do since we're now running as root
 22. `ls /root` to display the available files and directories of the target's **/root** directory, which reveals a root text file
@@ -217,7 +217,7 @@ Enjoy!!
 
 **Room completed!**
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Brooklin%20Nine%20Nine.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
