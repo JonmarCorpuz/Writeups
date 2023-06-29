@@ -146,8 +146,8 @@ jake@10.10.169.224's password:
 Last login: Tue May 26 08:56:58 2020
 jake@brookly_nine_nine:~$ 
 ```
-12. `ls /` to display the available files and directories within the target filesystem's root directory onto our terminal
-13. `ls /home` to display the available files and directories within the target filesystem's /home directory onto our terminal, which revealed there to be three users
+12. `ls /` to display the available files and directories within the target filesystem's root directory (**/**) onto our terminal
+13. `ls /home` to display the available files and directories within the target filesystem's **/home** directory onto our terminal, which revealed there to be three users
 14. `ls /home/holt` to display the available files and directories within the third user's home directory onto our terminal, since the two other don't have anything in theirs, which revealed a user text file
 15. `cat /home/holt/{USER TEXT FILE}` to display the contents of the user text file onto our terminal, which revealed the user flag for this challenge
 ```bash
@@ -184,20 +184,20 @@ User jake may run the following commands on brookly_nine_nine:
 
 ![]()
 
-18. `sudo less /etc/profile`
+18. `sudo less /etc/profile` to interactively view the **/etc/profile** file 
 ```bash
 jake@brookly_nine_nine:~$ sudo less /etc/profile
 ```
 
 ![]()
 
-20. `!/bin/sh`
+20. `!/bin/sh` to execute and spawn a Bourne shell (sh)
  
 ![]()
 
-21. `whoami`
-22. `ls /root`
-23. `cat /root/{ROOT TEXT FILE}`
+21. `whoami` to verify that we now a shell with root privileges, which we do since we're now running as root
+22. `ls /root` to display the available files and directories of the target's **/root** directory, which reveals a root text file
+23. `cat /root/{ROOT TEXT FILE}` to display the root text file's contents onto our terminal, which revealed the root flag for this challenge
 ```bash
 # whoami
 root
