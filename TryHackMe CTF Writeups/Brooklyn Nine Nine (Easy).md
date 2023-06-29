@@ -146,10 +146,10 @@ jake@10.10.169.224's password:
 Last login: Tue May 26 08:56:58 2020
 jake@brookly_nine_nine:~$ 
 ```
-12. `ls /`
-13. `ls /home`
-14. `ls /home/holt`
-15. `cat /home/holt/{USER TEXT FILE}`
+12. `ls /` to display the available files and directories within the target filesystem's root directory onto our terminal
+13. `ls /home` to display the available files and directories within the target filesystem's /home directory onto our terminal, which revealed there to be three users
+14. `ls /home/holt` to display the available files and directories within the third user's home directory onto our terminal, since the two other don't have anything in theirs, which revealed a user text file
+15. `cat /home/holt/{USER TEXT FILE}` to display the contents of the user text file onto our terminal, which revealed the user flag for this challenge
 ```bash
 jake@brookly_nine_nine:~$ ls /
 bin   cdrom  etc   initrd.img      lib    lost+found  mnt  proc  run   snap  sys  usr  vmlinuz
@@ -170,7 +170,7 @@ ee11cbb19052e40b07aac0ca060c23ee
 
 # Post Exploitation
 > Privilege Escalation
-16. `sudo -l`
+16. `sudo -l` to list the sudo privileges that are assigned to the current user that we're logged in as, which revealed that we're able to execute the **less** command with root privileges without needing root's password
 ```bash
 jake@brookly_nine_nine:~$ sudo -l
 Matching Defaults entries for jake on brookly_nine_nine:
@@ -180,7 +180,7 @@ Matching Defaults entries for jake on brookly_nine_nine:
 User jake may run the following commands on brookly_nine_nine:
     (ALL) NOPASSWD: /usr/bin/less
 ```
-17. `firefox "https://gtfobins.github.io/"`
+17. `firefox "https://gtfobins.github.io/"` to laucn Firefox and redirect it to the GTFOBins website where we can search for exploits that we can use to elevate our privileges with the **less** command 
 
 ![]()
 
