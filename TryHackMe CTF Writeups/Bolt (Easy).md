@@ -208,6 +208,14 @@ DOWNLOADED: 4612 - FOUND: 5
 
 ![]()
 
+11. `https://boltcms.io`
+
+![]()
+
+12. `https://docs.boltcms.io/5.0/manual/login`
+
+![]()
+
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
 
