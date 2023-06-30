@@ -174,7 +174,7 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://10.10.195.64:8000"
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/homepage.png)
 
 7. `firefox "http://10.10.195.64:8000/entries"`
 ```bash
@@ -182,7 +182,7 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://10.10.195.64:8000/entries"
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/entries.png)
 
 8. `firefox "http://10.10.195.64:8000/login.php"`
 ```bash
@@ -190,7 +190,7 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://10.10.195.64:8000/login.php"
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/login.php.png)
 
 9. `firefox "http://10.10.195.64:8000/pages"`
 ```bash
@@ -198,7 +198,7 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://10.10.195.64:8000/pages"
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/pages.png)
 
 10. `firefox "http://10.10.195.64:8000/search"`
 ```bash
@@ -206,21 +206,21 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://10.10.195.64:8000/search"
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/search.png)
 
 11. `https://boltcms.io`
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
 
 12. `https://docs.boltcms.io/5.0/manual/login`
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20User%20Manual.png)
 
 13. `firefox "http://10.10.195.64:8000/bolt"` and sign in using the Jake's set of credentials that he mentioned (bolt:bolt1admin23)
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/BoltCMS%20Version%20(Dashboard).png)
 
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
