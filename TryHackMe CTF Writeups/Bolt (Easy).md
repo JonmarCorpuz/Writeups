@@ -465,7 +465,7 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 
 **Room completed!**
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bolt.png)
 
 # Command History
 
