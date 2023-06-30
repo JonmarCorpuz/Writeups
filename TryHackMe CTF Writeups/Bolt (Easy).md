@@ -225,7 +225,6 @@ DOWNLOADED: 4612 - FOUND: 5
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
 14. `msfconsole`
-15. `searchsploit Bolt 3.7`
 ```bash
 msf6 > searchsploit Bolt 3.7
 [*] exec: searchsploit Bolt 3.7
@@ -243,7 +242,7 @@ Bolt CMS 3.7.0 - Authenticated Remote Code Ex | php/webapps/48296.py
 ---------------------------------------------- ---------------------------------
 Shellcodes: No Results
 ```
-16. `search Bolt 3.7`
+15. `search Bolt 3.7`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ msfconsole 
@@ -294,6 +293,126 @@ Matching Modules
 Interact with a module by name or index. For example info 0, use 0 or use exploit/unix/webapp/bolt_authenticated_rce
 
 msf6 >
+```
+16. `info {EXPLOIT PATH}`
+```bash
+msf6 > search Bolt 3.7
+
+Matching Modules
+================
+
+   #  Name                                        Disclosure Date  Rank   Check  Description
+   -  ----                                        ---------------  ----   -----  -----------
+   0  exploit/unix/webapp/bolt_authenticated_rce  2020-05-07       great  Yes    Bolt CMS 3.7.0 - Authenticated Remote Code Execution
+
+
+Interact with a module by name or index. For example info 0, use 0 or use exploit/unix/webapp/bolt_authenticated_rce
+
+msf6 > info exploit/unix/webapp/bolt_authenticated_rce
+
+       Name: Bolt CMS 3.7.0 - Authenticated Remote Code Execution
+     Module: exploit/unix/webapp/bolt_authenticated_rce
+   Platform: Linux, Unix
+       Arch: x86, x64, cmd
+ Privileged: No
+    License: Metasploit Framework License (BSD)
+       Rank: Great
+  Disclosed: 2020-05-07
+
+Provided by:
+  Sivanesh Ashok
+  r3m0t3nu11
+  Erik Wynter
+
+Module side effects:
+ ioc-in-logs
+ config-changes
+ artifacts-on-disk
+
+Module stability:
+ service-resource-loss
+
+Module reliability:
+ repeatable-session
+
+Available targets:
+      Id  Name
+      --  ----
+      0   Linux (x86)
+      1   Linux (x64)
+  =>  2   Linux (cmd)
+
+Check supported:
+  Yes
+
+Basic options:
+  Name               Current Setting    Required  Description
+  ----               ---------------    --------  -----------
+  FILE_TRAVERSAL_PA  ../../../public/f  yes       Traversal path from "/files"
+  TH                 iles                          on the web server to "/root
+                                                  " on the server
+  PASSWORD                              yes       Password to authenticate wit
+                                                  h
+  Proxies                               no        A proxy chain of format type
+                                                  :host:port[,type:host:port][
+                                                  ...]
+  RHOSTS                                yes       The target host(s), see http
+                                                  s://docs.metasploit.com/docs
+                                                  /using-metasploit/basics/usi
+                                                  ng-metasploit.html
+  RPORT              8000               yes       The target port (TCP)
+  SSL                false              no        Negotiate SSL/TLS for outgoi
+                                                  ng connections
+  SSLCert                               no        Path to a custom SSL certifi
+                                                  cate (default is randomly ge
+                                                  nerated)
+  TARGETURI          /                  yes       Base path to Bolt CMS
+  URIPATH                               no        The URI to use for this expl
+                                                  oit (default is random)
+  USERNAME                              yes       Username to authenticate wit
+                                                  h
+  VHOST                                 no        HTTP server virtual host
+
+
+  When CMDSTAGER::FLAVOR is one of auto,tftp,wget,curl,fetch,lwprequest,psh_invokewebrequest,ftp_http:
+
+  Name     Current Setting  Required  Description
+  ----     ---------------  --------  -----------
+  SRVHOST  0.0.0.0          yes       The local host or network interface to l
+                                      isten on. This must be an address on the
+                                       local machine or 0.0.0.0 to listen on a
+                                      ll addresses.
+  SRVPORT  8080             yes       The local port to listen on.
+
+Payload information:
+
+Description:
+  This module exploits multiple vulnerabilities in Bolt CMS version 3.7.0
+  and 3.6.* in order to execute arbitrary commands as the user running Bolt.
+
+  This module first takes advantage of a vulnerability that allows an
+  authenticated user to change the username in /bolt/profile to a PHP
+  `system($_GET[""])` variable. Next, the module obtains a list of tokens
+  from `/async/browse/cache/.sessions` and uses these to create files with
+  the blacklisted `.php` extention via HTTP POST requests to
+  `/async/folder/rename`. For each created file, the module checks the HTTP
+  response for evidence that the file can be used to execute arbitrary
+  commands via the created PHP $_GET variable. If the response is negative,
+  the file is deleted, otherwise the payload is executed via an HTTP
+  get request in this format: `/files/<rogue_PHP_file>?<$_GET_var>=<payload>`
+
+  Valid credentials for a Bolt CMS user are required. This module has been
+  successfully tested against Bolt CMS 3.7.0 running on CentOS 7.
+
+References:
+  https://www.exploit-db.com/exploits/48296
+  https://github.com/bolt/bolt/releases/tag/3.7.1
+
+CVE not available for the following reason:
+  ["0day"]
+
+
+View the full module info with the info -d command.
 ```
 
 # Vulnerability Exploitation
