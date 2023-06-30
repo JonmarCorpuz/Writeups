@@ -216,6 +216,17 @@ DOWNLOADED: 4612 - FOUND: 5
 
 ![]()
 
+13. `firefox "http://10.10.195.64:8000/bolt"` and sign in using the Jake's set of credentials that he mentioned (bolt:bolt1admin23)
+
+![]()
+
+![]()
+
+# Vulnerability Identification
+> Vulnerability Identification Using Metasploit
+14. `msfconsole`
+15. `search Bolt 3.7`
+
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
 
