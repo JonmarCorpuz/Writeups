@@ -600,11 +600,17 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 
 # Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+ 
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
 
 
 `find / -type f -name flag.txt 2>/dev/null`
-+
++ `/` specifies the starting directory to be the root directory
++ `-type f` specifies that it should only search for regular files
++ `-name flag.txt` specifies to search for a file called user.txt
++ `2>/dev/null` redirects error output (stderr) to the null device ensuring that any error message encountered during the search are suppressed and not displayed on the terminal
+
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
