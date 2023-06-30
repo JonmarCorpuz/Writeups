@@ -12,6 +12,15 @@ This writeup was last updated: 6/30/2023
 2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
 3. `cat {FILENAME1}.txt` to output the scan results from the previous command
 
+# Vulnerability Identification
+
+# Vulnerability Exploitation
+
+
+**Room completed!**
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20ToolsRus.png)
+
 # Command History
 
 # Dissecting Some Commands
