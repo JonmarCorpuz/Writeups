@@ -1,6 +1,6 @@
 # Room Information
 
-Room link: [https://tryhackme.com/room/basicpentestingjt](https://tryhackme.com/room/toolsrus)
+Room link: https://tryhackme.com/room/agentsudoctf
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
@@ -19,7 +19,7 @@ This writeup was last updated: 6/30/2023
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20ToolsRus.png)
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Agent%20Sudo.png)
 
 # Command History
 
