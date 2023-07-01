@@ -201,7 +201,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 34820         0x8804          End of Zip archive
 ```
 22. `binwalk {FILE3} --extract`
-23. ls
+23. `ls`
 ```bash
 root@ip-10-10-4-181:~# binwalk cutie.png --extract
 
@@ -229,6 +229,16 @@ root@ip-10-10-4-181:~# ls
  Scripts
  To_agentJ.txt
  work
+```
+24. `cd {EXTRACTED DIRECTORY}`
+25. `ls`
+```bash
+root@ip-10-10-4-181:~# cd _cutie.png.extracted/
+root@ip-10-10-4-181:~/_cutie.png.extracted# ls
+ 365
+ 365.zlib
+ 8702.zip
+ To_agentR.txt
 ```
 
 # Vulnerability Identification
