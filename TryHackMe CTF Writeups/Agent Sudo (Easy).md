@@ -181,7 +181,55 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
+20. `binwalk {FILE2}`
+21. `binwalk {FILE3}`
+```bash
+root@ip-10-10-4-181:~# binwalk cute-alien.jpg
 
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             JPEG image data, JFIF standard 1.01
+```
+```bash
+root@ip-10-10-4-181:~# binwalk cutie.png
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 528 x 528, 8-bit colormap, non-interlaced
+869           0x365           Zlib compressed data, best compression
+34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
+34820         0x8804          End of Zip archive
+```
+22. `binwalk {FILE3} --extract`
+23. ls
+```bash
+root@ip-10-10-4-181:~# binwalk cutie.png --extract
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 528 x 528, 8-bit colormap, non-interlaced
+869           0x365           Zlib compressed data, best compression
+34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
+34820         0x8804          End of Zip archive
+
+root@ip-10-10-4-181:~# ls
+ cute-alien.jpg
+ cutie.png
+ Desktop
+ Instructions
+ PortScan.txt
+ Rooms
+ thinclient_drives
+ Tools
+ cutie-alien.jpg
+ _cutie.png.extracted
+ Downloads
+ Pictures
+ Postman
+ Scripts
+ To_agentJ.txt
+ work
+```
 
 # Vulnerability Identification
 
