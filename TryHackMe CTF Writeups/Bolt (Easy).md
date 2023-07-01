@@ -192,11 +192,11 @@ DOWNLOADED: 4612 - FOUND: 5
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
 
-9. `https://docs.boltcms.io/5.0/manual/login` 
+9. `https://docs.boltcms.io/5.0/manual/login` to head to the Bolt CMS user manual in the login section, which revealed that going to **https://{TARGET IP}/bolt** will bring you to the Bolt CMS manager login page, where you can go and log in to your site's Bolt CMS manager dashboard
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20User%20Manual.png)
 
-10. `firefox "http://10.10.195.64:8000/bolt"` to laucnh Firefox and redirect it to the Boltcms login page for our target's web server where we can attempt to sign in using the admin's credentials that he publicly shared, which ended up logging us in to the target's Boltcms manager dashboard for which we can see the version of version of Bolt that they're running on the bottom left 
+10. `firefox "http://10.10.195.64:8000/bolt"` to laucnh Firefox and redirect it to the Boltcms login page for our target's web server where we can attempt to sign in using the admin's credentials that he publicly shared, which ended up logging us in to the target's Bolt CMS manager dashboard for which we can see the version of version of Bolt that they're running on the bottom left 
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
 
