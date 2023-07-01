@@ -105,6 +105,9 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2023-07-01 14:01:53
 1 of 1 target successfully completed, 1 valid password found
 Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 14:02:54
 ```
+
+#
+> Scanning the Target's FTP Server
 13. `ftp {TARGET IP}`
 ```bash
 root@ip-10-10-4-181:~# ftp 10.10.55.185
@@ -122,6 +125,7 @@ ftp>
 15. `get {FILE1}`
 16. `get {FILE2}`
 17. `get {FILE3}`
+18. `exit`
 ```bash
 ftp> ls
 200 PORT command successful. Consider using PASV.
@@ -130,7 +134,6 @@ ftp> ls
 -rw-r--r--    1 0        0           33143 Oct 29  2019 cute-alien.jpg
 -rw-r--r--    1 0        0           34842 Oct 29  2019 cutie.png
 226 Directory send OK.
-ftp> 
 ```
 ```bash
 ftp> get To_agentJ.txt cutie-alien.jpg cutie.png
@@ -139,7 +142,6 @@ local: cutie-alien.jpg remote: To_agentJ.txt
 150 Opening BINARY mode data connection for To_agentJ.txt (217 bytes).
 226 Transfer complete.
 217 bytes received in 0.00 secs (63.0884 kB/s)
-ftp>
 ```
 ```bash
 ftp> get To_agentJ.txt
@@ -156,7 +158,6 @@ local: cute-alien.jpg remote: cute-alien.jpg
 150 Opening BINARY mode data connection for cute-alien.jpg (33143 bytes).
 226 Transfer complete.
 33143 bytes received in 0.00 secs (26.3178 MB/s)
-ftp>
 ```
 ```bash
 ftp> get cutie.png
@@ -165,7 +166,20 @@ local: cutie.png remote: cutie.png
 150 Opening BINARY mode data connection for cutie.png (34842 bytes).
 226 Transfer complete.
 34842 bytes received in 0.00 secs (89.8052 MB/s)
-ftp> 
+```
+```bash
+ftp> exit
+221 Goodbye.
+```
+19. cat {FILE1}
+```bash
+root@ip-10-10-4-181:~# cat To_agentJ.txt
+Dear agent J,
+
+All these alien like photos are fake! Agent R stored the real picture inside your directory. Your login password is somehow stored in the fake picture. It shouldn't be a problem for you.
+
+From,
+Agent C
 ```
 
 
