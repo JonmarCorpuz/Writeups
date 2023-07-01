@@ -16,3 +16,13 @@ This writeup was last updated: 6/30/2023
 > Scanning for Hiddent Web Directories Using Dirb
 4. `dirb http://{TARGET IP} -r > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
 5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto the terminal
+
+#
+>
+6. `firefox "http://{TARGET IP}/guidelines`
+
+![]() 
+
+7. `firefox "http://{TARGET IP}/protected"`
+
+![]()
