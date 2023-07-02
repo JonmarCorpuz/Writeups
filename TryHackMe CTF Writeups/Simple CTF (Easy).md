@@ -137,7 +137,7 @@ Saving to: ‘46635.1’
 
 # Vulnerability Exploitation
 > Exploiting CVE-2019-9053
-11. `python 46635` to execute the exploit, which ended outputting an error message that our script has some syntax errors
+11. `python 46635` to execute the exploit, which ended outputting an error message onto our terminal saying that our script contains some syntax errors
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python 46635                                                       
