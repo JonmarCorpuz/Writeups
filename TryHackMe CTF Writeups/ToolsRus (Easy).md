@@ -9,7 +9,7 @@ This writeup was last updated: 07/01/2023
 # Scanning and Enumeration
 > Port Scanning Using Nmap
 1. Started up this room’s machine
-2. `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
+2. `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt` to perform an aggressive network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
 3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto the terminal
 ```bash
 root@ip-10-10-171-134:~# nmap -sC -sV -A 10.10.199.35 > PortScan.txt
