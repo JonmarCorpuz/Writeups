@@ -171,6 +171,10 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 ```
 16. `gedit 46635.py`
 
+![]()
+
+17. `python3 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+```bash
 
 #
 > Step
