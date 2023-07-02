@@ -230,7 +230,7 @@ User mitch may run the following commands on Machine:
 ```
 22. `firefox "https://gtfobins.github.io/" and search for vim
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
 
 23. `sudo vim -c ':!/bin/sh'`
 ```bash
@@ -267,5 +267,10 @@ W3ll d0n3. You made it!
 # Dissecting Some Commands
 > Step
 
-# Contibutions
-> Step
+# Contributions
+This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
+
+
+Socials:
+* TryHackMe ID: https://tryhackme.com/p/mtlfriends
+* LinkedIn: https://www.linkedin.com/in/jonmar-corpuz-12771a234/
