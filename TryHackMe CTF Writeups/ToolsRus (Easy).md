@@ -92,11 +92,13 @@ DOWNLOADED: 4612 - FOUND: 3
 >
 6. `firefox "http://{TARGET IP}/guidelines`
 
-![]() 
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Guidelines.png) 
 
 7. `firefox "http://{TARGET IP}/protected"`
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected.png)
+
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected%20(Unauthorized).png)
 
 8. `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
 ```bash
@@ -113,9 +115,9 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 23:43:53
 
 9. `firefox "http://{TARGET IP}/protected` and sign in shows moved to different port
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Page%20Moved%20to%20Different%20Port.png)
 
 10. `dirb http://{TARGET IP}:1234 -r > {FILENAME3}`
 11. `cat {FILENAME3}`
@@ -152,9 +154,9 @@ DOWNLOADED: 4612 - FOUND: 5
 ```
 12. `firefox "http://{TARGET IP}:1234/manager"` and log in
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Manager%20Logged%20In.png)
 
 13. `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html`
 ```bash
