@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/bolt
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/29/2023
+This writeup was last updated: 07/02/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -130,7 +130,7 @@ Nmap done: 1 IP address (1 host up) scanned in 30.54 seconds
 ```
 
 #
-> Scanning for Hiddent Web Directories Using Dirb
+> Scanning for Hidden Web Directories Using Dirb
 4. `dirb http://{TARGET IP}:8000 > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
 5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto the terminal
 ```bash
