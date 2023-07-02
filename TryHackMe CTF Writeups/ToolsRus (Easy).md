@@ -550,16 +550,19 @@ ff1fc4a81affcc7688cf89ae7dc6e0e1
 `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt`
 + `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
 + `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
-+ `-A`
++ `-A` enables a set of advanced and comprehensive scan techniques and scripts to gather more detailed information about the target system or network
 + `> {FILENAME1}.txt` redirects the results into a text file
 
 
 `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
-+
++ `-l {USER}` specifies the username or user list to use during the attack
++ `-P {WORDLIST PATH}` specifies the password list or file path containing a list of passwords to attempt
++ `http-get://{ATTACK IP}/{PROTECTED DIRECTORY}` specifies the target URL where the attack will be performed
 
 
 `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html`
-+
++ `-id {USER:PASSWORD}` specifies the credentials to use for basic authentication
++ `-host http://{TARGET IP}:1234/manager/html` specifies the target URL to scan
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
