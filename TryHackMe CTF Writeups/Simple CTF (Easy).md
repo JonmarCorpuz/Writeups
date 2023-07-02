@@ -306,11 +306,9 @@ W3ll d0n3. You made it!
 
 # Dissecting Some Commands
 `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
-+
-
-
-`python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
-+
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `> {FILENAME1}.txt` redirects the results into a text file
 
 # Contributions
 This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
