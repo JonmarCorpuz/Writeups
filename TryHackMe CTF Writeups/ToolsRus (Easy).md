@@ -190,6 +190,53 @@ root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/ma
 15. `search Apache Tomcat`
 16. `info {EXPLOIT PATH}`
 ```bash
+root@ip-10-10-171-134:~# msfconsole
+                                                  
+
+ ______________________________________________________________________________
+|                                                                              |
+|                   METASPLOIT CYBER MISSILE COMMAND V5                        |
+|______________________________________________________________________________|
+      \                                  /                      /
+       \     .                          /                      /            x
+        \                              /                      /
+         \                            /          +           /
+          \            +             /                      /
+           *                        /                      /
+                                   /      .               /
+    X                             /                      /            X
+                                 /                     ###
+                                /                     # % #
+                               /                       ###
+                      .       /
+     .                       /      .            *           .
+                            /
+                           *
+                  +                       *
+
+                                       ^
+####      __     __     __          #######         __     __     __        ####
+####    /    \ /    \ /    \      ###########     /    \ /    \ /    \      ####
+################################################################################
+################################################################################
+# WAVE 5 ######## SCORE 31337 ################################## HIGH FFFFFFFF #
+################################################################################
+                                                           https://metasploit.com
+
+
+       =[ metasploit v6.3.24-dev-                         ]
++ -- --=[ 2329 exploits - 1218 auxiliary - 413 post       ]
++ -- --=[ 1385 payloads - 46 encoders - 11 nops           ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit tip: Save the current environment with the 
+save command, future console restarts will use this 
+environment again
+Metasploit Documentation: https://docs.metasploit.com/
+
+msf6 > 
+```
+```bash
 msf6 > search Tomcat
 
 Matching Modules
