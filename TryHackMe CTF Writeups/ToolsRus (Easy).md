@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/toolsrus
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/01/2023
+This writeup was last updated: 07/02/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
