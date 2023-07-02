@@ -548,7 +548,10 @@ ff1fc4a81affcc7688cf89ae7dc6e0e1
 
 # Dissecting Some Commands
 `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt`
-+
++ `-sC` enables the use of default scripts during the scan, which runs a set of commonly used scripts against the target IP to try to find any vulnerabilities
++ `-sV` enables version detection, which attempts to determine the sevice and version information of the open ports
++ `-A`
++ `> {FILENAME1}.txt` redirects the results into a text file
 
 
 `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
