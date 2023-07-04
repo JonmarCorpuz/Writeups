@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/toolsrus
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/02/2023
+This writeup was last updated: 07/04/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -92,13 +92,13 @@ DOWNLOADED: 4612 - FOUND: 3
 > Visiting the Hidden Web Directories 
 6. `firefox "http://{TARGET IP}/guidelines` to launch Firefox and redirect it to the target's **/guidelines** page, which displayed a message that contained the name of one of the target's staff members
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Guidelines.png) 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Guidelines.png) 
 
 7. `firefox "http://{TARGET IP}/protected"` to launch Firefox and redirect it to the target's **/protected** web directory, which prompted us to login in order to have access to its contents
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected%20(Unauthorized).png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Protected%20(Unauthorized).png)
 
 #
 > Password Guessing Using Hydra
@@ -119,9 +119,9 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2023-07-01 23:43:53
 > Accessing the Protected Hidden Directory
 9. `firefox "http://{TARGET IP}/protected` to relaunch Firefox and redirect it back to the target's **/protected** page and log in using the set of credentials that we now have, but when logged in, we receive a message saying that the page has moved to a different port
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Page%20Moved%20to%20Different%20Port.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Page%20Moved%20to%20Different%20Port.png)
 
 #
 > Scanning for Hidden Web Directories Using Dirb on Port 1234
@@ -163,9 +163,9 @@ DOWNLOADED: 4612 - FOUND: 5
 > Accessing the Tomcat's Web Manager Interface 
 12. `firefox "http://{TARGET IP}:1234/manager"` to launch Firefox and redirect it to the target's Tomcat **/manager** page and log in using the set of credentials that we previously found
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Log%20Into%20Protected.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Manager%20Logged%20In.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20ToolsRus/Manager%20Logged%20In.png)
 
 #
 > Scanning for Web Vulnerability Using Nikto
@@ -531,7 +531,7 @@ ff1fc4a81affcc7688cf89ae7dc6e0e1
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20ToolsRus.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20ToolsRus.png)
 
 # Command History
 1. `nmap -sC -sV -A {TARGET-IP} > {FILENAME1}.txt`
