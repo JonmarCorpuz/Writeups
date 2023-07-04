@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/lazyadmin
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/28/2023
+This writeup was last updated: 07/04/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -115,11 +115,11 @@ DOWNLOADED: 13836 - FOUND: 4
 > Checking Out the Directories
 6. `firefox "http://{TARGET IP}/content/inc` to launch Firefox and redirect it to the target's **/content/inc** directory
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/inc.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/inc.png)
 
 7. `firefox "http://{TARGET IP}/content/inc/mysql_backup/"` to launch Firefox and redirect it to the target's **/content/inc/mysql_backup** directory and download the MySQL backup file
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/mysql_backup.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/mysql_backup.png)
 
 8. `cd ~/Downloads` to change to the **~/Downloads** directory on our machine since that's where our MySQL backup file should be
 9. `ls` to verify if the file has been successfully downloaded onto our machine, which it has
@@ -240,23 +240,23 @@ DOWNLOADED: 13836 - FOUND: 4
 ```
 11. `firefox "https://crackstation.net/"` to launch Firefox and redirect it to **crackstation.net** to attempt to crack the discovered user's password hash, which worked in the end and managed to crack the password hash for us
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation%20Password%20Cracked.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Crackstation%20Password%20Cracked.png)
 
 13. `firefox "http://{TARGET IP}/content/as"` to launch Firefox and redirect it to the target's **/content/as**, which turned out to be a login page, for which we can log in to using the new set of credentials that we found and cracked
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/as.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/as.png)
 
 # Vulnerability Identification
 > Command Injection
 13. `firefox "http://10.10.165.242/content/as/?type=ad"` to launch Firefox and redirect it to the **/content/as/?type=ad** page to see if anything that we create and upload here will be uploaded into the **/content/inc/ads** directory that we saw earlier in the **/content/inc** directory
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad.png)
 
 14. `firefox "http://{TARGET IP}/content/inc/ads"` to launch Firefox and redirect it to the **/content/inc/ads** directory to see if the test ad that we created and uploaded gets saved here, which it did as a PHP (.php) file
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad%20Success.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Test%20Ad%20Success.png)
 
 # Vulnerability Exploitation
 > PHP Reverse Shell
@@ -295,11 +295,11 @@ CHANGELOG  COPYING.GPL  COPYING.PHP-REVERSE-SHELL  LICENSE  php-reverse-shell.ph
 └─$ mousepad php-reverse-shell.php
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Mousepad%20php%20reverse%20shell.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Mousepad%20php%20reverse%20shell.png)
 
 20 `firefox "http://10.10.165.242/content/as/?type=ad"` and copy paste the contents of **php-reverse-shell.php** into the "**Ads code**" input form and give it any name you want, and then upload it
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/Reverse%20Shell%20Ad%20.png)
 
 21. `nc -lvnp {PORT NUMBER}` to open up a Netcat listener on our attack machine that'll listener for any incoming connections
 ```bash
@@ -310,7 +310,7 @@ listening on [any] 9999 ...
 
 22. `firefox "http://10.10.165.242/content/inc/ads/"` to launch Firefox and redirect it to the **/content/inc/ads** directory, in which we can now see that our PHP reverse shell payload is now visible and we can execute it just by clicking on it, which created us a reverse shell that connected back to our Netcat listener that's on our attack machine
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/PHP%20Reverse%20Shell%20Uploaded.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20LazyAdmin/PHP%20Reverse%20Shell%20Uploaded.png)
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nc -lvnp 9999                            
@@ -447,7 +447,7 @@ THM{6637f41d0177b6f37cb20d775124699f}
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20LazyAdmin.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20LazyAdmin.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
