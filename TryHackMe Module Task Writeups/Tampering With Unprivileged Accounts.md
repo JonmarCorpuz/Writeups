@@ -227,11 +227,11 @@ d-r---        3/17/2021   3:13 PM                Videos
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
 
 9. add thmuser 2 to both privileges
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
 
 10. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb`
 ```PowerShell
@@ -254,11 +254,11 @@ All WinRM sessions connected to Windows PowerShell session configurations, such 
 session configurations that are created with the Register-PSSessionConfiguration cmdlet, are disconnected.
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Open.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Open.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Add%20User.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Add%20User.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Modify%20Permissions%20Zoomed%20In.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Configuration%20Window%20Modify%20Permissions%20Zoomed%20In.png)
 
 13. `reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA` from the compromised Windows machine to check if Microsoft's UAC is active on our compromised machine and display the results onto our terminal, which ended up being the case (1 meaning that it's enabled) and therefore preventing us from running any administrative privileges when remotely connecting back to the compromised machine since it strips the user who's remotely connecting to the compromised system from any administrative privileges that they may have by disabling their access to the privileges of the groups that they're a part of that have full or certain administrator privileges, which in this case was the **Backup Operators** group
 ```PowerShell
@@ -337,13 +337,13 @@ Copyright (C) 2001-2021 Mark Russinovich
 Sysinternals - www.sysinternals.com
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20Window%20Open.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20Window%20Open.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20Window.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20Window.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20Current%20RID.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20Current%20RID.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20New%20RID.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20New%20RID.png)
 
 6. `evil-winrm -i {TARGET IP} -u thmuser3 -p Password321`
 ```Bash
@@ -359,11 +359,11 @@ Error: Exiting with code 1
 ```
 7. `sudo remmina`
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20RDP%20Authentication.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20RDP%20Authentication.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open%20Command%20Prompt.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open%20Command%20Prompt.png)
 
 8. `whoami`
 ```PowerShell
