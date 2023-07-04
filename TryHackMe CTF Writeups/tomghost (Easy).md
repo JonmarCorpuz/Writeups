@@ -6,7 +6,7 @@ Room link: https://tryhackme.com/room/tomghost
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/27/2023
+This writeup was last updated: 07/04/2023
 
 
 # Scanning and Enumeration
@@ -380,7 +380,7 @@ THM{Z1P_1S_FAKE}
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20TomGhost.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20TomGhost.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
