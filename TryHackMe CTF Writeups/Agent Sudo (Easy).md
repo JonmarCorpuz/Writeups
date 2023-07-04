@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/agentsudoctf
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/02/2023
+This writeup was last updated: 07/04/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap
@@ -70,37 +70,37 @@ Nmap done: 1 IP address (1 host up) scanned in 12.08 seconds
 > Testing User Agents Using Burp Suite
 5. Start up Burpsuite Community Edition
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Burpsuite%20Dashboard.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Burpsuite%20Dashboard.png)
 
 6. Launch Firefox, turn on FoxyProxy, which was already set up by TryHackMe, to allow Burpsuite to capture our web requests and responses
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/FoxyProxy.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/FoxyProxy.png)
 
 8. Seeing that the homepage message was signed by an agent called "**R**", we can send a web request and replace the **User-Agent** value on our intercepted web request to "**R**", which ended displaying the same message that we got before but this time with an error message, which probably indicates that the users' User-Agents are probably also letters of the alphabet as well
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Page%20Intercept.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Page%20Intercept.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20R%20.png) 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20R%20.png) 
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Agent%20R.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Agent%20R.png)
 
 9. We'll try this theory out by capturing the same web request again but this time we'll send it to Burpsuite's Intruder module and then from there, we'll create a list containing all the capital letters of the alphabet and use it as a payload that we'll inject into our captured web request in the **User-Agent** field
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20Payload%20List.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20Payload%20List.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Payload%20Position.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Payload%20Position.png)
 
 10. After running our attack, we can see that one of the letters in our payload list got a 302 HTTP status code, meaning that the user has been redirected to another location
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Attack%20Results.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Attack%20Results.png)
 
 11. We'll create and intercept another web request to the target's homepage but this time we'll replace the User-Agent with the one from our payload list that got the 302 HTTP status code, which ended up redirecting us to a PHP file with its contents displayed onto our browser, which ended up containing the User Agent's name and a message that said that their password is weak
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20Payload%20List.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20Payload%20List.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20C.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/User-Agent%20C.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/agent_C_attention.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/agent_C_attention.png)
 
 #
 > Password Guessing Using Hydra
@@ -447,9 +447,9 @@ james@10.10.75.108's password:
 Alien_autospy.jpg                                                                 100%   41KB 115.7KB/s   00:00   
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Google%20Reverse%20Search.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Google%20Reverse%20Search.png)
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Reverse%20Image%20Search%20Results.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Agent%20Sudo/Reverse%20Image%20Search%20Results.png)
 
 # Vulnerability Identification
 > Vulnerability Identification Using Searchsploit
@@ -621,7 +621,7 @@ DesKel a.k.a Agent R
 
 **Room completed!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Agent%20Sudo.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Agent%20Sudo.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
