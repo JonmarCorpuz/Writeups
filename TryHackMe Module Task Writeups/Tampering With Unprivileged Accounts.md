@@ -140,7 +140,7 @@ THM{FLAG_BACKED_UP!}
 1. Start this room's machine
 2. `whoami`
 ```PowerShell
-PS C:\Users\thmuser4> whoami
+PS C:\Users\Administrator> whoami
 wpersistence\administrator
 ```
 3. `whoami /priv`
