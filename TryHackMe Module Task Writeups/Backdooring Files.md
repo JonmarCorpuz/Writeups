@@ -49,11 +49,14 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 8. `C:\flags\flag5.exe`
-```Bash
+```PowerShell
 C:\Windows\system32>C:\flags\flag5.exe
 C:\flags\flag5.exe
 THM{NO_SHORTCUTS_IN_LIFE}
 ```
+
+
+**TASK COMPLETED**
 
 # Hijacking File Associations
 1. Started this room's machine
