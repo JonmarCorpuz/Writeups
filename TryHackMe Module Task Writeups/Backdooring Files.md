@@ -1,13 +1,15 @@
 # About This Module
 Module link: https://tryhackme.com/room/windowslocalpersistence
 
+Please feel free to point out any errors that you may see in this writeup!
+
+This writeup was last updated: 07/05/2023
+
 # Shortcut Files
 1. Started up this room's machine
 2. Opened up the compromised Windows machine's calculator properties
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20New%20Properties.png)
-
-![]()
 
 3. `PowerShell`
 ```PowerShell
