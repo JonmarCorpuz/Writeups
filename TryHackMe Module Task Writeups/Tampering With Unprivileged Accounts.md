@@ -227,11 +227,11 @@ d-r---        3/17/2021   3:13 PM                Pictures
 d-r---        3/17/2021   3:13 PM                Saved Games
 d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
--a----         7/4/2023   2:56 AM          19318 CONFIG.inf
+-a----         7/4/2023   2:56 AM          19318 config.inf
 ```
 8. `notepad <FILENAME1>.inf` from the compromised Windows machine to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
 ```PowerShell
-PS C:\Users\Administrator> notepad CONFIG.inf
+PS C:\Users\Administrator> notepad config.inf
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
