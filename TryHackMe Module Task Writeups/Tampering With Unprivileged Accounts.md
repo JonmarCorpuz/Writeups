@@ -328,11 +328,12 @@ thmuser3            S-1-5-21-1966530601-3185510712-10604624-1010
 thmuser4            S-1-5-21-1966530601-3185510712-10604624-1013
 WDAGUtilityAccount  S-1-5-21-1966530601-3185510712-10604624-504
 ```
-4. `cd <PSTOOLS PATH>` from the compromised Windows machine to
-```PowerShell to change into 
+4. Since 
+5. `cd <PSTOOLS PATH>` from the compromised Windows machine to change into where our PsExec64.exe program was in order to run the Registry Editor as SYSTEM, since in order for us to assign the Administrator's RID to our target user (thmuser3), we need to access the SAM using the Registry Editor which we won't be able to do since the SAM is restricted to the SYSTEM account only, which we currently aren't logged in as
+```PowerShell
 C:\>cd C:\tools\pstools
 ```
-5. `PsExec64 -i -s regedit` from the compromised Windows machine to 
+6. `PsExec64 -i -s regedit` from the compromised Windows machine to execute the PsExec64 command-line utility tool under the SYSTEM account, which allowed us to open the Registry Editor (**Regedit**) and manually set our target user's RID (1010) to the Administrator's RID (500), which we did by heading over to **Computer\HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Users**, opening the registry key that has our target user's RID (03F2) under hexadecimal format in its name, going inside and opening the "F" REG_BINARY file, and then finding and replacing our target user's RID (03F2), which is represented here in hexadecimal, and replacing it with the Administrator's RID (01F4) in hexadecimal format as well, and by doing so, the next time this user will connect and log in to the compromised machine, the LSASS will associate this user's RID with the Administrator's RID and it'll assign them their privileges
 ```PowerShell
 C:\tools\pstools>PsExec64 -i -s regedit
 
@@ -349,7 +350,7 @@ Sysinternals - www.sysinternals.com
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20New%20RID.png)
 
-6. `evil-winrm -i <TARGET IP> -u thmuser3 -p Password321` from our Linux attack machine to
+7. `evil-winrm -i <TARGET IP> -u thmuser3 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser3) using WinRM, which ended up not working since our user isn't part of the **Remote Management Group** by default, so instead we'll connect to the compromised machine using RDP
 ```Bash
 root@ip-10-10-28-182:~# evil-winrm -i 10.10.159.254 -u thmuser3 -p Password321
 
@@ -361,7 +362,7 @@ Error: An error of type WinRM::WinRMWSManFault happened, message is [WSMAN ERROR
 
 Error: Exiting with code 1
 ```
-7. `sudo remmina` from our Linux attack machine to launch **remmina**, which is a remote desktop client application that we'll use to remotely connect to the compromised machine using RDP, with root privileges
+8. `sudo remmina` from our Linux attack machine to launch **remmina**, which is a remote desktop client application that we'll use to remotely connect to the compromised machine using RDP, with root privileges
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open.png)
 
@@ -369,12 +370,12 @@ Error: Exiting with code 1
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open%20Command%20Prompt.png)
 
-8. `whoami` from the command line in our active WinRM session to
+9. `whoami` from the command line in our active WinRM session to see who we've logged in as onto our terminal, which showed us that we logged in as the Administrator
 ```PowerShell
 C:\Users\Administrator>whoami
 wpersistence\administrator
 ```
-9. `C:\flags\flag3.exe` from the command line in our active WinRM session to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
+10. `C:\flags\flag3.exe` from the command line in our active WinRM session to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Users\Administrator>C:\flags\flag3.exe
 THM{TRUST_ME_IM_AN_ADMIN}
