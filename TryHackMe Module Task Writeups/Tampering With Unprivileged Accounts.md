@@ -142,8 +142,8 @@ THM{FLAG_BACKED_UP!}
 **TASK COMPLETED**
 
 # Assigning Specific Privileges Using Security Descriptors
-1. Start this room's machine
-2. `PowerShell`
+1. Start this room's machine and TryHackMe's AttackBox
+2. `PowerShell` to open up PowerShell on the compromised Windows machine
 ```PowerShell
 C:\Users\Administrator>PowerShell
 Windows PowerShell
@@ -151,16 +151,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS C:\Users\Administrator>
 ```
-3. `cd \`
+3. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
-4. `whoami`
+4. `whoami` to display who we're running as onto our terminal, which revealed to us that we were running as administrator
 ```PowerShell
 PS C:\> whoami
 wpersistence\administrator
 ```
-5. `whoami /priv`
+5. `whoami /priv` to display all the privileges that the Administrator has on the compromised Windows machine, along with their descriptions, onto our terminal
 ```PowerShell
 PS C:\> whoami /priv
 
@@ -194,14 +194,14 @@ SeTimeZonePrivilege                       Change the time zone                  
 SeCreateSymbolicLinkPrivilege             Create symbolic links                                              Disabled
 SeDelegateSessionUserImpersonatePrivilege Obtain an impersonation token for another user in the same session Disabled
 ```
-6. `secedit /export /cfg {FILENAME1}.inf`
+6. `secedit /export /cfg {FILENAME1}.inf` to export the compromised machine's security configuration as an information file (**.inf**)
 ```PowerShell
 PS C:\> secedit /export /cfg CONFIG.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
 ```
-7. `dir`
+7. `dir` to verify that the compromised machine's security configuration has been successfully exported into an information file (**.inf**) onto our currently working directory within the compromised machine from where we executed the command from, which was the case
 ```PowerShell
 PS C:\> dir
 
@@ -225,14 +225,14 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/4/2023   2:56 AM          19318 CONFIG.inf
 ```
-8. `notepad {FILENAME1}.inf`
+8. `notepad {FILENAME1}.inf` to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text edit 
 ```PowerShell
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
 
-9. add thmuser 2 to both privileges
+9. Once the file has been opened, we'll go and add our target user (thmuser2) 
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
 
@@ -309,7 +309,7 @@ THM{IM_JUST_A_NORMAL_USER}
 
 # RID Hijacking
 1. Start this room's machine
-2. `cd \`
+2. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
