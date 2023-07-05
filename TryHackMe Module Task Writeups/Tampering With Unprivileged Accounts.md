@@ -225,14 +225,14 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/4/2023   2:56 AM          19318 CONFIG.inf
 ```
-8. `notepad {FILENAME1}.inf` to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text edit 
+8. `notepad {FILENAME1}.inf` to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
 ```PowerShell
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
 
-9. Once the file has been opened, we'll go and add our target user (thmuser2) 
+9. Once the file has been opened, we'll go and add our target user (thmuser2) at the end of the **SeBackupPrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform backup operations, and the **SeRestorePrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform restore operations
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
 
