@@ -137,7 +137,7 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\Administrator\Documents> 
 ```
-18. `C:\flags\flag1.exe` from the command line in our active WinRM session to run the flag1.exe program, which ended up displaying this task's flag onto our terminal
+18. `C:\flags\flag1.exe` from the command line in our active WinRM session to run the **flag1.exe** program, which ended up displaying this task's flag onto our terminal
 ```Bash
 *Evil-WinRM* PS C:\Users\Administrator\Documents> C:\flags\flag1.exe
 THM{FLAG_BACKED_UP!}
@@ -304,7 +304,7 @@ SeRestorePrivilege            Restore files and directories  Enabled
 SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
 SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
 ```
-17. `C:\flags\flag2.exe` to run the flag2.exe program, which ended up displaying this task's flag onto our terminal
+17. `C:\flags\flag2.exe` to run the **flag2.exe** program, which ended up displaying this task's flag onto our terminal
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser2\Documents> C:\flags\flag2.exe
 THM{IM_JUST_A_NORMAL_USER}
@@ -379,7 +379,7 @@ Error: Exiting with code 1
 C:\Users\Administrator>whoami
 wpersistence\administrator
 ```
-10. `C:\flags\flag3.exe` from the command line in our active WinRM session to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
+10. `C:\flags\flag3.exe` from the command line in our active WinRM session to run the **flag3.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Users\Administrator>C:\flags\flag3.exe
 THM{TRUST_ME_IM_AN_ADMIN}
