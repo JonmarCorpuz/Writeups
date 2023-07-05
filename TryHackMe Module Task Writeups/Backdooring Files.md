@@ -1,3 +1,6 @@
+# About This Module
+Module link: https://tryhackme.com/room/windowslocalpersistence
+
 # Shortcut Files
 1. Started up this room's machine
 2. Opened up the compromised Windows machine's calculator properties
