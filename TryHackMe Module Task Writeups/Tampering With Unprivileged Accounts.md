@@ -1,3 +1,6 @@
+# About This Module
+Module link: https://tryhackme.com/room/windowslocalpersistence
+
 # Assigning Group Memberships
 1. Start this room's machine
 2. `cd \` from the compromised Windows machine to ensure that we'll be executing the following commands starting from the root directory
