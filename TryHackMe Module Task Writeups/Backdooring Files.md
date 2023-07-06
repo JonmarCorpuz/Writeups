@@ -124,7 +124,7 @@ Listening on [0.0.0.0] (family 0, port 9999)
 
 6. Once our netcat listener, from the compromised Windows machine, we'll open any text file to execute our created payload, which ended up doing so and connecting back to our netcat listener on our attack machine 
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/txt%20File%20Opened.png)
 
 ```Bash
 root@ip-10-10-173-81:~# nc -lvnp 9999
