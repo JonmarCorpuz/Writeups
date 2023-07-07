@@ -51,7 +51,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-7. `C:\flags\flag9.exe`
+7. `C:\flags\flag9.exe` from our reverse shell to run the **flag9.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag9.exe
 C:\flags\flag9.exe
