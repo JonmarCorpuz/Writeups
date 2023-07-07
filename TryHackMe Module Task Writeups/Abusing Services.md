@@ -93,7 +93,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-12. `C:\flags\flag7.exe` from our reverse shell to run the flag7.exe program, which ended up displaying this task's flag onto our terminal
+12. `C:\flags\flag7.exe` from our reverse shell to run the **flag7.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag7.exe
 C:\flags\flag7.exe
@@ -216,7 +216,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-12. `C:\flags\flag8.exe` from our reverse shell to run the flag8.exe program, which ended up displaying this task's flag onto our terminal
+12. `C:\flags\flag8.exe` from our reverse shell to run the **flag8**.exe program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag8.exe
 C:\flags\flag8.exe
