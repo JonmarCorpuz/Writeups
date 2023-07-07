@@ -30,13 +30,11 @@ Copyright (C) 2001-2021 Mark Russinovich
 Sysinternals - www.sysinternals.com
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PsExec64.exe%20-s%20-i%20regedit.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20Delete%20HKLM%20SOFTWARE%20Microsoft%20Windows%20NT%20CurrentVersion%20Schedule%20TaskCache%20Tree.png)
 
-![]()
-
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20After%20Delete%20HKLM%20SOFTWARE%20Microsoft%20Windows%20NT%20CurrentVersion%20Schedule%20TaskCache%20Tree.png)
 
 5. `schtasks /query /tn THM-taskbackdoor`
 ```PowerShell
