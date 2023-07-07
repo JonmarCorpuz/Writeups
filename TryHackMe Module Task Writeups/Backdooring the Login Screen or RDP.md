@@ -27,11 +27,11 @@ Overwrite C:\Windows\System32\sethc.exe? (Yes/No/All): Yes
 ```
 5. Lock you screen and press **SHIFT** five times
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Sticky%20Keys%20pt1.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Sticky%20Keys%20pt.2.png)
 
-![]() 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Sticky%20Keys%20pt.3.png) 
 
 6. `C:\flags\flag14.exe`
 ```PowerShell
