@@ -134,11 +134,11 @@ PS C:\Users\Administrator>move revshell.exe C:\Windows
 PS C:\Users\Administrator> regedit
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Open.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20HKEY_LOCAL_MACHINE%20Software%20Microsoft%20Windows%20CurrentVersion%20Run.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20HKEY_LOCAL_MACHINE%20Software%20Microsoft%20Windows%20CurrentVersion%20Run%20Payload.png)
 
 9. Sign out and log back in
 
