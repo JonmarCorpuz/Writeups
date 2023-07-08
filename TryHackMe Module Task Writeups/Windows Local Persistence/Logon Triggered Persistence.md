@@ -259,11 +259,11 @@ PS C:\Users\Administrator>move revshell.exe C:\Windows
 C:\Users\Administrator>regedit
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Open.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Winlogon.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Winlogon%20pt2.png)
 
 10. Sign out and log back in
 
