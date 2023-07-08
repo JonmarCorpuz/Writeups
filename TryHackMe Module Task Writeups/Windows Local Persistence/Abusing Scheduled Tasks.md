@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/06/2023
+This writeup was last updated: 07/08/2023
 
 # Task Scheduler
 1. Started this task's machine
@@ -58,4 +58,4 @@ C:\flags\flag9.exe
 THM{JUST_A_MATTER_OF_TIME}
 ```
 
-**TASK COMPLETED**
+**TASK COMPLETED!**
