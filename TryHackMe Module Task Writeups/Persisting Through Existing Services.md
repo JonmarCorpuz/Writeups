@@ -169,3 +169,6 @@ Connection from 10.10.138.69 49758 received!
 PS C:\Windows\system32> C:\flags\flag17.exe
 THM{I_LIVE_IN_YOUR_DATABASE}
 ```
+
+
+**TASK COMPLETED!**
