@@ -254,18 +254,16 @@ d-r---        3/17/2021   3:13 PM                Videos
 PS C:\Users\Administrator>move revshell.exe C:\Windows
         1 file(s) moved.
 ```
-9. `regedit` from the compromised Windows machine to open the Registry Editor (**regedit**)
+9. `regedit` from the compromised Windows machine to open the Registry Editor (**regedit**), which we'll then head to **HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon** and append the path to our payload to the **UserInit** registry's value, which is a Windows Registry that specifies the path to an executable file that's executed during the user login process
 ```PowerShell
 C:\Users\Administrator>regedit
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Open.png)
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Winlogon.png)
-
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Winlogon%20pt2.png)
 
-10. Sign out and log back in
+10. After successfully executing the previous tasks, we'll log out and then log back in to the compromised Windows machine, which upon logging in, creates a reverse shell that connects back to our attack machine's netcat listener
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Sign%20Out.png)
 
@@ -354,7 +352,7 @@ d-r---        3/17/2021   3:13 PM                Videos
 PS C:\Users\Administrator>move revshell.exe C:\Windows
         1 file(s) moved.
 ```
-9. `regedit`
+9. `regedit` from the compromised Windows machine to open up their Registry Editor (**regedit**), which we'll then go to the **HKCU\Environment** registry key, which stores the environment variables for the currently logged-in user, and add the **UserInitMprLogonScript** registry, which is a registry that executes logon scripts during a user's login, and set its value as the path to our payload to, which will execute our payload after logging in
 ```PowerShell
 C:\Users\Administrator>regedit
 ```
@@ -365,7 +363,7 @@ C:\Users\Administrator>regedit
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Current%20User%20Environment%20pt2.png)
 
-10. Sign out and log back in
+10. After we've successfulle execute the previous tasks and commands, we'll log out and then log back into the compromised Windows machine, which ended up executing our payload and creating a reverse shell that connected back to our attack machine's active netcat listener
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Sign%20Out.png)
 
