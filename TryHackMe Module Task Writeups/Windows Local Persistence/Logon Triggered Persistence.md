@@ -3,7 +3,7 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/08/2023
+This writeup was last updated: 07/09/2023
 
 # Startup Folder
 1. Started up this task's machine
@@ -352,7 +352,7 @@ d-r---        3/17/2021   3:13 PM                Videos
 PS C:\Users\Administrator>move revshell.exe C:\Windows
         1 file(s) moved.
 ```
-9. `regedit` from the compromised Windows machine to open up their Registry Editor (**regedit**), which we'll then go to the **HKCU\Environment** registry key, which stores the environment variables for the currently logged-in user, and add the **UserInitMprLogonScript** registry, which is a registry that executes logon scripts during a user's login, and set its value as the path to our payload to, which will execute our payload after logging in
+9. `regedit` from the compromised Windows machine to open up their Registry Editor (**regedit**), which we'll then go to the **HKCU\Environment** registry, which stores the environment variables for the currently logged-in user, and add the **UserInitMprLogonScript** registry, which is a registry that executes logon scripts during a user's login, and set its value as the path to our payload to, which will execute our payload after logging in
 ```PowerShell
 C:\Users\Administrator>regedit
 ```
