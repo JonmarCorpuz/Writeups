@@ -6,7 +6,7 @@ Module link: https://tryhackme.com/room/windowsprivesc20
 This writeup was last updated: 07/08/2023
 
 # PowerShell History
-1. Started this room's machine
+1. Started this task's machine
 2. `%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt` from the compromised Windows machine
 ```PowerShell
 C:\Users\thm-unpriv>%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
