@@ -12,7 +12,7 @@ This writeup was last updated: 07/08/2023
 C:\Users\thm-unpriv>%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20History%20pt1.png)
 
 # Saved Windows Credentials
 1. Started this room's machine
