@@ -23,11 +23,19 @@ This writeup was last updated: 07/13/2023
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt5.png)
 
+
+**TASK COMPLETED!**
+
+
 ## What is the parent process ID of the previous process?
 
 3. Clicking on the first result opens up an Event Properties window in the Event tab, in which we can see this process' parent PID
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt6.png)
+
+
+**TASK COMPLETED!**
+
 
 ## What is the integrity level of the process?
 
