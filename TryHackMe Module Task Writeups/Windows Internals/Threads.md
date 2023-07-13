@@ -25,6 +25,10 @@ This writeup was last updated: 07/13/2023
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Threads%20pt1.png)
 
+
+**TASK COMPLETED!**
+
+
 ## What is the stack argument of the previous thread?
 
 4. Clicking on the first top result, which is the previous thread, opens up an Event Properties window in its Event tab, in which we can see this process' thread ID
