@@ -34,3 +34,6 @@ This writeup was last updated: 07/13/2023
 4. In the same Event Properties window, we'll go to the Process tab, in which we'll find the integrity level of this process
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt7.png)
+
+
+**TASK COMPLETED!**
