@@ -6,7 +6,8 @@ Module link: https://tryhackme.com/room/windowslocalpersistence
 This writeup was last updated: 07/12/2023
 
 # Tasks
-> What is the process ID of "notepad.exe"?
+
+## What is the process ID of "notepad.exe"?
 
 1. Open up the Logfile.PML file using Procmon by first launching Procmon and then opening the Logfile.PML file
 
@@ -22,13 +23,13 @@ This writeup was last updated: 07/12/2023
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt5.png)
 
-> What is the parent process ID of the previous process?
+## What is the parent process ID of the previous process?
 
 3. Clicking on the first result opens up an Event Properties window in the Event tab, in which we can see this process' parent PID
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt6.png)
 
-> What is the integrity level of the process?
+## What is the integrity level of the process?
 
 4. In the same Event Properties window, we'll go to the Process tab, in which we'll find the integrity level of this process
 
