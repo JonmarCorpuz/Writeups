@@ -9,7 +9,7 @@ This writeup was last updated: 07/13/2023
 
 ## What is the process ID of "notepad.exe"?
 
-1. Open up the Logfile.PML file using Procmon by first launching Procmon and then opening the Logfile.PML file
+1. Open up the Logfile.PML file using Procmon by first launching Procmon, which is a Microsoft Sysinternals tool that monitors and logs system activities in real-time, and then opening the Logfile.PML (Process Monitor Log) file
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Processes%20pt1.png)
 
