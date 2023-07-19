@@ -112,6 +112,11 @@ kenobi@kenobi:~$
 ```
 
 ```Bash
+kenobi@kenobi:~$ whoami
+kenobi
+```
+
+```Bash
 kenobi@kenobi:~$ cat /home/kenobi/user.txt 
 d0b0f3f53b6caa532a83915e19224899
 ```
