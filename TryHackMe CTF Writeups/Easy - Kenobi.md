@@ -1,3 +1,11 @@
+# Room Information
+
+Room link: [https://tryhackme.com/room/kenobi](https://tryhackme.com/room/kenobi)
+
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 07/20/2023
+
 # Task 1: Deploy the Vulnerable Machine
 
 
