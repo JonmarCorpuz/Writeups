@@ -86,3 +86,5 @@ HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\My%20ssh%20server
 
 End of search: 10 match(es) found.
 ```
+
+# Other Quick Wins
