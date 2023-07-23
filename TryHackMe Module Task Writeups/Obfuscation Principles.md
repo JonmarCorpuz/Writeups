@@ -1,6 +1,6 @@
 
-# Task: Object Concatenation
+# Object Concatenation
 
-# Task: Arbitrary Control Flow Patterns
+# Arbitrary Control Flow Patterns
 
-# Task: Protecting and Stripping Identifiable Information
+# Protecting and Stripping Identifiable Information
