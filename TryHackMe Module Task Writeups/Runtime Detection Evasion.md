@@ -24,3 +24,24 @@ PS C:\Users\THM-Attacker> [Ref].Assembly.GetType('System.Management.Automation.A
 ![]()
 
 # Patching AMSI
+
+![]()
+
+```PowerShell
+C:\Users\THM-Attacker>cd Desktop
+```
+
+```PowerShell
+C:\Users\THM-Attacker\Desktop>PowerShell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+```
+
+```PowerShell
+PS C:\Users\THM-Attacker\Desktop> .\bypass.ps1
+True
+```
+
+![]()
+
+![]()
