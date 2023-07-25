@@ -44,6 +44,6 @@ PS C:\Users\THM-Attacker\Desktop> .\bypass.ps1
 True
 ```
 
-![]https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Patching%20AMSI%20pt2.png()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Patching%20AMSI%20pt2.png)
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Patching%20AMSI%20pt3.png)
