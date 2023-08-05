@@ -248,19 +248,149 @@ THM{17_h45_l3553r_l3773r5}
 
 # Task 13
 
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ firefox 'https://www.splitbrain.org/_static/ook/'
+```
+
+![]()
+
+![]()
+
+![]()
+
 # Task 14
+
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ python                                                               
+Python 3.10.8 (main, Nov  4 2022, 09:21:25) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> s1 = "44585d6b2368737c65252166234f20626d"
+>>> s2 = "1010101010101010101010101010101010"
+>>> tmp = hex(int(s1, 16) ^ int(s2, 16))[2:]
+>>> bytes.fromhex(tmp).decode('utf-8')
+'THM{3xclu51v3_0r}'
+```
 
 # Task 15
 
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ binwalk ~/Downloads/hell.jpg --verbose
+
+Scan Time:     2023-08-05 08:06:11
+Target File:   /home/kali/Downloads/hell.jpg
+MD5 Checksum:  70274357b4c2eb0d1500b42716e713ed
+Signatures:    411
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             JPEG image data, JFIF standard 1.02
+30            0x1E            TIFF image data, big-endian, offset of first image directory: 8
+265845        0x40E75         Zip archive data, at least v2.0 to extract, uncompressed size: 69, name: hello_there.txt
+266099        0x40F73         End of Zip archive, footer length: 22
+```
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ ls ~/Downloads/_hell.jpg.extracted
+40E75.zip  hello_there.txt
+```
+```Bash            
+┌──(kali㉿kali)-[~]
+└─$ cat ~/Downloads/_hell.jpg.extracted/hello_there.txt 
+Thank you for extracting me, you are the best!
+
+THM{y0u_w4lk_m3_0u7}
+```
+
 # Task 16
+
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ wget https://github.com/zardus/ctf-tools/blob/master/stegsolve/install
+--2023-08-05 08:11:49--  https://github.com/zardus/ctf-tools/blob/master/stegsolve/install
+Resolving github.com (github.com)... 140.82.114.3
+Connecting to github.com (github.com)|140.82.114.3|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 11992 (12K) [text/plain]
+Saving to: ‘install’
+
+install                      100%[==============================================>]  11.71K  --.-KB/s    in 0.01s   
+
+2023-08-05 08:11:49 (785 KB/s) - ‘install’ saved [11992/11992]
+```
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ chmod +x stegsolve.jar
+```
+```Bash            
+┌──(kali㉿kali)-[~]
+└─$ mkdir bin
+```
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ mv stegsolve.jar bin/
+```
+```Bash
+┌──(kali㉿kali)-[~/bin]
+└─$ java -jar stegsolve.jar
+
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+```
+
+![]()
+
+![]()
+
+![]()
+
+![]()
 
 # Task 17
 
+![]()
+
+![]()
+
+![]()
+
+![]()
+
 # Task 18
+
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ firefox 'https://archive.org/web/'
+```
+
+![]()
+
+![]()
+
+![]()
+
+![]()
 
 # Task 19
 
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ firefox 'https://www.guballa.de/vigenere-solver'
+```
+
 # Task 20
+
+```Bash
+┌──(kali㉿kali)-[~]
+└─$ firefox 'https://www.rapidtables.com/convert/number/decimal-to-hex.html'
+```
+
+![]()
+
+![]()
+
+![]()
 
 # Task 21
 
