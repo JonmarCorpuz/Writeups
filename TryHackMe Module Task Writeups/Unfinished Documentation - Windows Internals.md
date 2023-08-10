@@ -1,5 +1,5 @@
 
-# Task: Processes
+# Processes
 
 ## What is the process ID of "notepad.exe"?
 
@@ -40,7 +40,7 @@
 
 **TASK COMPLETED!**
 
-# Task: Threads
+# Threads
 
 ## What is the thread ID of the first thread created by notepad.exe?
 
@@ -73,7 +73,7 @@
 
 **TASK COMPLETED!**
 
-# Task: Virtual Memory
+# Virtual Memory
 
 ## What is the base address of "notepad.exe"?
 
@@ -102,7 +102,7 @@
 
 **TASK COMPLETED!**
 
-# Task: Dynamic Link Libraries
+# Dynamic Link Libraries
 
 ## What is the base address and the size of "ntdll.dll" loaded from "notepad.exe"?
 
