@@ -1,10 +1,10 @@
-# TryHackMe's Windows Internals Room Information
+# Room Information
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Banner%20-%20Windows%20Internals.png)
 
 Room link: [Windows Internals](https://tryhackme.com/room/windowsinternals)
 
-# TryHackMe's Windows Internals Task Writeups
+# Task Writeups
 
 ## Processes
 
