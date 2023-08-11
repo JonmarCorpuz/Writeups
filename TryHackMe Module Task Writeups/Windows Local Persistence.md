@@ -1,5 +1,8 @@
-# About This Module
-Module link: https://tryhackme.com/room/windowslocalpersistence
+# Room Information
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Banner%20-%20Windows%20Local%20Persistence.png)
+
+Room link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
