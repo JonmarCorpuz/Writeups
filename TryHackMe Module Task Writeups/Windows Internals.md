@@ -1,7 +1,14 @@
+# TryHackMe's Windows Internals Room Information
 
-# Processes
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Banner%20-%20Windows%20Internals.png)
 
-## What is the process ID of "notepad.exe"?
+Room link: [Windows Internals](https://tryhackme.com/room/windowsinternals)
+
+# TryHackMe's Windows Internals Task Writeups
+
+## Processes
+
+### What is the process ID of "notepad.exe"?
 
 1. Open up the Logfile.PML file using Procmon by first launching Procmon, which is a Microsoft Sysinternals tool that monitors and logs system activities in real-time, and then opening the Logfile.PML (Process Monitor Log) file
 
@@ -21,7 +28,7 @@
 **TASK COMPLETED!**
 
 
-## What is the parent process ID of the previous process?
+### What is the parent process ID of the previous process?
 
 3. Clicking on the first result opens up an Event Properties window in the Event tab, in which we can see this process' parent PID
 
@@ -30,8 +37,7 @@
 
 **TASK COMPLETED!**
 
-
-## What is the integrity level of the process?
+### What is the integrity level of the process?
 
 4. In the same Event Properties window, we'll go to the Process tab, in which we'll find the integrity level of this process
 
@@ -40,9 +46,9 @@
 
 **TASK COMPLETED!**
 
-# Threads
+## Threads
 
-## What is the thread ID of the first thread created by notepad.exe?
+### What is the thread ID of the first thread created by notepad.exe?
 
 1. Open up the Logfile.PML file using Procmon by first launching Procmon, which is a Microsoft Sysinternals tool that monitors and logs system activities in real-time, and then opening the Logfile.PML (Process Monitor Log) file
 
@@ -63,8 +69,7 @@
 
 **TASK COMPLETED!**
 
-
-## What is the stack argument of the previous thread?
+### What is the stack argument of the previous thread?
 
 4. Clicking on the first top result, which is the previous thread, opens up an Event Properties window in its Event tab, in which we can see this process' thread ID
 
@@ -73,9 +78,9 @@
 
 **TASK COMPLETED!**
 
-# Virtual Memory
+## Virtual Memory
 
-## What is the base address of "notepad.exe"?
+### What is the base address of "notepad.exe"?
 
 1. Open up the Logfile.PML file using Procmon by first launching Procmon, which is a Microsoft Sysinternals tool that monitors and logs system activities in real-time, and then opening the Logfile.PML (Process Monitor Log) file
 
@@ -102,9 +107,9 @@
 
 **TASK COMPLETED!**
 
-# Dynamic Link Libraries
+## Dynamic Link Libraries
 
-## What is the base address and the size of "ntdll.dll" loaded from "notepad.exe"?
+### What is the base address and the size of "ntdll.dll" loaded from "notepad.exe"?
 
 1. Open up the Logfile.PML file using Procmon by first launching Procmon, which is a Microsoft Sysinternals tool that monitors and logs system activities in real-time, and then opening the Logfile.PML (Process Monitor Log) file
 
@@ -133,8 +138,7 @@
 
 **TASK COMPLETED!**
 
-
-## How many DLLs were loaded by "notepad.exe"?
+### How many DLLs were loaded by "notepad.exe"?
 
 4. We'll add another filter to show results for any DLL that were loaded by **notepad.exe** by searching for any paths with the **.dll** extension, which would allow to us to see how many DLLs were loaded by notepad.exe
 
@@ -145,9 +149,9 @@
 
 **TASK COMPLETED!**
 
-# Portable Executable Format
+## Portable Executable Format
 
-## What is the entry point reported by DiE and what is the value of "NumberOfSections"??
+### What is the entry point reported by DiE and what is the value of "NumberOfSections"??
 
 1. We'll first launch DiE (Detect it Easy)
 
@@ -166,8 +170,7 @@
 
 **TASK COMPLETED!**
 
-
-## What is the virtual address of ".data"?
+### What is the virtual address of ".data"?
 
 3. Clicking clicking on the **PE** button will open a small window displaying more information about the executable file, including the virtual address of **.data**, which refers to a specific section within an executable file that is dedicated to storing initialized or pre-defined data used by the program 
 
@@ -178,8 +181,7 @@
 
 **TASK COMPLETED!**
 
-
-## What string is located at the offset "0001f99c"?
+### What string is located at the offset "0001f99c"?
 
 4. In the small window we have opened, we'll go to the **Strings** section and go down until we find the string that we're looking for that's located at the specified offset
 
@@ -188,7 +190,7 @@
 
 **TASK COMPLETED!**
 
-# Interacting With Windows Internals
+## Interacting With Windows Internals
 
 1. Changed to the compromised machine's root directory and searched for the `inject-poc.exe' executable
 
