@@ -4,6 +4,10 @@
 
 Room link: [Windows Internals](https://tryhackme.com/room/windowsinternals)
 
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 08/11/2023
+
 # Task Writeups
 
 ## Processes
