@@ -189,3 +189,33 @@
 **TASK COMPLETED!**
 
 # Interacting With Windows Internals
+
+1. Changed to the compromised machine's root directory and searched for the `inject-poc.exe' executable
+
+```PowerShell
+C:\Users\THM-Attacker>cd /
+```
+```PowerShell
+C:\>dir /s "inject-poc.exe"
+Volume in drive C has no label.
+Volume Serial Number is A8A4-C362
+Directory of C:\Users\THM-Attacker\Desktop\Process Injection POC                                                                                                                                 01/16/2022  10:49 PM             9,728 inject-poc.exe                                                           1 File(s)          9,728 bytes
+
+     Total Files Listed:
+               1 File(s)          9,728 bytes
+               0 Dir(s)  11,371,859,968 bytes free
+```
+
+2. Once we got the executable's location, we executed it, which ended up giving us this task's flag
+
+```PowerShell
+C:\>cd C:\Users\THM-Attacker\Desktop\Process Injection POC
+```
+```PowerShell
+C:\Users\THM-Attacker\Desktop\Process Injection POC>inject-poc.exe                                                                                                                                   shellcode length: 282
+```
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Interacting%20With%20Windows%20Internals%20pt2.png)
+
+
+**TASK COMPLETED!**
