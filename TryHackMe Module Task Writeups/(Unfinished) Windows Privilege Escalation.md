@@ -96,7 +96,7 @@ THM{WHAT_IS_MY_PASSWORD}
 
 ### Retrieve Credentials from PuTTY
 1. Started up this task's machine
-2. 
+2. `reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s` from the compromised Windows machine to retrieve the stored proxy credentials that are saved in the current PuTTY session under our current user's profile, which revealed to us the password for the thom.smith user
 ```PowerShell
 C:\Users\thm-unpriv>reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 
