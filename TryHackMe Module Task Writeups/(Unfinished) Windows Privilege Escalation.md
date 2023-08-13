@@ -857,8 +857,3 @@ The command completed successfully.
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 THM{EZ_DLL_PROXY_4ME}
 ```
-
-
-## Tools of the Trade
-
-
