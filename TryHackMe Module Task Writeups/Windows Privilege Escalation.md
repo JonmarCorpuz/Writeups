@@ -796,20 +796,18 @@ THM{SEFLAGPRIVILEGE}
 
 ## Abusing Vulnerable Software
 
-1. Started this task's machine
-2. `notepad.exe` from the compromised Windows machine to open up Notepad
+1. Started this task's machine, which is running Druva inSync 6.6.3, which is vulnerable to privilege escalation as reported by [Matteo Malvica](https://www.matteomalvica.com/blog/2020/05/21/lpe-path-traversal/) cause from a bad patch that was applied over another vulnerability reported initally by version 6.5.0 by [Chris Lyna](https://www.tenable.com/security/research/tra-2020-12)
+2. `notepad.exe` from the compromised Windows machine to open up Notepad and copy paste [Matteo Malvica](https://www.matteomalvica.com/blog/2020/05/21/lpe-path-traversal/)'s exploit, which will allow us to elevate our privileges by creating a new user and adding it to the administrator's group
 ```PowerShell
 C:\Users\thm-unpriv>notepad.exe
 ```
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt1.png)
 
-3. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt2.png)
 
-4. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt3.png)
 
-5. 
+3. `PowerShell.exe <EXPLOIT>` from the compromised Windows machine to run [Matteo Malvica](https://www.matteomalvica.com/blog/2020/05/21/lpe-path-traversal/)'s exploit
 ```PowerShell
 C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
 22
@@ -818,7 +816,7 @@ C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
 280
 ```
 
-6. 
+4. `net user <USER>` from the compromised Windows machine to verify that the exploit worked properly and created our user and added it to the administrator group, which it did
 ```PowerShell
 C:\Users\thm-unpriv>net user pwnd
 User name                    pwnd
@@ -848,21 +846,19 @@ Global Group memberships     *None
 The command completed successfully.
 ```
 
-7. 
+5. Now we'll open a new command prompt but this time we'll run it as administrator and log in as the user that [Matteo Malvica](https://www.matteomalvica.com/blog/2020/05/21/lpe-path-traversal/)'s exploit created for us, which ended up working and providing us with an Administrator command prompt
+
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt4.png)
 
-8. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt5.png)
 
-9. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt6.png)
 
-10. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt7.png)
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt8.png)
 
-11. `type <FILENAME>` from the compromised Windows machine
+11. `type <FILENAME>` from the Administrator terminal that we just opened on the compromised Windows machine to display the contents of the file containing this task's flag
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 THM{EZ_DLL_PROXY_4ME}
