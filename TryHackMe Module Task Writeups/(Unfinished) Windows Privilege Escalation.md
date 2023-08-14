@@ -797,17 +797,19 @@ THM{SEFLAGPRIVILEGE}
 ## Abusing Vulnerable Software
 
 1. Started this task's machine
-2. `notepad.exe` from the compromised Windows machine 
+2. `notepad.exe` from the compromised Windows machine to open up Notepad
 ```PowerShell
 C:\Users\thm-unpriv>notepad.exe
 ```
-
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt1.png)
 
+3. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt2.png)
 
+4. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt3.png)
 
+5. 
 ```PowerShell
 C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
 22
@@ -816,6 +818,7 @@ C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
 280
 ```
 
+6. 
 ```PowerShell
 C:\Users\thm-unpriv>net user pwnd
 User name                    pwnd
@@ -845,16 +848,21 @@ Global Group memberships     *None
 The command completed successfully.
 ```
 
+7. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt4.png)
 
+8. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt5.png)
 
+9. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt6.png)
 
+10. 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt7.png)
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt8.png)
 
+11.
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 THM{EZ_DLL_PROXY_4ME}
