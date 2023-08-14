@@ -802,11 +802,11 @@ THM{SEFLAGPRIVILEGE}
 C:\Users\thm-unpriv>notepad.exe
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt1.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt2.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt3.png)
 
 ```PowerShell
 C:\Users\thm-unpriv>PowerShell.exe C:\Users\thm-unpriv\Documents\Exploit.ps1
@@ -845,13 +845,13 @@ Global Group memberships     *None
 The command completed successfully.
 ```
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt4.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt5.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt6.png)
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt7.png)
 
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
