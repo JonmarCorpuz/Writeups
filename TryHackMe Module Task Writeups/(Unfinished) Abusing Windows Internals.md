@@ -1,5 +1,8 @@
+# Room Information
 
-# Task 1: Abusing Processes
+# Room Tasks
+
+## Abusing Processes
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt1.png)
 
@@ -110,7 +113,7 @@ PS C:\Users\THM-Attacker\Desktop\Injectors> .\shellcode-injector.exe 4968
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt6.png)
 
 
-# Task 2: Expanding Process Abuse
+## Expanding Process Abuse
 
 
 ```C
@@ -390,7 +393,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 ```
 
 
-# Task 3: Abusing Process Components
+## Abusing Process Components
 
 
 ```C
@@ -512,7 +515,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 ```
 
 
-# Task 4: Abusing DLLs
+## Abusing DLLs
 
 ```C
 #include <windows.h>
