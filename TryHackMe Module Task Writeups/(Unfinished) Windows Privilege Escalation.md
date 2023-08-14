@@ -853,6 +853,8 @@ The command completed successfully.
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt7.png)
 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Vulnerable%20Software%20pt8.png)
+
 ```PowerShell
 C:\Windows\system32>type C:\Users\Administrator\Desktop\flag.txt
 THM{EZ_DLL_PROXY_4ME}
