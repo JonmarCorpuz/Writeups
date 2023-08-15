@@ -1,5 +1,8 @@
+# Room Information
 
-# PowerShell Downgrade
+# Room Tasks
+
+## PowerShell Downgrade
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Downgrade%20pt0.png)
 
@@ -13,7 +16,7 @@ Copyright (C) 2009 Microsoft Corporation. All rights reserved.
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Downgrade%20pt2.png)
 
-# PowerShell Reflection
+## PowerShell Reflection
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Reflection%20pt1.png)
 
@@ -25,7 +28,7 @@ PS C:\Users\THM-Attacker> [Ref].Assembly.GetType('System.Management.Automation.A
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Reflection%20pt3.png)
 
-# Patching AMSI
+## Patching AMSI
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Patching%20AMSI%20pt1.png)
 
