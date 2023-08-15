@@ -1,5 +1,13 @@
 # Room Information
 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Banner%20-%20Abusing%20Windows%20Internals.png)
+
+Room link: https://tryhackme.com/room/abusingwindowsinternals
+
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 08/15/2023
+
 # Room Tasks
 
 ## Abusing Processes
