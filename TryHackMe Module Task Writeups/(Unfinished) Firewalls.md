@@ -1,5 +1,16 @@
+# Room Information 
 
-# Evasion via Modifying Header Fields
+![]()
+
+Room link: https://tryhackme.com/room/redteamfirewalls
+
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 08/15/2023
+
+# Room Tasks
+
+## Evasion via Modifying Header Fields
 
 ```Bash
 root@ip-10-10-216-160:~# nmap -ttl 2 10.10.21.218
@@ -17,7 +28,7 @@ MAC Address: 02:21:EC:C8:1A:51 (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 17.96 seconds
 ```
 
-# Evasion via Modifying Header Fields
+## Evasion via Modifying Header Fields
 
 ```Bash
 root@ip-10-10-216-160:~# nmap --badsum 10.10.21.218
@@ -31,7 +42,7 @@ MAC Address: 02:21:EC:C8:1A:51 (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 21.45 seconds
 ```
 
-# Evasion Using Port Hopping 
+## Evasion Using Port Hopping 
 
 ```Bash
 root@ip-10-10-216-160:~# nc -lvnp 21
@@ -51,7 +62,7 @@ Listening on [0.0.0.0] (family 0, port 21)
 Connection from 10.10.87.92 38304 received!
 ```
 
-# Evasion Using Port Tunneling
+## Evasion Using Port Tunneling
 
 ```Bash
 root@ip-10-10-173-37:~# nc -lvnp 21
