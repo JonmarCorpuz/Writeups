@@ -1,6 +1,6 @@
 # Room Information 
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Banner%20-%20Firewalls.png)
 
 Room link: https://tryhackme.com/room/redteamfirewalls
 
