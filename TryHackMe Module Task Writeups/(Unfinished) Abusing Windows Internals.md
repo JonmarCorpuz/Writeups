@@ -104,8 +104,9 @@ PS C:\Users\THM-Attacker\Desktop\Injectors> .\shellcode-injector.exe 1760
 
 ## Expanding Process Abuse
 
-
-```C
+1. Started up this task's machine
+2. Create a process hollowing script containing the following code: 
+```cpp
 #include <stdio.h>
 #include <Windows.h>
 
@@ -381,6 +382,10 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
     203      12     3636       9672              4804   0 WmiPrvSE
 ```
 
+```PowerShell
+```
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Expanding%20Process%20Abuse%20pt1.png)
 
 ## Abusing Process Components
 
