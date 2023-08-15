@@ -92,7 +92,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 PS C:\Users\THM-Attacker> cd .\Desktop\Injectors\
 ```
 
-5. `<EXPLOIT> <PID>` from the Windows machine while providing a PID of a process that's running under the current user we're running as, for which we chose 1760 as the PID since that's the PID for PowerShell, which we are currently running, and by doing so we've successfully managed to inject shellcode into the target process, which ended up giving us the flag for this task
+5. `.\<EXPLOIT> <PID>` from the Windows machine while providing a PID of a process that's running under the current user we're running as, for which we chose 1760 as the PID since that's the PID for PowerShell, which we are currently running, and by doing so we've successfully managed to inject shellcode into the target process, which ended up giving us the flag for this task
 ```PowerShell
 PS C:\Users\THM-Attacker\Desktop\Injectors> .\shellcode-injector.exe 1760
 ```
