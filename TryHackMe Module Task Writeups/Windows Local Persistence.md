@@ -6,7 +6,7 @@ Room link: https://tryhackme.com/room/windowslocalpersistence
 
 **Please feel free to point out any errors that you may see in this writeup!**
 
-This writeup was last updated: 07/22/2023
+This writeup was last updated: 08/16/2023
 
 # Tampering With Privileged Accounts
 
@@ -29,7 +29,7 @@ The command completed successfully.
 ```
 5. `reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v /EnableLUA` from the compromised Windows machine to check if Microsoft's UAC is active on our compromised machine and display the results onto our terminal, which ended up being the case (1 meaning that it's enabled) and therefore preventing us from running any administrative privileges when remotely connecting back to the compromised machine since it strips the user who's remotely connecting to the compromised system from any administrative privileges that they may have by disabling their access to the privileges of the groups that they're a part of that have full or certain administrator privileges, which in this case was the **Backup Operators** group
 ```PowerShell
-C:\>reg query HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA
+C:\>reg query "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA"
 
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
     EnableLUA    REG_DWORD    0x1
