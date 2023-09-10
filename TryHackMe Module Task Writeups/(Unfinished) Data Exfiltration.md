@@ -1,5 +1,13 @@
 # Room Information
 
+![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20Module%20Task%20Writeups/Assets/Data%20Exfiltration%20Banner.png)
+
+Room link: https://tryhackme.com/room/dataxexfilt
+
+**Please feel free to point out any errors that you may see in this writeup!**
+
+This writeup was last updated: 09/10/2023
+
 # Room Tasks
 
 ## Exfiltrate Using HTTP(S)
