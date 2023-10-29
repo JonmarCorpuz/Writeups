@@ -674,8 +674,7 @@ DesKel a.k.a Agent R
 + `> {FILENAME1}.txt` redirects the results into a text file
 
 # Contributions
-This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
-
+This writeup was made by Jonmar Corpuz.
 
 Socials:
 * TryHackMe ID: https://tryhackme.com/p/mtlfriends
