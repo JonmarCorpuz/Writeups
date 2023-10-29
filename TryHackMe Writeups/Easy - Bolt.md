@@ -174,7 +174,7 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://{TARGET IP}:8000"
 ```
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/homepage.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/homepage.png)
 
 7. `firefox "http://{TARGET IP}:8000/entries"` to launch firefox and redirect it to the target's **/entries** web directory, which reveals two separate messages from the admin where one conatains their password while the other contains their username
 ```bash
@@ -182,25 +182,25 @@ DOWNLOADED: 4612 - FOUND: 5
 └─$ firefox "http://{TARGET IP}:8000/entries"
 ```
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/entries.png)
+![](hhttps://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/entries.png)
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/entries%20pt%202.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/entries%20pt%202.png)
 
 8. `firefox "https://www.google.com/search?client=firefox-b-d&q=boltcms"` to launch firefox and redirect it to Google's search results for "boltcms" to search for their official documentation, which ended up being the first link that popped up for us (**https://docs.boltcms.io**)
   
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20Documentation.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/Boltcms%20Documentation.png)
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/THM%20-%20Bolt/Boltcms.png)
 
 9. `https://docs.boltcms.io/5.0/manual/login` to head to the Bolt CMS user manual in the login section, which revealed that going to **https://{TARGET IP}/bolt** will bring you to the Bolt CMS manager login page, where you can go and log in to your site's Bolt CMS manager dashboard
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Boltcms%20User%20Manual.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/Boltcms%20User%20Manual.png)
 
 10. `firefox "http://10.10.195.64:8000/bolt"` to laucnh Firefox and redirect it to the Boltcms login page for our target's web server where we can attempt to sign in using the admin's credentials that he publicly shared, which ended up logging us in to the target's Bolt CMS manager dashboard for which we can see the version of version of Bolt that they're running on the bottom left 
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/THM%20-%20Bolt/Sign%20in%20to%20Bolt.png)
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/THM%20-%20Bolt/BoltCMS%20Version%20(Dashboard).png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/THM%20-%20Bolt/BoltCMS%20Version%20(Dashboard).png)
 
 # Vulnerability Identification
 > Vulnerability Identification Using Metasploit
@@ -547,7 +547,7 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 
 **Room completed!**
 
-![](https://github.com/JonmarCorpuz/TryHackMe-Writeups/blob/main/TryHackMe%20CTF%20Writeups/Assets/TryHackMe%20-%20Bolt.png)
+![](https://github.com/JonmarCorpuz/Writeups/blob/main/TryHackMe%20Writeups/Assets/TryHackMe%20-%20Bolt.png)
 
 # Command History
 1. `nmap -sC -sV {TARGET-IP} > {FILENAME1}.txt`
@@ -589,8 +589,7 @@ THM{wh0_d035nt_l0ve5_b0l7_r1gh7?}
 
 
 # Contributions
-This writeup was made by Jonmar Corpuz, founder of **KnowCybersecurity** (www.knowwwcybersecurity.com)
-
+This writeup was made by Jonmar Corpuz.
 
 Socials:
 * TryHackMe ID: https://tryhackme.com/p/mtlfriends
