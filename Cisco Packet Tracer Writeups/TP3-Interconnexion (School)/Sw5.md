@@ -19,6 +19,8 @@
 - [ ] PCs obtiennent leurs adresses de manière dynamique
 - [ ] Téléphones IP obtiennent leurs adresses de manière dynamique
 - [ ] Toutes les passerelles sont configurées sur une interface VLAN
+- [ ] Création d'un serveur DHCP pour chaque batiment
+- [ ] Activation des DHCP Relay Agent (`ip helper-address`)
 
 ## Configuration de sécurité
 - [ ] Mot de passe pour le User EXEC Mode (`enable`)
