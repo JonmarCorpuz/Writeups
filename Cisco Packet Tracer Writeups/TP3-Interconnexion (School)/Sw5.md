@@ -23,10 +23,10 @@
 - [ ] Activation des DHCP Relay Agent (`ip helper-address`)
 
 ## Configuration de sécurité
-- [ ] Mot de passe pour le User EXEC Mode (`enable`)
-- [ ] Mot de passe pour le Privileged EXEC Mode (`configure terminal`)
-- [ ] Mot de passe pour l'accès à distance (`ssh`)
-- [ ] Encrypter les mots de passes dans le fichier de configuration
+- [x] Mot de passe pour le User EXEC Mode (`enable`)
+- [x] Mot de passe pour le Privileged EXEC Mode (`configure terminal`)
+- [x] Mot de passe pour l'accès à distance (`ssh`)
+- [x] Encrypter les mots de passes dans le fichier de configuration
 - [ ] Apprentissage des adresses MAC automatique
 - [ ] Maximum de deux adresses MAC par port
 - [ ] Bloquer les trames non autorisées et consigner les événements dans le journal
