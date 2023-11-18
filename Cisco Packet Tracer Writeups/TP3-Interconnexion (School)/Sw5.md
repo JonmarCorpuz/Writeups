@@ -11,6 +11,8 @@
 - [ ] Désactivation des ports non utilisés
 - [ ] Description des ports
 - [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
+- [ ] LLDP
+- [ ] CDP
 
 ## Configuration des VLANs
 - [ ] Une interface de gestion qui peut être accessible par SSH
@@ -133,7 +135,7 @@ ip dhcp excluded-address 10.10.20.1
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
 
-! Note: Assuere que LLDP et/ou CDP sont enables sur les telephones
+! Note: Assuere que LLDP et/ou CDP sont enabled sur les telephones
 
 ! --------------------------------------------
 ! --------- CONFIGURATIONS DES PORTS ---------
