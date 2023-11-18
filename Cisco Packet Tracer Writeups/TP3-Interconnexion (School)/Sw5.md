@@ -1,5 +1,23 @@
 # Checklist
-- [ ] test
+
+Configuration de base:
+- [ ] Hostname
+
+Configuration des ports
+- [ ] Portfast
+- [ ] BPDU Guard
+- [ ] Activation des ports utilisés
+- [ ] Désactivation des ports non utilisés
+- [ ] Description des ports
+
+Configuration des VLANs:
+- [ ] Passerelle configurée sur une interface VLAN
+
+Configuration de sécurité:
+- [ ] Mot de passe pour le User EXEC Mode (`enable`)
+- [ ] Mot de passe pour le Privileged EXEC Mode (`configure terminal`)
+- [ ] Mot de passe pour l'accès à distance (`ssh`)
+- [ ] Encrypter les mots de passes dans le fichier de configuration
 
 # Fichier de configuration
 ```Cisco IOS
