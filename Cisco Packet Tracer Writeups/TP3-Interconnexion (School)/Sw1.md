@@ -143,7 +143,7 @@ enable
 ! ENTRER EN PRIVILEGED EXEC MODE
 configure terminal
 
-! CREER UN POOL DHCP POUR LES VLANs DE DATA
+! CREER ES POOLS DHCP POUR LES VLANs DE DATA
 ip dhcp pool VLAN-A
 network 10.10.10.0 255.255.255.0
 default-router 10.10.10.1 
@@ -160,7 +160,7 @@ ip dhcp pool VLAN-C
 network 10.10.40.0 255.255.255.0
 default-router 10.10.40.1 
 
-! CREER UN POOL DHCP POUR LES VLANs DE VOIX
+! CREER DES POOLS DHCP POUR LES VLANs DE VOIX
 ip dhcp pool VLAN-A-Voix
 network 10.10.15.0 255.255.255.0
 default-router 10.10.15.1
@@ -195,19 +195,19 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
-description
+description Vers-R1
 no shutdown
 
 interface FastEthernet 0/2
-description
+description Vers-R2
 no shutdown
 
 interface FastEthernet 0/3
-description
+description Vers-Sw2
 no shutdown
 
 interface FastEthernet 0/4
-description
+description Vers-Sw3
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
