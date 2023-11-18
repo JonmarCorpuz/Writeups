@@ -13,7 +13,7 @@
 - [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
 
 ## Configuration des VLANs
-- [ ] Une interface de gestion qui peut être accessible en SSH
+- [ ] Une interface de gestion qui peut être accessible par SSH
 
 ## Configuration des adresses IP
 - [ ] PCs obtiennent leurs adresses de manière dynamique
