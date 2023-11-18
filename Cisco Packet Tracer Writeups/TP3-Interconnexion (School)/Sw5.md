@@ -14,6 +14,7 @@
 - [x] LLDP est activé
 - [x] LLDP est capable de transmit
 - [x] CDP est activé
+- [ ] EtherChannel
 
 ## Configuration des VLANs
 - [ ] Une interface de gestion qui peut être accessible par SSH
@@ -23,6 +24,8 @@
 - [ ] Téléphones IP obtiennent leurs adresses de manière dynamique
 - [ ] Toutes les passerelles sont configurées sur une interface VLAN
 - [ ] Création d'un serveur DHCP pour chaque batiment
+- [ ] Création d'un pool DHCP pour les VLANs de voix
+- [ ] Création d'un pool DHCP pour les VLANs de données
 - [ ] Activation des DHCP Relay Agent (`ip helper-address`)
 
 ## Configuration de sécurité
