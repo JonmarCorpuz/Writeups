@@ -185,23 +185,28 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
-description Vers-R1
+description Vers-Sw1
+switchport mode trunk
+switchport trunk native vlan 777
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
 no shutdown
 
 interface FastEthernet 0/2
-description Vers-R2
+description Vers-Sw5
+switchport mode trunk
+switchport trunk native vlan 777
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
 no shutdown
 
 interface FastEthernet 0/3
-description Vers-Sw2
-no shutdown
-
-interface FastEthernet 0/4
-description Vers-Sw3
+description Vers-Sw5
+switchport mode trunk
+switchport trunk native vlan 777
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/5 - 24
+interface range FastEthernet 0/4 - 24
 description Vide
 switchport mode access
 switchport access vlan 999
@@ -230,7 +235,7 @@ configure terminal
 ip routing
 
 ! empty
-interface range FastEthernet 0/1 - 4
+interface range FastEthernet 0/1 - 3
 no switchport
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
