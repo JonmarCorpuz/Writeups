@@ -131,6 +131,9 @@ ip helper-address 10.10.25.10
 ip helper-address 10.10.30.10
 ip helper-address 10.10.40.10
 
+! SORTIR DU MODE DE CONFIGURATION GLOBALE 
+end
+
 ! --------------------------------------------
 ! --------- CONFIGURATIONS DES PORTS ---------
 ! -------------------------------------------- 
