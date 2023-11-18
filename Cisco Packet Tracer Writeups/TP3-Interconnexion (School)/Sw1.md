@@ -184,7 +184,7 @@ ip dhcp excluded-address 10.10.25.1 10.10.25.10
 end
 
 ! --------------------------------------------
-! --------- CONFIGURATIONS DES PORTS ---------
+! -------- CONFIGURATIONS DES PORTS ----------
 ! -------------------------------------------- 
 
 ! ENTRER EN USER EXEC MODE 
@@ -223,7 +223,25 @@ switchport mode access
 switchport access vlan 999
 shutdown
 
+! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
+end
 
+! --------------------------------------------
+! -------- CONFIGURATIONS DU ROUTAGE ---------
+! --------------------------------------------
+
+! ENTRER EN USER EXEC MODE 
+enable
+
+! ENTRER EN PRIVILEGED EXEC MODE
+configure terminal
+
+! empty
+ip routing
+
+! empty
+interface range FastEthernet 0/1 - 4
+no switchport
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
