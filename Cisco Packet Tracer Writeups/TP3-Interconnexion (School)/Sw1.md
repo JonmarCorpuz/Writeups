@@ -179,17 +179,6 @@ network 10.10.25.0 255.255.255.0
 default-router 10.10.25.1
 ip dhcp excluded-address 10.10.25.1 10.10.25.10
 
-! SORTIR DE LA LIGNE DE CONFIGURATION
-exit
-
-! EXCLURE LES ADRESSES DE PASSERELLE DES POOLS D'ADRESSES DHCP
-ip dhcp excluded-address 10.10.10.1
-ip dhcp excluded-address 10.10.15.1
-ip dhcp excluded-address 10.10.20.1
-ip dhcp excluded-address 10.10.25.1
-ip dhcp excluded-address 10.10.30.1
-ip dhcp excluded-address 10.10.40.1
-
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
 
