@@ -1,23 +1,37 @@
 # Checklist
 
-Configuration de base:
+## Configuration de base
 - [ ] Hostname
+- [ ] Bannière
 
-Configuration des ports
+## Configuration des ports
 - [ ] Portfast
 - [ ] BPDU Guard
 - [ ] Activation des ports utilisés
 - [ ] Désactivation des ports non utilisés
 - [ ] Description des ports
+- [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
 
-Configuration des VLANs:
-- [ ] Passerelle configurée sur une interface VLAN
+## Configuration des VLANs
+- [ ] Une interface de gestion qui peut être accessible en SSH
 
-Configuration de sécurité:
+## Configuration des adresses IP
+- [ ] PCs obtiennent leurs adresses de manière dynamique
+- [ ] Téléphones IP obtiennent leurs adresses de manière dynamique
+- [ ] Toutes les passerelles sont configurées sur une interface VLAN
+
+## Configuration de sécurité
 - [ ] Mot de passe pour le User EXEC Mode (`enable`)
 - [ ] Mot de passe pour le Privileged EXEC Mode (`configure terminal`)
 - [ ] Mot de passe pour l'accès à distance (`ssh`)
 - [ ] Encrypter les mots de passes dans le fichier de configuration
+- [ ] Apprentissage des adresses MAC automatique
+- [ ] Maximum de deux adresses MAC par port
+- [ ] Bloquer les trames non autorisées et consigner les événements dans le journal
+
+## Configuration du routage
+- [ ] Routes statiques (Routes principales et routes flottantes)
+- [ ] Capable de `ping` toutes les machines sans problèmes
 
 # Fichier de configuration
 ```Cisco IOS
