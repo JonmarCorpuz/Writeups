@@ -56,6 +56,9 @@ hostname Switch1A
 banner motd #Banner#
 
 ! empty
+no ip domain lookup
+
+! empty
 lldp run
 cdp run
 
