@@ -190,9 +190,9 @@ configure terminal
 interface FastEthernet 0/1
 description VLAN-A
 switchport mode access
-switchport access vlan 10,777
+switchport access vlan 10
 !mls qos trust cos
-switchport voice vlan 15,777
+switchport voice vlan 15
 lldp transmit
 lldp receive
 no shutdown
@@ -200,9 +200,9 @@ no shutdown
 interface FastEthernet 0/2
 description VLAN-D
 switchport mode access
-switchport access vlan 20,777
+switchport access vlan 20
 !mls qos trust cos
-switchport voice vlan 25,777
+switchport voice vlan 25
 lldp transmit
 lldp receive
 no shutdown
@@ -210,13 +210,13 @@ no shutdown
 interface FastEthernet 0/3
 description VLAN-B
 switchport mode access
-switchport access vlan 30,777
+switchport access vlan 30
 no shutdown
 
 interface FastEthernet 0/4
 description VLAN-C
 switchport mode access
-switchport access vlan 40,777
+switchport access vlan 40
 no shutdown
 
 interface FastEthernet 0/24
