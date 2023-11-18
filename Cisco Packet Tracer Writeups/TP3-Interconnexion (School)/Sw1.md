@@ -7,9 +7,9 @@
 ## Configuration des ports
 - [ ] Portfast
 - [ ] BPDU Guard
-- [ ] Activation des ports utilisés
-- [ ] Désactivation des ports non utilisés
-- [ ] Description des ports
+- [x] Activation des ports utilisés
+- [x] Désactivation des ports non utilisés
+- [x] Description des ports
 - [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
 
 ## Configuration des VLANs
@@ -128,6 +128,10 @@ no shutdown
 
 interface vlan 40
 ip address 10.10.40.1 255.255.255.0
+no shutdown
+
+interface vlan 888
+ip address 10.10.88.1 255.255.255.0
 no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
