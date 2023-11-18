@@ -147,31 +147,37 @@ enable
 ! ENTRER EN PRIVILEGED EXEC MODE
 configure terminal
 
-! CREER ES POOLS DHCP POUR LES VLANs DE DATA
+! CREER ET CONFIGURER LES POOLS DHCP POUR LES VLANs DE DATA
 ip dhcp pool VLAN-A
 network 10.10.10.0 255.255.255.0
-default-router 10.10.10.1 
+default-router 10.10.10.1
+ip dhcp excluded-address 10.10.10.1 10.10.10.10
 
 ip dhcp pool VLAN-D
 network 10.10.20.0 255.255.255.0
-default-router 10.10.20.1 
+default-router 10.10.20.1
+ip dhcp excluded-address 10.10.20.1 10.10.20.10
 
 ip dhcp pool VLAN-B
 network 10.10.30.0 255.255.255.0
 default-router 10.10.30.1 
+ip dhcp excluded-address 10.10.30.1 10.10.30.10
 
 ip dhcp pool VLAN-C
 network 10.10.40.0 255.255.255.0
 default-router 10.10.40.1 
+ip dhcp excluded-address 10.10.40.1 10.10.40.10
 
-! CREER DES POOLS DHCP POUR LES VLANs DE VOIX
+! CREER ET CONFIGURER DES POOLS DHCP POUR LES VLANs DE VOIX
 ip dhcp pool VLAN-A-Voix
 network 10.10.15.0 255.255.255.0
 default-router 10.10.15.1
+ip dhcp excluded-address 10.10.15.1 10.10.15.10
 
 ip dhcp pool VLAN-D-Voix
 network 10.10.25.0 255.255.255.0
 default-router 10.10.25.1
+ip dhcp excluded-address 10.10.25.1 10.10.25.10
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION
 exit
