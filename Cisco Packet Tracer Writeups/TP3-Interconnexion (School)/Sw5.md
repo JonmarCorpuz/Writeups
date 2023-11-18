@@ -80,6 +80,25 @@ enable
 ! ENTRER EN PRIVILEGED EXEC MODE
 configure terminal
 
+! CREER LES VLANs DE DATA
+vlan 10
+name VLAN-A
+
+vlan 15
+name VLAN-A-Voix
+
+vlan 20
+name VLAN-D
+
+vlan 25
+name VLAN-D-Voix
+
+vlan 30
+name VLAN-B
+
+vlan 40
+name VLAN-C
+
 ! CREER LE VLAN NATIF
 vlan 777
 name Natif
@@ -92,22 +111,32 @@ name Gestion-distance
 vlan 999
 name Trou-noir
 
-! CREER UN VLAN POUR LES PCs
-vlan 100
-name Data
-
-! CREER UN VLAN POUR LES VoIPs
-vlan 200
-name Voix
-
 ! empty
-interface vlan 100
-ip address 10.10.10.1 255.255.255.0
+interface vlan 10
+ip address 10.10.10.4 255.255.255.0
+no shutdown
+interface vlan 15
+ip address 10.10.15.4 255.255.255.0
 no shutdown
 
 ! empty
-interface vlan 200
-ip address 10.10.20.1 255.255.255.0
+interface vlan 20
+ip address 10.10.20.4 255.255.255.0
+no shutdown
+interface vlan 25
+ip address 10.10.25.4 255.255.255.0
+no shutdown
+
+interface vlan 30
+ip address 10.10.30.4 255.255.255.0
+no shutdown
+
+interface vlan 40
+ip address 10.10.40.4 255.255.255.0
+no shutdown
+
+interface vlan 888
+ip address 10.10.88.4 255.255.255.0
 no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
