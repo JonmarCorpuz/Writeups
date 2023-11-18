@@ -11,8 +11,8 @@
 - [ ] Désactivation des ports non utilisés
 - [ ] Description des ports
 - [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
-- [ ] LLDP
-- [ ] CDP
+- [ ] LLDP est activé
+- [ ] CDP est activé
 
 ## Configuration des VLANs
 - [ ] Une interface de gestion qui peut être accessible par SSH
