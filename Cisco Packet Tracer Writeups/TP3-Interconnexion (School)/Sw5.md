@@ -113,7 +113,7 @@ no shutdown
 end
 
 ! --------------------------------------------
-! ------ CONFIGURATIONS DES POOLS DHCP -------
+! --- CONFIGURATION D'UN DHCP RELAY AGENT ----
 ! -------------------------------------------- 
 
 ! ENTRER EN USER EXEC MODE 
@@ -122,27 +122,14 @@ enable
 ! ENTRER EN PRIVILEGED EXEC MODE
 configure terminal
 
-! CREER UN POOL DHCP POUR LES VLANs DE DATA
-ip dhcp pool Data
-network 10.10.10.0 255.255.255.0
-default-router 10.10.10.1 
-
-! CREER UN POOL DHCP POUR LES VLANs DE VOIX
-ip dhcp pool Voix
-network 10.10.20.0 255.255.255.0
-default-router 10.10.20.1
-
-! SORTIR DE LA LIGNE DE CONFIGURATION
-exit
-
-! EXCLURE LES ADRESSES DE PASSERELLE DES POOLS D'ADRESSES DHCP
-ip dhcp excluded-address 10.10.10.1
-ip dhcp excluded-address 10.10.20.1
-
-! SORTIR DU MODE DE CONFIGURATION GLOBALE 
-end
-
-! Note: Assuere que LLDP et/ou CDP sont enabled sur les telephones
+! empty
+interface ?????????
+ip helper-address 10.10.10.10
+ip helper-address 10.10.15.10
+ip helper-address 10.10.20.10
+ip helper-address 10.10.25.10
+ip helper-address 10.10.30.10
+ip helper-address 10.10.40.10
 
 ! --------------------------------------------
 ! --------- CONFIGURATIONS DES PORTS ---------
