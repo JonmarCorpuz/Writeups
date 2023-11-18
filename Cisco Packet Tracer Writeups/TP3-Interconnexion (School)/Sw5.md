@@ -1,8 +1,8 @@
 # Checklist
 
 ## Configuration de base
-- [ ] Hostname
-- [ ] Bannière
+- [x] Hostname
+- [x] Bannière
 
 ## Configuration des ports
 - [ ] Portfast
