@@ -35,6 +35,7 @@
 - [ ] Bloquer les trames non autorisées et consigner les événements dans le journal
 
 ## Configuration du routage
+- [ ] Activer le routage
 - [ ] Routes statiques (Routes principales et routes flottantes)
 - [ ] Capable de `ping` toutes les machines sans problèmes
 
