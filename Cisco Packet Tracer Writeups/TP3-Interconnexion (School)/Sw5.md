@@ -188,29 +188,52 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
-description Telephone
+description VLAN-A
 switchport mode access
-switchport access vlan 100
+switchport access vlan 10,777
 !mls qos trust cos
-switchport voice vlan 200
+switchport voice vlan 15,777
 lldp transmit
 lldp receive
 no shutdown
 
-interface GigabitEthernet 0/1
-description Vers-Somewhere
+interface FastEthernet 0/2
+description VLAN-D
+switchport mode access
+switchport access vlan 20,777
+!mls qos trust cos
+switchport voice vlan 25,777
+lldp transmit
+lldp receive
+no shutdown
+
+interface FastEthernet 0/3
+description VLAN-B
+switchport mode access
+switchport access vlan 30,777
+no shutdown
+
+interface FastEthernet 0/4
+description VLAN-C
+switchport mode access
+switchport access vlan 40,777
+no shutdown
+
+interface FastEthernet 0/24
+description Vers-Sw2
+switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 100, 200
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/2-24
+interface range FastEthernet 0/5-20
 description Vide
 switchport mode access
 switchport access vlan 999
 shutdown
 
-interface range GigabitEthernet 0/2
+interface range GigabitEthernet 0/1 - 2
 description Vide
 switchport mode access
 switchport access vlan 999
