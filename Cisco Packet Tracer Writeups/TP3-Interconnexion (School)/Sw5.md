@@ -1,3 +1,7 @@
+# Checklist
+- [ ] test
+
+# Fichier de configuration
 ```Cisco IOS
 ! --------------------------------------------
 ! ---------- CONFIGURATIONS DE BASE ----------
