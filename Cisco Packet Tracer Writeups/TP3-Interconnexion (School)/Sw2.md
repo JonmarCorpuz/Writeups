@@ -27,7 +27,7 @@
 ## Configuration de sécurité
 - [x] Mot de passe pour le User EXEC Mode (`enable`)
 - [x] Mot de passe pour le Privileged EXEC Mode (`configure terminal`)
-- [ ] Mot de passe pour le Auxiliary Mode
+- [x] Mot de passe pour le Auxiliary Mode
 - [x] Mot de passe pour l'accès à distance (`ssh`)
 - [x] Encrypter les mots de passes dans le fichier de configuration
 - [ ] Apprentissage des adresses MAC automatique
@@ -257,7 +257,7 @@ password crosemont
 login
 exit
 
-! CONFIGURER UN MOT DE PASSE POUR LE PORT AUX
+! CONFIGURER UN MOT DE PASSE POUR LE MODE AUXILIAIRE
 line aux 0
 password crosemont
 login
