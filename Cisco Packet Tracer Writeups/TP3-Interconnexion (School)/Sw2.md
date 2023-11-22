@@ -109,32 +109,32 @@ vlan 999
 name Trou-noir
 
 ! empty
-interface vlan 10
-ip address 10.10.10.2 255.255.255.0
-no shutdown
-interface vlan 15
-ip address 10.10.15.2 255.255.255.0
-no shutdown
+!interface vlan 10
+!ip address 10.10.10.2 255.255.255.0
+!no shutdown
+!interface vlan 15
+!ip address 10.10.15.2 255.255.255.0
+!no shutdown
 
 ! empty
-interface vlan 20
-ip address 10.10.20.2 255.255.255.0
-no shutdown
-interface vlan 25
-ip address 10.10.25.2 255.255.255.0
-no shutdown
+!interface vlan 20
+!ip address 10.10.20.2 255.255.255.0
+!no shutdown
+!interface vlan 25
+!ip address 10.10.25.2 255.255.255.0
+!no shutdown
 
-interface vlan 30
-ip address 10.10.30.2 255.255.255.0
-no shutdown
+!interface vlan 30
+!ip address 10.10.30.2 255.255.255.0
+!no shutdown
 
-interface vlan 40
-ip address 10.10.40.2 255.255.255.0
-no shutdown
+!interface vlan 40
+!ip address 10.10.40.2 255.255.255.0
+!no shutdown
 
-interface vlan 888
-ip address 10.10.88.2 255.255.255.0
-no shutdown
+!interface vlan 888
+!ip address 10.10.88.2 255.255.255.0
+!no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -166,9 +166,6 @@ ip helper-address 10.10.30.1
 
 interface vlan 40
 ip helper-address 10.10.40.1
-
-interface vlan 888
-ip helper-address 10.10.88.1
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -256,6 +253,12 @@ enable secret crosemont
 
 ! CONFIGURER UN MOT DE PASSE POUR USER EXEC MODE
 line console 0
+password crosemont
+login
+exit
+
+! CONFIGURER UN MOT DE PASSE POUR LE PORT AUX
+line aux 0
 password crosemont
 login
 exit
