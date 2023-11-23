@@ -68,7 +68,7 @@ ip domain-name crosemont.qc
 
 ! empty
 lldp run
-cdp run
+!cdp run
 
 ! SORTIR DU PRIVILEGED EXEC MODE
 end
@@ -274,6 +274,7 @@ interface Port-channel2
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
+no cdp enable
 no shutdown
 
 ! empty
@@ -281,6 +282,7 @@ interface Port-channel3
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
+no cdp enable
 no shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
