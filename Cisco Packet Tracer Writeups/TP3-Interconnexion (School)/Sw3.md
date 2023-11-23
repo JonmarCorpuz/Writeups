@@ -72,6 +72,30 @@ cdp run
 end
 
 ! --------------------------------------------
+! -------- CONFIGURATIONS DU ROUTAGE ---------
+! --------------------------------------------
+
+! ENTRER EN USER EXEC MODE 
+enable
+
+! ENTRER EN PRIVILEGED EXEC MODE
+configure terminal
+
+! empty
+ip routing
+
+! empty
+!interface FastEthernet 0/1
+!no switchport
+
+! empty
+!interface range FastEthernet 0/21 -22
+!no switchport
+
+! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
+end
+
+! --------------------------------------------
 ! --------- CONFIGURATIONS DES VLANs ---------
 ! -------------------------------------------- 
 
@@ -149,30 +173,6 @@ interface vlan 40
 ip helper-address 10.10.40.1
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
-end
-
-! --------------------------------------------
-! -------- CONFIGURATIONS DU ROUTAGE ---------
-! --------------------------------------------
-
-! ENTRER EN USER EXEC MODE 
-enable
-
-! ENTRER EN PRIVILEGED EXEC MODE
-configure terminal
-
-! empty
-ip routing
-
-! empty
-!interface FastEthernet 0/1
-!no switchport
-
-! empty
-!interface range FastEthernet 0/21 -22
-!no switchport
-
-! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
 
 ! --------------------------------------------
