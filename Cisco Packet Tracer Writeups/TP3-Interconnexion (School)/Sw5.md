@@ -274,7 +274,7 @@ configure terminal
 
 ! empty
 interface range FastEthernet 0/21 - 22
-channel-group 3 mode active
+channel-group 3 mode passive
 
 ! empty
 interface range FastEthernet 0/23 - 24
