@@ -297,6 +297,7 @@ exit
 
 ! CONFIGURER L'ACCESS A DISTANCE
 crypto key generate rsa general-keys modulus 2048
+configure terminal
 line vty 0 15
 password crosemont
 login
