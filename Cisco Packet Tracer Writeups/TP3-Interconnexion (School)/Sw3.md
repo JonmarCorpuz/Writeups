@@ -109,6 +109,7 @@ name Gestion-distance
 vlan 999
 name Trou-noir
 
+! empty
 interface vlan 888
 ip address 10.10.88.3 255.255.255.0
 no shutdown
