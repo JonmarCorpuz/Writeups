@@ -3,6 +3,7 @@
 ## Configuration de base
 - [x] Hostname
 - [x] Bannière
+- [x] Ajouter un nom de domaine
 
 ## Configuration des ports
 - [ ] Portfast
@@ -62,6 +63,9 @@ banner motd #Banner#
 
 ! empty
 no ip domain lookup
+
+! empty
+ip domain-name crosemont.qc
 
 ! empty
 lldp run
