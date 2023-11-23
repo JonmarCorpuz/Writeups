@@ -232,26 +232,6 @@ shutdown
 end
 
 ! --------------------------------------------
-! -------- CONFIGURATIONS DU ROUTAGE ---------
-! --------------------------------------------
-
-! ENTRER EN USER EXEC MODE 
-enable
-
-! ENTRER EN PRIVILEGED EXEC MODE
-configure terminal
-
-! empty
-ip routing
-
-! empty
-interface range FastEthernet 0/21 -24
-no switchport
-
-! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
-end
-
-! --------------------------------------------
 ! ------ CONFIGURATIONS DU ETHERCHANNEL ------
 ! --------------------------------------------
 
