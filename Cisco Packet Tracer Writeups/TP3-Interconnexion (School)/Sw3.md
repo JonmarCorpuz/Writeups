@@ -184,7 +184,7 @@ switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/4 - 22
+interface range FastEthernet 0/2 - 22
 description Vide
 switchport mode access
 switchport access vlan 999
