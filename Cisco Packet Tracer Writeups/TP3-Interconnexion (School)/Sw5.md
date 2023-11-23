@@ -252,7 +252,7 @@ channel-group 2 mode passive
 
 ! empty
 interface Port-channel2
-switchport trunk encapsulation dot1q
+!switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
@@ -260,7 +260,7 @@ no shutdown
 
 ! empty
 interface Port-channel3
-switchport trunk encapsulation dot1q
+!switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
