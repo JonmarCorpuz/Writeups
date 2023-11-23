@@ -133,9 +133,9 @@ name Trou-noir
 !ip address 10.10.40.2 255.255.255.0
 !no shutdown
 
-!interface vlan 888
-!ip address 10.10.88.2 255.255.255.0
-!no shutdown
+interface vlan 888
+ip address 10.10.88.2 255.255.255.0
+no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
