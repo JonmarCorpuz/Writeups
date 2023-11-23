@@ -3,6 +3,7 @@
 ## Configuration de base
 - [x] Hostname
 - [x] Bannière
+- [ ] Ajouter un nom de domaine
 
 ## Configuration des ports
 - [ ] Portfast
@@ -59,6 +60,9 @@ banner motd #Banner#
 
 ! empty
 no ip domain lookup
+
+! empty
+ip domain-name crosemont.qc
 
 ! empty
 lldp run
@@ -291,10 +295,13 @@ password crosemont
 login
 exit
 
-! CONFIGURER UN MOT DE PASSE POUR L'ACCESS A DISTANCE
+! CONFIGURER L'ACCESS A DISTANCE
+crypto key generate rsa usage-keys label ssh-key modulus 2048
 line vty 0 15
 password crosemont
 login
+transport input ssh
+ip ssh version 2
 exit
 
 ! ENCRYPTER LES MOTS DE PASSE
