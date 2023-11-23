@@ -299,6 +299,10 @@ configure terminal
 interface range FastEthernet 0/21 - 22
 channel-group 3 mode active
 
+interface Port-channel3
+switchport mode trunk
+switchport trunk native vlan 777
+
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
 end
 
