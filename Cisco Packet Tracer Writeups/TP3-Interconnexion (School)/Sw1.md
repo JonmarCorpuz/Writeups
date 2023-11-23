@@ -296,6 +296,7 @@ login
 exit
 
 ! CONFIGURER L'ACCESS A DISTANCE
+username Admin privilege 15 secret crosemont
 crypto key generate rsa general-keys modulus 2048
 line vty 0 15
 password crosemont
