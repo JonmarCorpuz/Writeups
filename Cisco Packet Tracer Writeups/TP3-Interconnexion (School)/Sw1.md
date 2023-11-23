@@ -64,6 +64,9 @@ no ip domain lookup
 lldp run
 cdp run
 
+! ACTIVER LE ROUTAGE
+ip routing
+
 ! SORTIR DU PRIVILEGED EXEC MODE
 end
 
@@ -197,6 +200,7 @@ configure terminal
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
 description Vers-R1
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
@@ -204,6 +208,7 @@ no shutdown
 
 interface FastEthernet 0/2
 description Vers-R2
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
@@ -211,6 +216,7 @@ no shutdown
 
 interface FastEthernet 0/3
 description Vers-Sw2
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
@@ -218,6 +224,7 @@ no shutdown
 
 interface FastEthernet 0/4
 description Vers-Sw3
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
