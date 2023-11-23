@@ -219,8 +219,8 @@ switchport mode access
 switchport access vlan 40
 no shutdown
 
-interface FastEthernet 0/24
-description Vers-Sw2
+interface RANGE FastEthernet 0/21 - 24
+description Vers-Sw2-sW3
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
