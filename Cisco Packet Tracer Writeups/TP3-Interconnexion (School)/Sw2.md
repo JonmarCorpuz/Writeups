@@ -299,7 +299,7 @@ configure terminal
 interface range FastEthernet 0/23 - 24
 channel-group 2 mode active
 
-interface Port-channel3
+interface Port-channel2
 switchport mode trunk
 switchport trunk native vlan 777
 
