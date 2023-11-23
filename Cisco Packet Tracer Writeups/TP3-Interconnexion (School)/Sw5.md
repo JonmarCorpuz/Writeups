@@ -219,8 +219,8 @@ switchport mode access
 switchport access vlan 40
 no shutdown
 
-interface RANGE FastEthernet 0/21 - 24
-description Vers-Sw2-sW3
+interface range FastEthernet 0/21 - 24
+description Vers-Sw2-Sw3
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
@@ -238,6 +238,26 @@ description Vide
 switchport mode access
 switchport access vlan 999
 shutdown
+
+! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
+end
+
+! --------------------------------------------
+! -------- CONFIGURATIONS DU ROUTAGE ---------
+! --------------------------------------------
+
+! ENTRER EN USER EXEC MODE 
+enable
+
+! ENTRER EN PRIVILEGED EXEC MODE
+configure terminal
+
+! empty
+ip routing
+
+! empty
+interface range FastEthernet 0/21 -24
+no switchport
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
