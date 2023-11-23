@@ -264,11 +264,15 @@ channel-group 2 mode active
 interface Port-channel2
 switchport mode trunk
 switchport trunk native vlan 777
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+no shutdown
 
 ! empty
 interface Port-channel3
 switchport mode trunk
 switchport trunk native vlan 777
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+no shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
 end
