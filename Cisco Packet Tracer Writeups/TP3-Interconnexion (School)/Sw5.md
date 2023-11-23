@@ -243,6 +243,27 @@ shutdown
 end
 
 ! --------------------------------------------
+! ------ CONFIGURATIONS DU ETHERCHANNEL ------
+! --------------------------------------------
+
+! ENTRER EN USER EXEC MODE 
+enable
+
+! ENTRER EN PRIVILEGED EXEC MODE
+configure terminal
+
+! empty
+interface range FastEthernet 0/21 - 22
+channel-group 3 mode active
+
+! empty
+interface range FastEthernet 0/23 - 24
+channel-group 2 mode active
+
+! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
+end
+
+! --------------------------------------------
 ! -------- CONFIGURATIONS DE SECURITE --------
 ! --------------------------------------------
 
