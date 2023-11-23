@@ -184,6 +184,8 @@ switchport access vlan 10
 switchport voice vlan 15
 lldp transmit
 lldp receive
+spanning-tree portfast
+spanning-tree bpduguard enable
 no shutdown
 
 interface FastEthernet 0/2
@@ -194,26 +196,25 @@ switchport access vlan 20
 switchport voice vlan 25
 lldp transmit
 lldp receive
+spanning-tree portfast
+spanning-tree bpduguard enable
 no shutdown
 
 interface FastEthernet 0/3
 description VLAN-B
 switchport mode access
 switchport access vlan 30
+spanning-tree portfast
+spanning-tree bpduguard enable
 no shutdown
 
 interface FastEthernet 0/4
 description VLAN-C
 switchport mode access
 switchport access vlan 40
+spanning-tree portfast
+spanning-tree bpduguard enable
 no shutdown
-
-!interface range FastEthernet 0/21 - 24
-!description Vers-Sw2-Sw3
-!switchport mode trunk
-!switchport trunk native vlan 777
-!switchport trunk allowed vlan 10,15,20,25,30,40,777,888
-!no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
 interface range FastEthernet 0/5-20
