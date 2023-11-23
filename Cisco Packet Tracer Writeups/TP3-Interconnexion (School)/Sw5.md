@@ -260,6 +260,16 @@ channel-group 3 mode active
 interface range FastEthernet 0/23 - 24
 channel-group 2 mode active
 
+! empty
+interface Port-channel2
+switchport mode trunk
+switchport trunk native vlan 777
+
+! empty
+interface Port-channel3
+switchport mode trunk
+switchport trunk native vlan 777
+
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
 end
 
