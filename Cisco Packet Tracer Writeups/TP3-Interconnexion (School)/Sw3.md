@@ -169,14 +169,14 @@ switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
-interface FastEthernet 0/23
+interface FastEthernet 0/21
 description Vers-Sw5
 switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
-interface FastEthernet 0/24
+interface FastEthernet 0/22
 description Vers-Sw5
 switchport mode trunk
 switchport trunk native vlan 777
