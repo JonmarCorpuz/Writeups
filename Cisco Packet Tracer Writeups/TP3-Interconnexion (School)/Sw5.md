@@ -273,7 +273,7 @@ channel-group 2 mode active
 interface Port-channel2
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! empty
