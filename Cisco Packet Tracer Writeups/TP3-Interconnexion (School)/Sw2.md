@@ -188,8 +188,8 @@ configure terminal
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
 description Vers-Sw1
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
@@ -305,8 +305,8 @@ channel-group 2 mode active
 
 ! empty
 interface Port-channel2
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
