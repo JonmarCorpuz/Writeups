@@ -8,10 +8,10 @@
 ## Configuration des ports
 - [ ] Portfast
 - [ ] BPDU Guard
-- [ ] Activation des ports utilisés
-- [ ] Désactivation des ports non utilisés
-- [ ] Description des ports
-- [ ] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
+- [x] Activation des ports utilisés
+- [x] Désactivation des ports non utilisés
+- [x] Description des ports
+- [x] Laisser que les VLANs necéssaire passer pour chaque port (trunk)
 - [x] LLDP est activé
 - [x] LLDP est capable de transmit
 - [x] CDP est activé
