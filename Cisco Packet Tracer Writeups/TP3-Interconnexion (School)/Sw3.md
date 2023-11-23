@@ -165,6 +165,7 @@ configure terminal
 interface FastEthernet 0/1
 description Vers-Sw1
 switchport mode trunk
+switchport trunk encapsulation dot1q
 switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
