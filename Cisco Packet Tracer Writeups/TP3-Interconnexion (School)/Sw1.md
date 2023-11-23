@@ -205,8 +205,8 @@ configure terminal
 ip routing
 
 ! empty
-interface range FastEthernet 0/1 - 4
-no switchport
+!interface range FastEthernet 0/1 - 4
+!no switchport
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
