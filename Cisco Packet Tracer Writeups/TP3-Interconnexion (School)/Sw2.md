@@ -166,21 +166,21 @@ interface FastEthernet 0/1
 description Vers-Sw1
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 interface FastEthernet 0/23
 description Vers-Sw5
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 interface FastEthernet 0/24
 description Vers-Sw5
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
@@ -306,7 +306,7 @@ channel-group 2 mode active
 interface Port-channel2
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
