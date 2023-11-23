@@ -212,7 +212,7 @@ interface range FastEthernet 0/21 - 24
 description Vers-Sw2-Sw3
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
@@ -280,7 +280,7 @@ no shutdown
 interface Port-channel3
 switchport mode trunk
 switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888,999
+switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU ETHERCHANNEL
