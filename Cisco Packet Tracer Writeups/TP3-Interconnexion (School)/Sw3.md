@@ -53,7 +53,7 @@ enable
 configure terminal
 
 ! DONNER UN HOSTNAME
-hostname Switch3A
+hostname Switch3
 
 ! CREER UNE BANNIERE
 banner motd #Banner#
@@ -62,7 +62,7 @@ banner motd #Banner#
 no ip domain lookup
 
 ! empty
-ip domain-name crosemont.qc
+ip domain-name crosemontSw3.qc
 
 ! empty
 lldp run
