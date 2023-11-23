@@ -271,41 +271,6 @@ no switchport
 end
 
 ! --------------------------------------------
-! ---------- CONFIGURATIONS DU HSRP ----------
-! -------------------------------------------- 
-
-! ENTRER EN USER EXEC MODE 
-enable
-
-! ENTRER EN PRIVILEGED EXEC MODE
-configure terminal
-
-! empty
-interface FastEthernet 0/3
-
-! empty
-ip address 192.168.0.10 255.255.255.0
-
-! empty
-standby 1 ip 192.168.0.100
-standby 1 priority 101
-standby 1 preempt
-
-! empty
-interface FastEthernet 0/4
-
-! empty
-ip address 192.168.0.20 255.255.255.0
-
-! empty
-standby 1 ip 192.168.0.100
-standby 1 priority 100
-standby 1 preempt
-
-! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
-end
-
-! --------------------------------------------
 ! -------- CONFIGURATIONS DE SECURITE --------
 ! --------------------------------------------
 
