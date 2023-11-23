@@ -83,34 +83,23 @@ enable
 ! ENTRER EN PRIVILEGED EXEC MODE
 configure terminal
 
-! CREER LES VLANs DE DATA
+! CREER LES VLANs
 vlan 10
 name VLAN-A
-
 vlan 15
 name VLAN-A-Voix
-
 vlan 20
 name VLAN-D
-
 vlan 25
 name VLAN-D-Voix
-
 vlan 30
 name VLAN-B
-
 vlan 40
 name VLAN-C
-
-! CREER LE VLAN NATIF
 vlan 777
 name Natif
-
-! CREER UN VLAN POUR LA GESTION A DISTANCE
 vlan 888
 name Gestion-distance
-
-! CREER UN VLAN POUR LE TROU NOIR
 vlan 999
 name Trou-noir
 
@@ -274,7 +263,7 @@ configure terminal
 
 ! empty
 interface range FastEthernet 0/21 - 22
-channel-group 3 mode passive
+channel-group 3 mode active
 
 ! empty
 interface range FastEthernet 0/23 - 24
