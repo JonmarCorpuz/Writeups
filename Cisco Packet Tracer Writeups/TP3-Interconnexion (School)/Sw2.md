@@ -62,6 +62,9 @@ banner motd #Banner#
 no ip domain lookup
 
 ! empty
+ip domain-name crosemont.qc
+
+! empty
 lldp run
 cdp run
 
