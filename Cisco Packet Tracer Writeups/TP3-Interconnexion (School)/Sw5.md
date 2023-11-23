@@ -262,12 +262,6 @@ password crosemont
 login
 exit
 
-! CONFIGURER UN MOT DE PASSE POUR LE MODE AUXILIAIRE
-line aux 0
-password crosemont
-login
-exit
-
 ! CONFIGURER L'ACCESS A DISTANCE
 username Admin privilege 15 secret crosemont
 crypto key generate rsa general-keys modulus 2048
