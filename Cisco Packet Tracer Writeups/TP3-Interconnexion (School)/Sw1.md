@@ -6,8 +6,6 @@
 - [x] Créer un nom de domaine
 
 ## Configuration des ports
-- [ ] Portfast
-- [ ] BPDU Guard
 - [x] Activation des ports utilisés
 - [x] Désactivation des ports non utilisés
 - [x] Description des ports
@@ -17,13 +15,13 @@
 - [x] Une interface de gestion qui peut être accessible par SSH
 
 ## Configuration des adresses IP
-- [ ] PCs obtiennent leurs adresses de manière dynamique
-- [ ] Téléphones IP obtiennent leurs adresses de manière dynamique
-- [ ] Toutes les passerelles sont configurées sur une interface VLAN
-- [ ] Création d'un serveur DHCP pour chaque batiment
-- [ ] Création d'un pool DHCP pour les VLANs de voix
-- [ ] Création des pools DHCP pour les VLANs de données
-- [ ] Activation des DHCP Relay Agent (`ip helper-address`)
+- [x] PCs obtiennent leurs adresses de manière dynamique
+- [x] Téléphones IP obtiennent leurs adresses de manière dynamique
+- [x] Toutes les passerelles sont configurées sur une interface VLAN
+- [x] Création d'un serveur DHCP pour chaque batiment
+- [x] Création d'un pool DHCP pour les VLANs de voix
+- [x] Création des pools DHCP pour les VLANs de données
+- [x] Activation des DHCP Relay Agent (`ip helper-address`)
 
 ## Configuration de sécurité
 - [x] Mot de passe pour le User EXEC Mode (`enable`)
@@ -36,7 +34,7 @@
 - [ ] Bloquer les trames non autorisées et consigner les événements dans le journal
 
 ## Configuration du routage
-- [ ] Activer le routage
+- [x] Activer le routage
 - [ ] Routes statiques (Routes principales et routes flottantes)
 - [ ] Capable de `ping` toutes les machines sans problèmes
 
@@ -85,8 +83,8 @@ configure terminal
 ip routing
 
 ! empty
-!interface range FastEthernet 0/1 - 4
-!no switchport
+interface range GigabitEthernet 0/1 2
+no switchport
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
@@ -219,7 +217,7 @@ enable
 configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface FastEthernet 0/1
+interface GigabitEthernet 0/1
 description Vers-R1
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -227,7 +225,7 @@ switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
-interface FastEthernet 0/2
+interface GigabitEthernet 0/2
 description Vers-R2
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -235,7 +233,7 @@ switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
-interface FastEthernet 0/3
+interface FastEthernet 0/1
 description Vers-Sw2
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -243,7 +241,7 @@ switchport trunk native vlan 777
 switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
-interface FastEthernet 0/4
+interface FastEthernet 0/2
 description Vers-Sw3
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -252,13 +250,7 @@ switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/5 - 24
-description Vide
-switchport mode access
-switchport access vlan 999
-shutdown
-
-interface range GigabitEthernet 0/1 -2
+interface range FastEthernet 0/3 - 24
 description Vide
 switchport mode access
 switchport access vlan 999
