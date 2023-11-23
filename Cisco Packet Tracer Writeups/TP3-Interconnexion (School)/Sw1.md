@@ -3,7 +3,7 @@
 ## Configuration de base
 - [x] Hostname
 - [x] Bannière
-- [ ] Ajouter un nom de domaine
+- [x] Ajouter un nom de domaine
 
 ## Configuration des ports
 - [ ] Portfast
