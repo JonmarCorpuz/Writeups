@@ -6,8 +6,6 @@
 - [x] Créer un nom de domaine
 
 ## Configuration des ports
-- [ ] Portfast
-- [ ] BPDU Guard
 - [x] Activation des ports utilisés
 - [x] Désactivation des ports non utilisés
 - [x] Description des ports
@@ -17,13 +15,13 @@
 - [x] Une interface de gestion qui peut être accessible par SSH
 
 ## Configuration des adresses IP
-- [ ] PCs obtiennent leurs adresses de manière dynamique
-- [ ] Téléphones IP obtiennent leurs adresses de manière dynamique
-- [ ] Toutes les passerelles sont configurées sur une interface VLAN
-- [ ] Création d'un serveur DHCP pour chaque batiment
-- [ ] Création d'un pool DHCP pour les VLANs de voix
-- [ ] Création des pools DHCP pour les VLANs de données
-- [ ] Activation des DHCP Relay Agent (`ip helper-address`)
+- [x] PCs obtiennent leurs adresses de manière dynamique
+- [x] Téléphones IP obtiennent leurs adresses de manière dynamique
+- [x] Toutes les passerelles sont configurées sur une interface VLAN
+- [x] Création d'un serveur DHCP pour chaque batiment
+- [x] Création d'un pool DHCP pour les VLANs de voix
+- [x] Création des pools DHCP pour les VLANs de données
+- [x] Activation des DHCP Relay Agent (`ip helper-address`)
 
 ## Configuration de sécurité
 - [x] Mot de passe pour le User EXEC Mode (`enable`)
@@ -36,8 +34,7 @@
 - [ ] Bloquer les trames non autorisées et consigner les événements dans le journal
 
 ## Configuration du routage
-- [ ] Activer le routage
-- [ ] Routes statiques (Routes principales et routes flottantes)
+- [x] Activer le routage
 - [ ] Capable de `ping` toutes les machines sans problèmes
 
 # Fichier de configuration
