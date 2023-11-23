@@ -1,5 +1,7 @@
 # Erreurs et solutions
 
+## Erreur 1
+
 Erreur:
 ```Ciosco IOS
 %CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on FastEthernet0/24 (777), with Switch2A FastEthernet0/21 (1).
