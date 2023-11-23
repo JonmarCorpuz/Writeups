@@ -261,6 +261,7 @@ standby 25 priority 100
 standby 25 preempt
 no shutdown
 
+! empty
 interface vlan 30
 ip address 10.10.30.3 255.255.255.0
 standby 30 ip 10.10.30.10
@@ -268,6 +269,7 @@ standby 30 priority 100
 standby 30 preempt
 no shutdown
 
+! empty
 interface vlan 40
 ip address 10.10.40.3 255.255.255.0
 standby 40 ip 10.10.40.10
@@ -299,6 +301,7 @@ configure terminal
 interface range FastEthernet 0/21 - 22
 channel-group 3 mode active
 
+! empty
 interface Port-channel3
 switchport mode trunk
 switchport trunk native vlan 777
