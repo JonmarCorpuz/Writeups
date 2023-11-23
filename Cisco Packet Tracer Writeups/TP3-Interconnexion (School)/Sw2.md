@@ -263,13 +263,18 @@ password crosemont
 login
 exit
 
-! CONFIGURER UN MOT DE PASSE POUR L'ACCESS A DISTANCE
+! CONFIGURER L'ACCESS A DISTANCE
+username Admin privilege 15 secret crosemont
+crypto key generate rsa general-keys modulus 2048
 line vty 0 15
 password crosemont
 login
+transport input ssh
+ip ssh version 2
 exit
 
 ! ENCRYPTER LES MOTS DE PASSE
+configure terminal
 service password-encryption
 
 ! --------------------------------------------
