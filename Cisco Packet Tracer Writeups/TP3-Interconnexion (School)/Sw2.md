@@ -53,7 +53,7 @@ enable
 configure terminal
 
 ! DONNER UN HOSTNAME
-hostname Switch1A
+hostname Switch2A
 
 ! CREER UNE BANNIERE
 banner motd #Banner#
