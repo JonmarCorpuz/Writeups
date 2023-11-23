@@ -51,7 +51,7 @@ enable
 configure terminal
 
 ! DONNER UN HOSTNAME
-hostname Routeur2
+hostname Switch4
 
 ! CREER UNE BANNIERE
 banner motd #Banner#
@@ -60,7 +60,7 @@ banner motd #Banner#
 no ip domain lookup
 
 ! empty
-ip domain-name crosemontR2.qc
+ip domain-name crosemontSw4.qc
 
 ! empty
 lldp run
