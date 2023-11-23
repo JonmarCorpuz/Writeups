@@ -183,29 +183,26 @@ enable
 configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface GigabitEthernet 0/0
-description Vers-R2
+interface FastEthernet 0/1
+description Vers-R3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 333
 switchport trunk allowed vlan 50,55,60,65,70,80,333,444
 no shutdown
 
-interface GigabitEthernet 0/1
-description Vers-Sw4
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
-no shutdown
+! FERMER LES PORTS DONT ON N'A PAS BESOIN
+interface range FastEthernet 0/2 - 20
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
 
-interface GigabitEthernet 0/2
-description Vers-Sw7
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
-no shutdown
+interface range FastEthernet 0/23 - 24
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
@@ -286,7 +283,7 @@ enable
 configure terminal
 
 ! empty
-interface range FastEthernet 0/23 - 24
+interface range FastEthernet 0/21 - 22
 channel-group 2 mode active
 
 ! empty
