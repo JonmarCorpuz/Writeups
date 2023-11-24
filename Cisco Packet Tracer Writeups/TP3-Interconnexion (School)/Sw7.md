@@ -179,34 +179,34 @@ end
 ! -------------------------------------------- 
 
 ! ENTRER EN USER EXEC MODE 
-enable
+!enable
 
 ! ENTRER EN PRIVILEGED EXEC MODE
-configure terminal
+!configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface FastEthernet 0/1
-no switchport
-description Vers-R3
-ip address 192.168.35.1 255.255.255.0
-no shutdown
-ip route 0.0.0.0 0.0.0.0 192.168.35.2
+!interface GigabitEthernet 0/1
+!no switchport
+!description Vers-R3
+!ip address 192.168.35.1 255.255.255.0
+!no shutdown
+!ip route 0.0.0.0 0.0.0.0 192.168.35.2
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/2 - 20
-description Vide
-switchport mode access
-switchport access vlan 555
-shutdown
+!interface range FastEthernet 0/1 - 20
+!description Vide
+!switchport mode access
+!switchport access vlan 555
+!shutdown
 
-interface range FastEthernet 0/23 - 24
-description Vide
-switchport mode access
-switchport access vlan 555
-shutdown
+!interface range FastEthernet 0/23 - 24
+!description Vide
+!switchport mode access
+!switchport access vlan 555
+!shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
-end
+!end
 
 ! --------------------------------------------
 ! ---------- CONFIGURATIONS DU HSRP ----------
