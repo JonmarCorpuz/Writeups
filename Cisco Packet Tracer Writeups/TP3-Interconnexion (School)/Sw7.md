@@ -111,32 +111,32 @@ vlan 555
 name Trou-noir
 
 ! empty
-interface vlan 50
-ip address 10.10.50.7 255.255.255.0
-no shutdown
-interface vlan 55
-ip address 10.10.55.7 255.255.255.0
-no shutdown
+!interface vlan 50
+!ip address 10.10.50.7 255.255.255.0
+!no shutdown
+!interface vlan 55
+!ip address 10.10.55.7 255.255.255.0
+!no shutdown
 
 ! empty
-interface vlan 60
-ip address 10.10.60.7 255.255.255.0
-no shutdown
-interface vlan 65
-ip address 10.10.65.7 255.255.255.0
-no shutdown
+!interface vlan 60
+!ip address 10.10.60.7 255.255.255.0
+!no shutdown
+!interface vlan 65
+!ip address 10.10.65.7 255.255.255.0
+!no shutdown
 
-interface vlan 70
-ip address 10.10.70.7 255.255.255.0
-no shutdown
+!interface vlan 70
+!ip address 10.10.70.7 255.255.255.0
+!no shutdown
 
-interface vlan 80
-ip address 10.10.80.7 255.255.255.0
-no shutdown
+!interface vlan 80
+!ip address 10.10.80.7 255.255.255.0
+!no shutdown
 
-interface vlan 444
-ip address 10.10.44.7 255.255.255.0
-no shutdown
+!interface vlan 444
+!ip address 10.10.44.7 255.255.255.0
+!no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
