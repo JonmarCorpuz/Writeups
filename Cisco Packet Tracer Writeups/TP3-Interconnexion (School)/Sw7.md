@@ -186,13 +186,11 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
+no switchport
 description Vers-R3
-ip address 192.168.7.2 255.255.255.0
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
+ip address 192.168.35.1 255.255.255.0
 no shutdown
+ip route 0.0.0.0 0.0.0.0 192.168.35.2
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
 interface range FastEthernet 0/2 - 20
