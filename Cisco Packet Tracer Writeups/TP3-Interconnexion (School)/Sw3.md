@@ -181,7 +181,7 @@ description Vers-Sw1
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/2 - 20
+interface range FastEthernet 0/1 - 20
 description Vide
 switchport mode access
 switchport access vlan 999
@@ -193,7 +193,7 @@ switchport mode access
 switchport access vlan 999
 shutdown
 
-interface range GigabitEthernet 0/1 -2
+interface range GigabitEthernet 0/2
 description Vide
 switchport mode access
 switchport access vlan 999
