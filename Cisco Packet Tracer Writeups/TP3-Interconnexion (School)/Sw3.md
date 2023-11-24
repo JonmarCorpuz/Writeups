@@ -183,12 +183,9 @@ enable
 configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface FastEthernet 0/1
+interface GigabitEthernet 0/1
+no swithcport
 description Vers-Sw1
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 777
-switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
