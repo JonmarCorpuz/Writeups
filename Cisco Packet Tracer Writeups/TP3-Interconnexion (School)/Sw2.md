@@ -187,7 +187,7 @@ switchport mode access
 switchport access vlan 999
 shutdown
 
-interface range GigabitEthernet 0/1 -2
+interface range GigabitEthernet 0/2
 description Vide
 switchport mode access
 switchport access vlan 999
