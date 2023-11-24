@@ -145,21 +145,21 @@ configure terminal
 
 ! empty
 interface vlan 10
-ip helper-address 10.10.10.1
+ip helper-address 10.10.10.10
 interface vlan 15
-ip helper-address 10.10.15.1
+ip helper-address 10.10.15.10
 
 ! empty
 interface vlan 20
-ip helper-address 10.10.20.1
+ip helper-address 10.10.20.10
 interface vlan 25
-ip helper-address 10.10.25.1
+ip helper-address 10.10.25.10
 
 interface vlan 30
-ip helper-address 10.10.30.1
+ip helper-address 10.10.30.10
 
 interface vlan 40
-ip helper-address 10.10.40.1
+ip helper-address 10.10.40.10
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -175,7 +175,7 @@ enable
 configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface FastEthernet 0/1
+interface GigabitEthernet 0/1
 no switchport
 description Vers-Sw1
 no shutdown
