@@ -181,26 +181,26 @@ end
 enable
 
 ! ENTRER EN PRIVILEGED EXEC MODE
-configure terminal
+!configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface FastEthernet 0/1
-description Vers-R3
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
-no shutdown
+!interface FastEthernet 0/1
+!description Vers-R3
+!switchport trunk encapsulation dot1q
+!switchport mode trunk
+!switchport trunk native vlan 333
+!switchport trunk allowed vlan 50,55,60,65,70,80,333,444
+!no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-interface range FastEthernet 0/2 - 22
-description Vide
-switchport mode access
-switchport access vlan 555
-shutdown
+!interface range FastEthernet 0/2 - 22
+!description Vide
+!switchport mode access
+!switchport access vlan 555
+!shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
-end
+!end
 
 ! --------------------------------------------
 ! ---------- CONFIGURATIONS DU HSRP ----------
