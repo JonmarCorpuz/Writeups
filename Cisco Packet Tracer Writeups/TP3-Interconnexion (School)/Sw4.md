@@ -214,13 +214,13 @@ configure terminal
 
 ! empty
 interface vlan 50
-ip address 10.10.50.2 255.255.255.0
+ip address 10.10.50.4 255.255.255.0
 standby 50 ip 10.10.50.10
 standby 50 priority 101
 standby 50 preempt
 no shutdown
 interface vlan 55
-ip address 10.10.55.2 255.255.255.0
+ip address 10.10.55.4 255.255.255.0
 standby 55 ip 10.10.55.10
 standby 55 priority 101
 standby 55 preempt
@@ -228,13 +228,13 @@ no shutdown
 
 ! empty
 interface vlan 60
-ip address 10.10.60.2 255.255.255.0
+ip address 10.10.60.4 255.255.255.0
 standby 60 ip 10.10.60.10
 standby 60 priority 101
 standby 60 preempt
 no shutdown
 interface vlan 65
-ip address 10.10.65.2 255.255.255.0
+ip address 10.10.65.4 255.255.255.0
 standby 65 ip 10.10.65.10
 standby 65 priority 101
 standby 65 preempt
@@ -242,7 +242,7 @@ no shutdown
 
 ! empty
 interface vlan 70
-ip address 10.10.70.2 255.255.255.0
+ip address 10.10.70.4 255.255.255.0
 standby 70 ip 10.10.70.10
 standby 70 priority 101
 standby 70 preempt
@@ -250,7 +250,7 @@ no shutdown
 
 ! empty
 interface vlan 80
-ip address 10.10.80.2 255.255.255.0
+ip address 10.10.80.4 255.255.255.0
 standby 80 ip 10.10.80.10
 standby 80 priority 101
 standby 80 preempt
@@ -258,7 +258,7 @@ no shutdown
 
 ! empty
 interface vlan 444
-ip address 10.10.44.2 255.255.255.0
+ip address 10.10.44.4 255.255.255.0
 standby 44 ip 10.10.44.10
 standby 44 priority 101
 standby 44 preempt
