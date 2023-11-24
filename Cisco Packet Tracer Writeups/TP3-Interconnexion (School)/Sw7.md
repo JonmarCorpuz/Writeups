@@ -62,6 +62,8 @@ no ip domain lookup
 ! empty
 ip domain-name crosemontSw7.qc
 
+ip routing
+
 ! empty
 lldp run
 cdp run
