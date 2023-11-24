@@ -308,7 +308,7 @@ ip ssh version 2
 exit
 
 ! ENCRYPTER LES MOTS DE PASSE
-configure terminal
+configure terminal 
 service password-encryption
 
 ! --------------------------------------------
