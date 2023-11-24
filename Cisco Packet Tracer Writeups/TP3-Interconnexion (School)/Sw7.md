@@ -112,33 +112,9 @@ name Gestion-distance
 vlan 555
 name Trou-noir
 
-! empty
-!interface vlan 50
-!ip address 10.10.50.7 255.255.255.0
-!no shutdown
-!interface vlan 55
-!ip address 10.10.55.7 255.255.255.0
-!no shutdown
-
-! empty
-!interface vlan 60
-!ip address 10.10.60.7 255.255.255.0
-!no shutdown
-!interface vlan 65
-!ip address 10.10.65.7 255.255.255.0
-!no shutdown
-
-!interface vlan 70
-!ip address 10.10.70.7 255.255.255.0
-!no shutdown
-
-!interface vlan 80
-!ip address 10.10.80.7 255.255.255.0
-!no shutdown
-
-!interface vlan 444
-!ip address 10.10.44.7 255.255.255.0
-!no shutdown
+interface vlan 444
+ip address 10.10.44.7 255.255.255.0
+no shutdown
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -155,21 +131,21 @@ configure terminal
 
 ! empty
 interface vlan 50
-ip helper-address 10.10.50.2
+ip helper-address 10.10.50.10
 interface vlan 55
-ip helper-address 10.10.55.2
+ip helper-address 10.10.55.10
 
 ! empty
 interface vlan 60
-ip helper-address 10.10.60.2
+ip helper-address 10.10.60.10
 interface vlan 65
-ip helper-address 10.10.65.2
+ip helper-address 10.10.65.10
 
 interface vlan 70
-ip helper-address 10.10.70.2
+ip helper-address 10.10.70.10
 
 interface vlan 80
-ip helper-address 10.10.80.2
+ip helper-address 10.10.80.10
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -185,28 +161,26 @@ end
 !configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-!interface GigabitEthernet 0/1
-!no switchport
-!description Vers-R3
-!ip address 192.168.35.1 255.255.255.0
-!no shutdown
-!ip route 0.0.0.0 0.0.0.0 192.168.35.2
+interface GigabitEthernet 0/1
+no switchport
+description Vers-R3
+no shutdown
 
 ! FERMER LES PORTS DONT ON N'A PAS BESOIN
-!interface range FastEthernet 0/1 - 20
-!description Vide
-!switchport mode access
-!switchport access vlan 555
-!shutdown
+interface range FastEthernet 0/1 - 20
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
 
 !interface range FastEthernet 0/23 - 24
-!description Vide
-!switchport mode access
-!switchport access vlan 555
-!shutdown
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
-!end
+end
 
 ! --------------------------------------------
 ! ---------- CONFIGURATIONS DU HSRP ----------
@@ -220,52 +194,52 @@ configure terminal
 
 ! empty
 interface vlan 50
-ip address 10.10.50.7 255.255.255.0
-standby 50 ip 10.10.50.10
+ip address 10.10.50.3 255.255.255.0
+standby 50 ip 10.10.50.1
 standby 50 priority 100
 standby 50 preempt
 no shutdown
 interface vlan 55
-ip address 10.10.55.7 255.255.255.0
-standby 55 ip 10.10.55.10
+ip address 10.10.55.3 255.255.255.0
+standby 55 ip 10.10.55.1
 standby 55 priority 100
 standby 55 preempt
 no shutdown
 
 ! empty
 interface vlan 60
-ip address 10.10.60.7 255.255.255.0
-standby 60 ip 10.10.60.10
+ip address 10.10.60.3 255.255.255.0
+standby 60 ip 10.10.60.1
 standby 60 priority 100
 standby 60 preempt
 no shutdown
 interface vlan 65
-ip address 10.10.65.7 255.255.255.0
-standby 65 ip 10.10.65.10
+ip address 10.10.65.3 255.255.255.0
+standby 65 ip 10.10.65.1
 standby 65 priority 100
 standby 65 preempt
 no shutdown
 
 ! empty
 interface vlan 70
-ip address 10.10.70.7 255.255.255.0
-standby 70 ip 10.10.70.10
+ip address 10.10.70.3 255.255.255.0
+standby 70 ip 10.10.70.1
 standby 70 priority 100
 standby 70 preempt
 no shutdown
 
 ! empty
 interface vlan 80
-ip address 10.10.80.7 255.255.255.0
-standby 80 ip 10.10.80.10
+ip address 10.10.80.3 255.255.255.0
+standby 80 ip 10.10.80.1
 standby 80 priority 100
 standby 80 preempt
 no shutdown
 
 ! empty
 interface vlan 444
-ip address 10.10.44.7 255.255.255.0
-standby 44 ip 10.10.44.10
+ip address 10.10.44.3 255.255.255.0
+standby 44 ip 10.10.44.1
 standby 44 priority 100
 standby 44 preempt
 no shutdown
