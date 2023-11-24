@@ -102,30 +102,6 @@ name Gestion-distance
 vlan 555
 name Trou-noir
 
-! empty
-interface vlan 50
-ip address 10.10.50.6 255.255.255.0
-no shutdown
-interface vlan 55
-ip address 10.10.55.6 255.255.255.0
-no shutdown
-
-! empty
-interface vlan 60
-ip address 10.10.60.6 255.255.255.0
-no shutdown
-interface vlan 65
-ip address 10.10.65.6 255.255.255.0
-no shutdown
-
-interface vlan 70
-ip address 10.10.70.6 255.255.255.0
-no shutdown
-
-interface vlan 80
-ip address 10.10.80.6 255.255.255.0
-no shutdown
-
 interface vlan 444
 ip address 10.10.44.6 255.255.255.0
 no shutdown
@@ -145,21 +121,21 @@ configure terminal
 
 ! empty
 interface vlan 50
-ip helper-address 10.10.50.2
+ip helper-address 10.10.50.10
 interface vlan 55
-ip helper-address 10.10.55.2
+ip helper-address 10.10.55.10
 
 ! empty
 interface vlan 60
-ip helper-address 10.10.60.2
+ip helper-address 10.10.60.10
 interface vlan 65
-ip helper-address 10.10.65.2
+ip helper-address 10.10.65.10
 
 interface vlan 70
-ip helper-address 10.10.70.2
+ip helper-address 10.10.70.10
 
 interface vlan 80
-ip helper-address 10.10.80.2
+ip helper-address 10.10.80.10
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
