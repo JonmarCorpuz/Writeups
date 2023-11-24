@@ -166,8 +166,8 @@ ip helper-address 10.10.65.3
 interface vlan 70
 ip helper-address 10.10.70.3
 
-interface vlan 70
-ip helper-address 10.10.70.3
+interface vlan 80
+ip helper-address 10.10.80.3
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
