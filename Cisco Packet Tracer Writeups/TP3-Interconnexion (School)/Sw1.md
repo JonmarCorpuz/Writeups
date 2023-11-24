@@ -83,8 +83,16 @@ configure terminal
 ip routing
 
 ! empty
-interface range GigabitEthernet 0/1 2
+interface GigabitEthernet 0/1 
 no switchport
+ip address 192.168.10.2 255.255.255.0
+ip route 0.0.0.0 0.0.0.0 192.168.10.1 5
+
+! empty
+interface GigabitEthernet 0/2
+no switchport
+ip address 192.168.20.2 255.255.255.0
+ip route 0.0.0.0 0.0.0.0 192.168.20.1 10
 
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
@@ -218,7 +226,7 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface GigabitEthernet 0/1
-description Vers-R1
+description Vers-R2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
@@ -226,7 +234,7 @@ switchport trunk allowed vlan 10,15,20,25,30,40,777,888
 no shutdown
 
 interface GigabitEthernet 0/2
-description Vers-R2
+description Vers-R1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 777
