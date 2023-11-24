@@ -166,8 +166,8 @@ ip helper-address 10.10.65.2
 interface vlan 70
 ip helper-address 10.10.70.2
 
-interface vlan 70
-ip helper-address 10.10.70.2
+interface vlan 80
+ip helper-address 10.10.80.2
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
@@ -184,24 +184,8 @@ enable
 configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
-interface GigabitEthernet 0/0
-description Vers-R2
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
-no shutdown
-
-interface GigabitEthernet 0/1
-description Vers-Sw4
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk native vlan 333
-switchport trunk allowed vlan 50,55,60,65,70,80,333,444
-no shutdown
-
-interface GigabitEthernet 0/2
-description Vers-Sw7
+interface FastEthernet 0/1
+description Vers-R3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 333
