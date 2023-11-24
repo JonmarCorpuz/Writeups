@@ -176,7 +176,7 @@ configure terminal
 
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface GigabitEthernet 0/1
-no swithcport
+no switchport
 description Vers-Sw1
 no shutdown
 
