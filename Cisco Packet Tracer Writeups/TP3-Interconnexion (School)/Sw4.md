@@ -192,6 +192,13 @@ switchport trunk native vlan 333
 switchport trunk allowed vlan 50,55,60,65,70,80,333,444
 no shutdown
 
+! FERMER LES PORTS DONT ON N'A PAS BESOIN
+interface range FastEthernet 0/2 - 22
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
+
 ! SORTIR DE LA LIGNE DE CONFIGURATION DU VLAN
 end
 
