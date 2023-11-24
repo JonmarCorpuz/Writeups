@@ -170,33 +170,33 @@ configure terminal
 ! CREER ET CONFIGURER LES POOLS DHCP POUR LES VLANs DE DATA
 ip dhcp pool VLAN-A
 network 10.10.10.0 255.255.255.0
-default-router 10.10.10.1
+default-router 10.10.10.10
 ip dhcp excluded-address 10.10.10.1 10.10.10.10
 
 ip dhcp pool VLAN-D
 network 10.10.20.0 255.255.255.0
-default-router 10.10.20.1
+default-router 10.10.20.10
 ip dhcp excluded-address 10.10.20.1 10.10.20.10
 
 ip dhcp pool VLAN-B
 network 10.10.30.0 255.255.255.0
-default-router 10.10.30.1 
+default-router 10.10.30.10
 ip dhcp excluded-address 10.10.30.1 10.10.30.10
 
 ip dhcp pool VLAN-C
 network 10.10.40.0 255.255.255.0
-default-router 10.10.40.1 
+default-router 10.10.40.10
 ip dhcp excluded-address 10.10.40.1 10.10.40.10
 
 ! CREER ET CONFIGURER DES POOLS DHCP POUR LES VLANs DE VOIX
 ip dhcp pool VLAN-A-Voix
 network 10.10.15.0 255.255.255.0
-default-router 10.10.15.1
+default-router 10.10.15.10
 ip dhcp excluded-address 10.10.15.1 10.10.15.10
 
 ip dhcp pool VLAN-D-Voix
 network 10.10.25.0 255.255.255.0
-default-router 10.10.25.1
+default-router 10.10.25.10
 ip dhcp excluded-address 10.10.25.1 10.10.25.10
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
