@@ -102,30 +102,6 @@ name Gestion-distance
 vlan 999
 name Trou-noir
 
-! empty
-interface vlan 10
-ip address 10.10.10.5 255.255.255.0
-no shutdown
-interface vlan 15
-ip address 10.10.15.5 255.255.255.0
-no shutdown
-
-! empty
-interface vlan 20
-ip address 10.10.20.5 255.255.255.0
-no shutdown
-interface vlan 25
-ip address 10.10.25.5 255.255.255.0
-no shutdown
-
-interface vlan 30
-ip address 10.10.30.5 255.255.255.0
-no shutdown
-
-interface vlan 40
-ip address 10.10.40.5 255.255.255.0
-no shutdown
-
 interface vlan 888
 ip address 10.10.88.5 255.255.255.0
 no shutdown
