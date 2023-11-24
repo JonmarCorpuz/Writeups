@@ -187,6 +187,7 @@ configure terminal
 ! OUVRIR LES PORTS DONT ON A BESOIN
 interface FastEthernet 0/1
 description Vers-R3
+ip address 192.168.7.2 255.255.255.0
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk native vlan 333
