@@ -67,7 +67,7 @@ ip domain-name crosemontSw5.qc
 
 ! empty
 lldp run
-no cdp run
+cdp run
 
 ! SORTIR DU PRIVILEGED EXEC MODE
 end
