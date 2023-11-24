@@ -153,24 +153,25 @@ configure terminal
 
 ! empty
 interface vlan 50
-ip helper-address 10.10.50.2
+ip helper-address 10.10.50.3
 interface vlan 55
-ip helper-address 10.10.55.2
+ip helper-address 10.10.55.3
 
 ! empty
 interface vlan 60
-ip helper-address 10.10.60.2
+ip helper-address 10.10.60.3
 interface vlan 65
-ip helper-address 10.10.65.2
+ip helper-address 10.10.65.3
 
 interface vlan 70
-ip helper-address 10.10.70.2
+ip helper-address 10.10.70.3
 
 interface vlan 70
-ip helper-address 10.10.70.2
+ip helper-address 10.10.70.3
 
 ! SORTIR DU MODE DE CONFIGURATION GLOBALE 
 end
+
 
 ! --------------------------------------------
 ! -------- CONFIGURATIONS DES PORTS ----------
