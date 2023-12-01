@@ -55,23 +55,22 @@ enable
 configure terminal
 
 interface vlan 50
-ip helper-address 10.10.50.10
+ip helper-address 192.168.10.13
 
 interface vlan 55
-ip helper-address 10.10.55.10
+ip helper-address 192.168.10.13
 
-! empty
 interface vlan 60
-ip helper-address 10.10.60.10
+ip helper-address 192.168.10.13
 
 interface vlan 65
-ip helper-address 10.10.65.10
+ip helper-address 192.168.10.13
 
 interface vlan 70
-ip helper-address 10.10.70.10
+ip helper-address 192.168.10.13
 
 interface vlan 80
-ip helper-address 10.10.80.10
+ip helper-address 192.168.10.13
 
 end
 
