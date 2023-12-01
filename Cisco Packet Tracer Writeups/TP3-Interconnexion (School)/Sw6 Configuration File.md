@@ -122,7 +122,7 @@ spanning-tree portfast
 spanning-tree bpduguard enable
 no shutdown
 
-interface range FastEthernet 0/5-20
+interface range FastEthernet 0/5 - 20
 description Vide
 switchport mode access
 switchport access vlan 555
