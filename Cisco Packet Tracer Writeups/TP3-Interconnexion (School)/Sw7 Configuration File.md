@@ -61,9 +61,9 @@ ip helper-address 10.10.50.10
 interface vlan 55
 ip helper-address 10.10.55.10
 
-! empty
 interface vlan 60
 ip helper-address 10.10.60.10
+
 interface vlan 65
 ip helper-address 10.10.65.10
 
@@ -87,6 +87,7 @@ configure terminal
 interface GigabitEthernet 0/1
 no switchport
 description Vers-R3
+ip address 192.168.10.30 255.255.255.252
 no shutdown
 
 interface range FastEthernet 0/1 - 20
@@ -96,6 +97,12 @@ switchport access vlan 555
 shutdown
 
 interface range FastEthernet 0/23 - 24
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
+
+interface GigabitEthernet 0/2
 description Vide
 switchport mode access
 switchport access vlan 555
