@@ -139,6 +139,7 @@ standby 20 ip 10.10.20.1
 standby 20 priority 101
 standby 20 preempt
 no shutdown
+
 interface vlan 25
 ip address 10.10.25.2 255.255.255.0
 standby 25 ip 10.10.25.1
