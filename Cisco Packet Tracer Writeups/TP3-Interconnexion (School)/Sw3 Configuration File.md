@@ -94,6 +94,7 @@ configure terminal
 interface GigabitEthernet 0/1
 no switchport
 description Vers-Sw1
+ip address 192.168.10.22 255.255.255.252
 no shutdown
 
 interface range FastEthernet 0/1 - 20
