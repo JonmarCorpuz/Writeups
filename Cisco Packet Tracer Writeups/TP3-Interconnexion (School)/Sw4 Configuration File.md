@@ -81,10 +81,18 @@ enable
 configure terminal
 
 interface GigabitEthernet 0/1
+description Vers-R3
+ip address 192.168.10.26 255.255.255.252
 no switchport
 no shutdown
 
 interface range FastEthernet 0/1 - 22
+description Vide
+switchport mode access
+switchport access vlan 555
+shutdown
+
+interface GigabitEthernet 0/2
 description Vide
 switchport mode access
 switchport access vlan 555
