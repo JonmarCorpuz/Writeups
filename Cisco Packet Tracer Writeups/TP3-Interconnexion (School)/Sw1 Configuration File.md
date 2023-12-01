@@ -203,12 +203,11 @@ exit
 configure terminal
 service password-encryption
 
+
+! --------------------------------------------
+! ------ SAUVEGARDER LES CONFIGURATIONS ------
+! --------------------------------------------
+
 end
 write
 ```
-! --------------------------------------------
-! --------------- CREDENTIALS ----------------
-! --------------------------------------------
-
-! NORTEL IP PHONE -> color*set
-! SWITCH ----------> crosemont
